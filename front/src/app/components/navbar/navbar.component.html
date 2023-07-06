@@ -1,0 +1,128 @@
+<ng-template #contenido let-modal>
+  <div class="modal-header">
+      <h2 class="modal-title">Ingresar nueva Reservación</h2>
+
+      <button class="close" aria-label="Close" type="button" (click)="modal.dismiss()">
+          <mat-icon>close</mat-icon>
+      </button>
+  </div>
+  <div class="modal-body">
+      <strong>Datos del cliente</strong>
+      <hr>
+      <div class="form-group row">
+          <div class="col-md-6">
+              <label for="name">Nombre</label>
+              <input type="text" class="form-control" placeholder="Nombre" 
+              id="CLI_NOMBRE" [(ngModel)]="reservacion_data.CLI_NOMBRE">
+          </div>
+          <div class="col-md-6">
+              <label for="name">Apellidos</label>
+              <input type="text" class="form-control" placeholder="Apellidos" 
+              id="CLI_APELLIDOS" [(ngModel)]="reservacion_data.CLI_APELLIDOS">
+          </div>
+      </div>
+
+      <div class="form-group row">
+          <div class="col-md-6">
+              <label for="name">Nro de Identificación</label>
+              <input type="text" class="form-control" placeholder="Identificación" 
+              id="CLI_IDENTIFI" [(ngModel)]="reservacion_data.CLI_IDENTIFI">
+          </div>
+          <div class="col-md-6">
+              <label for="name">Nacionalidad</label>
+              <input type="text" class="form-control" placeholder="Nacionalidad" 
+              id="CLI_NACIONALIDAD" [(ngModel)]="reservacion_data.CLI_NACIONALIDAD">
+          </div>
+      </div>
+
+      <div class="form-group row">
+          <div class="col-md-6">
+              <label for="name">Teléfono</label>
+              <input type="text" class="form-control" placeholder="Teléfono" 
+              id="CLI_TELEFONO" [(ngModel)]="reservacion_data.CLI_TELEFONO">
+          </div>
+          <div class="col-md-6">
+              <label for="name">Correo</label>
+              <input type="email" class="form-control" placeholder="Correo" 
+              id="CLI_CORREO" [(ngModel)]="reservacion_data.CLI_CORREO">
+          </div>
+
+      </div>
+
+
+      <div class="form-group">
+          <label for="name">Dirección</label>
+          <input type="text" class="form-control" placeholder="Dirección" 
+          id="CLI_DIRECCION" [(ngModel)]="reservacion_data.CLI_DIRECCION">
+      </div>
+      <hr>
+      <div>
+          <strong>Datos de la Reservación</strong>
+          <hr>
+          <div class="form-group row">
+              <div class="col-auto col-md-6">
+                  <label for="name">Fecha de llegada</label>
+                  <input type="date" id="start" name="trip-start" value="{{today}}" min="{{today}}"
+                      class="form-control" required [(ngModel)]="fecha">
+                      <span class="validity"></span>
+              </div>
+
+              <div class="col-auto col-md-6">
+                  <label for="name">Días de hospedaje</label>
+                  <input type="number" min="1" class="form-control" placeholder="Días de hospedaje"
+                      id="RES_NDIAS" [(ngModel)]="reservacion_data.RES_NDIAS">
+              </div>
+          </div>
+          <div class="form-group row">
+              <div class="col-auto col-md-6">
+                  <label for="name">Número de personas</label>
+                  <input type="number" min="1" class="form-control" placeholder="Nro Personas" 
+                  id="RES_NPERSONAS" [(ngModel)]="reservacion_data.RES_NPERSONAS">
+              </div>
+              <div class="col-auto col-md-6">
+                  <label for="name">Vehículo</label>
+                  <select class="form-select" aria-label="Default select example"
+                   id="RES_VEHICULO" [(ngModel)]="reservacion_data.RES_VEHICULO">
+                      <option value=1>SI</option>
+                      <option value=0>NO</option>
+                  </select>
+              </div>
+
+          </div>
+          <div class="form-group">
+              <label for="name">Observación</label>
+              <textarea name="RES_OBSERVACION" id="RES_OBSERVACION" class="form-control" 
+              placeholder="Observacion" [(ngModel)]="reservacion_data.RES_OBSERVACION"></textarea>
+              </div>
+      </div>
+      <hr>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="guardar()"> OK</button>
+      </div>
+  </div>
+</ng-template>
+
+<nav class="navbar navbar-expand-lg navbar-danger bg-danger ">
+    <div class="container-fluid">
+      <a class="navbar-brand fst-italic text-white" routerLink="/home">Hostal Orlando's</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" routerLink="/home">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/instalaciones">Nuestas Instalaciones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/resenias">Comentarios y sugerencias</a>
+          </li>                 
+        </ul>        
+      </div>
+      <div class="menu">
+        <button type="button" (click)="openModal(contenido)" class="btn btn-outline-light">¡RESERVA YA!</button>
+      </div>
+    </div>
+  </nav>

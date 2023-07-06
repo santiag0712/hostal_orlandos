@@ -1,0 +1,10 @@
+
+  .childContainer {
+   
+    width:500px;
+    height:auto;
+    border:3px solid brown;
+    border-radius:22px;
+    background-color:#a09e98;
+    padding:9px;
+  }

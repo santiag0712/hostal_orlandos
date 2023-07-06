@@ -1,0 +1,78 @@
+<div class="gradient-custom container-fluid">
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <app-sidebar></app-sidebar>
+            </div>
+            <div class="col-auto col-md-9 main-container">
+                <br>
+                <div class="row ">
+                    <!--Crear un espacio entre divs-->
+                    <div class="col-md-3 text-white">
+                        <h3><strong>Buscar habitación</strong></h3>
+                    </div>
+                    <div class="col-md text-white">
+                        <input type="text" class="form-control" placeholder="Buscar cuenta" [(ngModel)]="cliente">
+                    </div>
+                    <div class="col-md text-white">
+                        <button class="btn btn-danger" (click)="filtroClientes()">Buscar Cliente</button>
+                    </div>
+                </div>
+
+                <div class = "row" >
+                    <p hidden></p>
+                    <div class = "row">
+                        <div class="col-md-2 text-white"> <label>Cliente:</label> </div>
+                        <div class="col-md-5 text-white"><label>{{data_cuenta.CLI_NOMBRE}} {{data_cuenta.CLI_APELLIDOS}}</label></div>
+                    </div>
+                    <div class = "row">
+                        <div class="col-md-2 text-white"> <label>Habitación:</label> </div>
+                        <div class="col-md-5 text-white"><label>{{data_cuenta.HAB_NOMBRE}}</label></div>
+                    </div>
+                </div>
+
+                <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
+
+                <div class="row linea container-fluid justify-content-md-center">
+                    <h6>&nbsp;</h6>
+                    <div class="row">
+                        <div class="col-md-3 text-white">
+                            <h3><strong>Buscar producto</strong></h3>
+                        </div>
+                        <div class="col-md text-white">
+                            <input type="text" class="form-control" placeholder="Buscar producto" [(ngModel)]="cadena">
+                        </div>
+                        <div class="col-md text-white">
+                            <button class="btn btn-danger" (click)="filtro()">Buscar</button>
+                        </div>
+                    </div>
+                    <div class="col-auto responsive container-fluid">
+                        <div class="table-responsive-sm">
+                            <table class="table">
+                                <thead class="thead-dark text-white">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Agregar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="text-white" *ngFor="let producto of productos|keys;  let i =index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{productos[producto].PROD_NOMBRE}}</td>
+                                        <td>{{productos[producto].PROD_PRECIO}}</td>
+                                        <td><input class="ancho_input" type="number" min="0" [(ngModel)]="cantidad"></td>
+                                        <td><button class="btn btn-success ancho_button" (click)="carrito(productos[producto].PROD_ID)"><mat-icon>check_circle</mat-icon></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button class="btn btn-success" (click)="vender()">VENDER</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

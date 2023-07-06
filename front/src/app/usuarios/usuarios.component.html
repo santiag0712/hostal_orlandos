@@ -1,0 +1,156 @@
+<div class="gradient-custom container-fluid">
+
+    <ng-template #contenido let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title">Ingresar nuevo Usuario</h4>
+
+            <button class="close" aria-label="Close" type="button" (click)="modal.dismiss()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="USU_NOMBRE"
+                    [(ngModel)]="dataUsuario.USU_NOMBRE">
+            </div>
+
+            <div class="form-group">
+                <label for="name">Apellido</label>
+                <input type="text" class="form-control" placeholder="Apellido" id="USU_APELLIDO"
+                    [(ngModel)]="dataUsuario.USU_APELLIDO">
+            </div>
+
+            <div class="form-group">
+                <label for="name">Foto</label>
+                <input type="file" class="form-control file-upload" accept=" image/*" placeholder="Apellido"
+                    id="USU_IMAGEN" [(ngModel)]="dataUsuario.USU_IMAGEN">
+            </div>
+
+            <div class="form-group">
+                <label for="name">Correo</label>
+                <input type="email" class="form-control" placeholder="Correo" id="USU_CORREO"
+                    [(ngModel)]="dataUsuario.USU_CORREO">
+            </div>
+
+            <div class="form-group">
+                <label for="name">Usuario</label>
+                <input type="text" class="form-control" placeholder="Usuario" id="USU_USUARIO"
+                    [(ngModel)]="dataUsuario.USU_USUARIO">
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="name">Clave</label>
+                    <input type="password" class="form-control" placeholder="Clave" id="USU_CLAVE"
+                        [(ngModel)]="dataUsuario.USU_CLAVE">
+                </div>
+                <div class="col-md-6">
+                    <label for="name">Confirmar clave</label>
+                    <input type="password" class="form-control" placeholder="Confirmar clave"
+                        id="USU_CLAVE_confirmation" [(ngModel)]="dataUsuario.USU_CLAVE_confirmation">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="name">Escoger Rol</label>
+                    <select [(ngModel)]="dataUsuario.ROL_ID" class="form-select" aria-label="Default select example">
+                        <option *ngFor="let rol of roles" value={{rol.ROL_ID}}>{{rol.ROL_NOMBRE}}</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="name">Escoger Estado</label>
+                    <select class="form-select" aria-label="Default select example"
+                        [(ngModel)]="dataUsuario.USU_ESTADO">
+                        <option value=1>Activo</option>
+                        <option value=0>Inactivo</option>
+                    </select>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="guardarEditar();"> OK</button>
+        </div>
+    </ng-template>
+
+
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto">
+                <app-sidebar></app-sidebar>
+            </div>
+            <div class="col-auto col-md-9 container">
+                <br>
+                <div class="row justify-content-between">
+
+                    <div class="col-md-auto ">
+                        <br>
+                        <h3 class="text-uppercase text-white"> Nuevo Usuario</h3>
+                        <button type="button" class="btn btn-danger" (click)="modal.open(contenido)">Registrar</button>
+                    </div>
+                    <div class="col -md-auto col-md-auto">
+                        <br>
+                        <form class="input-group mb-3 container-fluid">
+                            <input type="text" class="form-control" placeholder="Buscar usuario"
+                                aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                (input)="filter($event)">
+                            <div class="input-group-append">
+                                <button class="btn btn-danger" type="button">Buscar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <h6>&nbsp;</h6>   <!--Crear un espacio entre divs-->
+                    <div class="row flex-nowrap linea container-fluid justify-content-md-center">
+                        
+                        <div class="col-auto responsive container-fluid">
+                            <div class="table-responsive-sm">
+                                <table class="table">
+                                    <thead class="thead-dark text-white">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Apellido</th>
+                                            <th scope="col">Correo</th>
+                                            <th scope="col">Usuario</th>
+                                            <th scope="col">Rol</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let usuario of usuarios|keys; let i =index"
+                                            class="thead-dark text-white">
+                                            <td>{{i+1}}</td>
+                                            <td>{{usuarios[usuario].USU_NOMBRE}}</td>
+                                            <td>{{usuarios[usuario].USU_APELLIDO}}</td>
+                                            <td>{{usuarios[usuario].USU_CORREO}}</td>
+                                            <td>{{usuarios[usuario].USU_USUARIO}}</td>
+                                            <td>{{usuarios[usuario].ROL_NOMBRE}}</td>
+                                            <td>
+                                                <button class="btn btn-primary"
+                                                    (click)="editar(contenido,usuarios[usuario].USU_ID)">
+                                                    <mat-icon>edit</mat-icon>
+                                                </button>
+
+                                                <button class="btn btn-danger"
+                                                    (click)="eliminar(usuarios[usuario].USU_ID)">
+                                                    <mat-icon>delete_outline</mat-icon>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

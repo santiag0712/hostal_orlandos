@@ -1,0 +1,24 @@
+<app-navbar></app-navbar>
+<div class="gradient-custom container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-sm-12">
+            <ngb-carousel>
+                <ng-template *ngFor="let car of carrusel" ngbSlide>
+                    <div class="picsum-img-wrapper">
+                        <img class="displayed" src={{car.IMG_URL}} width="100%" height="500" />
+                    </div>
+                    <div class="carousel-caption">
+                        <h3>{{car.INST_NOMBRE}}</h3>
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+        </div>
+    </div>
+    <h6>&nbsp;</h6>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7461343921386!2d-78.11927718977272!3d0.3446577639812533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e2a3ccbe1fa26c9%3A0x860ebbd79cc78dfc!2sHostal%20Orlando&#39;s!5e0!3m2!1ses-419!2sec!4v1688611367115!5m2!1ses-419!2sec" width="300" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+</div>

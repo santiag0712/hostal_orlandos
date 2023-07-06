@@ -1,0 +1,24 @@
+<div class="min-vh-100 container-fluid bg-dark">
+    <a  class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <span class="fs-5 d-none d-sm-inline">Menu</span>
+    </a>
+    <ul class="nav nav-pills  align-items-center align-items-sm-start" id="menu" *ngFor="let item of menus|keys; ">
+        <li class="nav-item">
+            <a routerLink={{menus[item].MENU_ENLACE}} class="nav-link align-middle px-0 text-white">
+                <mat-icon>{{menus[item].MENU_ICONO}}</mat-icon> <span class="ms-1 d-none d-sm-inline">{{menus[item].MENU_NOMBRE}}</span>
+            </a>
+        </li>        
+    </ul>
+    <hr>
+    <div class="dropdown pb-4">
+        <div class="col">
+            <div ngbDropdown placement="top" class="d-inline-block content-block align-items-end">
+                <button type="button" class="btn btn-outline-danger" id="dropdownBasic2" ngbDropdownToggle>	<mat-icon>person</mat-icon></button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                    
+                    <button ngbDropdownItem (click)="cerrarSesion()">Cerrar Sesión</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

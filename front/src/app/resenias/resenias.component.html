@@ -1,0 +1,83 @@
+<app-navbar></app-navbar>
+<div class="container-fluid gradient-custom ">
+
+    <ng-template #contenido let-modal>
+        <div class="modal-header">
+            <h2 class="modal-title">Queremos saber tu opinion</h2>
+
+            <button class="close" aria-label="Close" type="button" (click)="modal.dismiss()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div class="modal-body">
+            <hr>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control" placeholder="Nombre" id="RES_NOMBRE"
+                        [(ngModel)]="resenias_data.RES_NOMBRE">
+                </div>
+                <div class="col-md-6">
+                    <label for="name">Apellidos</label>
+                    <input type="text" class="form-control" placeholder="Apellidos" id="RES_APELLIDOS"
+                        [(ngModel)]="resenias_data.RES_APELLIDOS">
+                </div>
+            </div>
+            <div class="form-group row">
+
+                <div class="col-md-6">
+                    <label for="name">Correo</label>
+                    <input type="email" class="form-control" placeholder="Correo" id="CLI_CORREO"
+                        [(ngModel)]="resenias_data.RES_CORREO">
+                </div>
+
+            </div>
+            <div>
+                <div class="form-group">
+                    <label for="name">Comentario o sugerencia</label>
+                    <textarea name="RES_OBSERVACION" id="RES_OBSERVACION" class="form-control"
+                        placeholder="Comentario o sugerencia" [(ngModel)]="resenias_data.RES_TEXTO"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="guardar()"> OK</button>
+            </div>
+        </div>
+    </ng-template>
+
+    <div class="row justify-content-between">
+
+        <div class="col-md-auto ">
+            <br>
+            <h3 class="text-uppercase text-white"><strong>Queremos saber tu opinion.</strong></h3>
+            <h4 class="text-uppercase text-white">Dejanos tus comentarios y sugerencias para seguir brindando el
+                servicio que nuestros
+                clientes se merecen </h4>
+            <button type="button" class="btn btn-danger" (click)="openModal(contenido)">COMENTARIOS Y
+                SUGERENCIAS</button>
+            <h6>&nbsp;</h6>
+        </div>
+
+        <hr size="5px" color="#ffffff">
+        <div  class="d-flex justify-content-center" *ngFor="let resenia of resenias|keys;">
+            <div class="childContainer justify-content-center">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3><strong>{{resenias[resenia].RES_NOMBRE}} {{resenias[resenia].RES_APELLIDOS}}</strong></h3>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>{{resenias[resenia].created_at}} </h4>    
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline-light btn-sm"  >
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <h4>{{resenias[resenia].RES_CORREO}} </h4>
+                <p>{{resenias[resenia].RES_TEXTO}}</p>
+            </div>
+        </div>
+        <h6>&nbsp;</h6>
+    </div>
+</div>

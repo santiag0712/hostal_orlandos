@@ -1,0 +1,68 @@
+<div class="gradient-custom container-fluid">
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <app-sidebar></app-sidebar>
+            </div>
+            <div class="col-auto col-md-9 main-container">
+                <br>
+                <div class="row justify-content-between">
+                    
+                    <div class="col -md-auto col-md-auto">
+                        <br>
+                        <form class="input-group mb-3 container-fluid">
+                            <input type="text" class="form-control" placeholder="Buscar usuario"
+                                aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                (input)="filter()">
+                            <div class="input-group-append">
+                                <button class="btn btn-danger" type="button">Buscar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <h6>&nbsp;</h6>   <!--Crear un espacio entre divs-->
+                    <div class="row flex-nowrap linea container-fluid justify-content-md-center">
+                        
+                        <div class="col-auto responsive container-fluid">
+                            <div class="table-responsive-sm">
+                                <table class="table">
+                                    <thead class="thead-dark text-white">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Apellido</th>
+                                            <th scope="col">Identificación</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cuenta of cuentas|keys; let i =index"
+                                            class="thead-dark text-white">
+                                            <td>{{i+1}}</td>
+                                            <td>{{cuentas[cuenta].CLI_NOMBRE}}</td>
+                                            <td>{{cuentas[cuenta].CLI_APELLIDOS}}</td>
+                                            <td>{{cuentas[cuenta].CLI_IDENTIFI}}</td>
+                                            <td>{{cuentas[cuenta].CUENT_TOTAL}}</td>
+                                            <td>
+                                                <button class="btn btn-primary"
+                                                    (click)="ver(cuentas[cuenta].CUENT_ID)" routerLink="/detalledecuenta">
+                                                    <mat-icon>visibility</mat-icon>
+                                                </button>
+
+                                                <button class="btn btn-success"
+                                                    (click)="cobrar(cuentas[cuenta].CUENT_ID)">
+                                                    <mat-icon>credit_card</mat-icon>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

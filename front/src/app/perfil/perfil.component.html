@@ -1,0 +1,61 @@
+<div class="gradient-custom container-fluid">
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <app-sidebar></app-sidebar>
+            </div>
+            <div class="col-auto col-md-9 main-container text-white">
+                <br>
+                <div class="row justify-content-center  container-fluid">
+                    <h2><strong>Editar datos personales</strong></h2>
+                    <div class="col-4 text-center">
+                        <input type="text" class="form-control" placeholder="Nombre"  [(ngModel)]="data_us.USU_NOMBRE">
+                    </div>
+                    <div class="col-4 text-center">
+                        <input type="text" class="form-control" placeholder="Apellidos" [(ngModel)]="data_us.USU_APELLIDOS">
+                    </div>
+                    <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
+                    <div class="row justify-content-center">
+                        <div class="col-8 text-center"> <input type="email" class="form-control" placeholder="Correo" 
+                            [(ngModel)]="data_us.USU_CORREO">
+                        </div>
+                    </div>
+                    <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
+                    <div class="row justify-content-center">
+                        <div class="col-2 text-center"><button class="btn btn-danger btn-xs"(click)="actualizarDatos()">Editar</button></div>
+                    </div>
+
+                </div>
+
+                <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
+
+                <div class="row linea container-fluid justify-content-center">
+
+                    <h2><strong>Cambiar contraseña</strong></h2>
+                    <div class="col-6 text-center"> <input type="password" class="form-control" placeholder="Contraseña Actual"
+                        [(ngModel)]="data_pass.USU_CLAVE">
+                    </div>
+                    <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
+                    <div class="row justify-content-center">
+
+                        <div class="col-6 text-center">
+                            <input type="password" class="form-control" placeholder="Nueva contraseña"
+                            [(ngModel)]="data_pass.NUEVA_CLAVE">
+                        </div>
+                        <div class="col-6 text-center">
+                            <input type="password" class="form-control" placeholder="Confirmar contraseña"
+                            [(ngModel)]="data_pass.NUEVA_CLAVE_confirmation">
+                        </div>
+                    </div>
+                    <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
+                    <div class="row justify-content-center">
+                        <div class="col-4 text-center"><button class="btn btn-danger btn-xs" (click)="actualizarPassword()">Actualizar Contraseña</button></div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

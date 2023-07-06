@@ -1,0 +1,11 @@
+#displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+card.custom{
+    border-width: 2px;
+    border-style: solid;
+    border-color: white;
+    color: #ffffff;
+  }

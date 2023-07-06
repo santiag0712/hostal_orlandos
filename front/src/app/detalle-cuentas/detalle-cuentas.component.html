@@ -1,0 +1,60 @@
+<div class="gradient-custom container-fluid">
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <app-sidebar></app-sidebar>
+            </div>
+            <div class="col-auto col-md-9 main-container">
+                <br>
+                <div class="row justify-content-between">
+                    <h6>&nbsp;</h6>   <!--Crear un espacio entre divs-->
+                    <div class="col-md-auto text-white">
+                        
+                        <div class="row"></div>
+                            <div class="col-md-6">
+                                <label>Cliente:</label><label></label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Fecha:</label><label></label>
+                        </div>
+                        <div class="row"></div>
+                            <div class="col-md-6">
+                                <label>Dirección:</label><label></label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Teléfono:</label><label></label>
+                        </div>                                                  
+                    </div>
+                    <h6>&nbsp;</h6>   <!--Crear un espacio entre divs-->
+                    <div class="row flex-nowrap linea container-fluid justify-content-md-center">
+                        
+                        <div class="col-auto responsive container-fluid">
+                            <div class="table-responsive-sm">
+                                <table class="table">
+                                    <thead class="thead-dark text-white">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Descripció</th>
+                                            <th scope="col">Precio U</th>
+                                            <th scope="col">Precio Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let detalle of detalles | keys; let i =index"
+                                        class="thead-dark text-white">
+                                            <td>{{detalles[detalle].DET_CANTIDAD}}</td>
+                                            <td>{{detalles[detalle].detalle}}</td>
+                                            <td>{{detalles[detalle].DET_SUBTOTAL}}</td>
+                                            <td>{{detalles[detalle].DET_SUBTOTAL}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

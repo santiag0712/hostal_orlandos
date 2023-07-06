@@ -1,0 +1,37 @@
+<div class="gradient-custom container-fluid responsive-sm text-white">
+    <div class="row justify-content-center ">
+        <h1 class="displayed"><strong>{{habitacion}}</strong></h1>
+        <div class="col-sm-12">
+            <ngb-carousel >
+                <ng-template *ngFor="let car of carrusel" ngbSlide>
+                    <div class="picsum-img-wrapper">
+                        <img class="displayed" src={{car.IMG_URL}} width="100%"/>
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+        </div>
+       <br>       
+    </div>
+    <hr> 
+    <div class="row justify-content-center align-center">
+        <div class="col-auto">
+            <h3 class="displayed"><strong>La habitación incluye:</strong></h3>
+        </div>       
+    </div>
+    <div class="row justify-content-center align-center">
+        <div class="col-3">
+            <p class="displayed"> {{description}}<br></p>
+        </div>       
+    </div>
+    <div class="row justify-content-center align-center">
+        <div class="col-auto">
+            <h3 class="displayed"><strong>Precio por persona: </strong></h3>
+        </div>       
+    </div>
+    <div class="row justify-content-center align-center">
+        <div class="col-auto">
+            
+        <p class="displayed"> {{precio}}<br></p>
+        </div>
+    </div>
+</div>

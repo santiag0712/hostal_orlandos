@@ -1,0 +1,83 @@
+<div class="container-fluid gradient-custom">
+    <div class="row flex-nowrap">
+        <div class="col-sm-3 bg-dark">
+            <app-sidebar></app-sidebar>
+        </div>
+        <br>
+        <div class="col-9">
+            <div class="row justify-content-between">
+
+                <div class="col-md-auto">
+                    <br>
+                    <h3 class="text-uppercase text-white"> Nueva Habitación</h3>
+                    <button type="button" class="btn btn-danger">Nueva Habitación</button>
+                </div>
+
+            </div>
+            <br>
+            <div class="row flex-nowrap">
+                <div class="col-md-auto">
+                    <div class="dropdown pb-4">
+                        <div class="col">
+                            <div ngbDropdown class="d-inline-block">
+                                <button type="button" class="btn btn-outline-danger" id="dropdownBasic1" ngbDropdownToggle>
+                                    PISOS
+                                </button>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic2">                                    
+                                    <button ngbDropdownItem *ngFor="let piso of pisos|keys " (click)="GuardarPiso(pisos[piso].PISO_ID)">
+                                        {{pisos[piso].PISO_NUMERO}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-auto">                    
+                    <div class="dropdown pb-4">
+                        <div class="col">
+                            <div ngbDropdown class="d-inline-block">
+                                <button type="button" class="btn btn-outline-danger" id="dropdownBasic1" ngbDropdownToggle>
+                                    ESTADOS
+                                </button>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic2">                                    
+                                    <button ngbDropdownItem *ngFor="let estado of estados|keys" (click)="GuardarEstado(estados[estado].ESTHAB_ID)">
+                                        {{estados[estado].ESTHAB_NOMBRE}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6>&nbsp;</h6>
+        <div class="row flex-nowrap linea justify-content-md-center">
+            <div class="col-9">
+                <div class="table-responsive-sm">
+                    <table class="table">
+                        <thead class="thead-dark text-white">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Piso</th>
+                                <th scope="col">N° de Habitación</th>
+                                <th scope="col">Costo</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             <tr *ngFor="let hab of habitaciones; let i =index" class="thead-dark text-white justify-content-md-center">
+                                <td>{{i+1}}</td>
+                                <td>{{hab.PISO_ID}}</td>
+                                <td>{{hab.HAB_NOMBRE}}</td>
+                                <td>{{hab.TIPHAB_COSTO}}</td>
+                                <td>{{hab.TIPHAB_NOMBRE}}</td>
+                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+    </div>
+</div>
