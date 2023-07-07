@@ -30,7 +30,9 @@ class Reserva extends Model
         return $this->belongsTo(Cliente::class,'CLI_ID','CLI_ID');
     }
     //
-    public function checkin(){
+    public static function sumarHuespedes($dia,$mes,$anio){
+        return self :: where([['RES_ESTADO','=',1],['RES_DIA','=',$dia],['RES_MES','=',$mes],['RES_ANO','=',$anio]])
+                    ->sum('RES_NPERSONAS');
         
     }
 }

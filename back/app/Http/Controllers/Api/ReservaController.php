@@ -86,4 +86,35 @@ class ReservaController extends Controller
             Response::HTTP_OK
         );
     }
+
+    public function revisarDisponible(Request $request){
+        try{
+            $request->validate([
+                'RES_ANO'=>'required|numeric',
+                'RES_MES'=>'required|numeric',
+                'RES_DIA'=>'required|numeric',
+                'RES_NPERSONAS'=>'required|numeric',
+                'RES_NDIAS'=>'required|numeric',
+                'RES_VEHICULO'=>'required|numeric'
+            ]);
+            $i = $request->RES_NDIAS;
+            $aux = $request->RES_DIA + $request->RES_NDIAS;
+            $count =0;
+            for($i; $i <= $aux; $i++){
+
+                
+
+                $count+= Reserva::sumarHuespedes( $i, $request->RES_MES, $request->RES_ANO);
+            }
+            return response()->json(
+                    $count,
+                    Response::HTTP_OK);
+
+        }catch(ValidationException $e){
+            return response()->json(
+                "Datos ingresados no son correctos",
+                Response::HTTP_BAD_REQUEST);
+        }
+
+    }
 }

@@ -3,3 +3,12 @@ img.displayed {
     margin-left: auto;
     margin-right: auto 
 }
+.childContainer {
+   
+    width:80%;
+    height:auto;
+    border:3px solid brown;
+    border-radius:22px;
+    background-color:#a09e98;
+    padding:9px;
+  }

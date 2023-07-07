@@ -76,6 +76,7 @@ Route::get('sumar/{id_cuenta}',[DetalleController::class,'sumarTotal']);
 Route::put('actualizarPassword/{id}',[UsuariosController::class,'actualizarPassword']);
 Route::put('actualizarDatos/{id}',[UsuariosController::class,'actualizarDatos']);
 Route::get('habitaciones/{piso}/{estado}',[HabitacionController::class,'habitacionPisoEstado']);
+Route::post('validarReservaciones', [ReservaController::class,'revisarDisponible']);
 
 Route::group(['middleware'=>["auth:sanctum"]],function(){
     Route::get('user-profile',[AuthController::class,'userProfile']);
