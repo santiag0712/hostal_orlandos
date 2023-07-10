@@ -11,7 +11,7 @@ import { DataClienteService } from './data-cliente.service';
 export class SessionService {
 
   private tokenKey = 'token'; //Clave para almacenar el token en localStorage
-  private headerKey = 'header'; //Clave para almacenar el header
+  
  
   constructor(private router : Router, protected datos : DataClienteService) {
    
@@ -56,7 +56,7 @@ export class SessionService {
     return localStorage.getItem(this.tokenKey)!;  
   }
 
-  logoutToken(){
+  async logoutToken(){
     localStorage.removeItem(this.tokenKey);
   }
 

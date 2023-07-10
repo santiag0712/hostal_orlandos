@@ -25,7 +25,7 @@ export class DataClienteService {
 
   id_cuenta : number =0;
 
-  
+  capacidadHostal = 73;
 
   constructor() {
   

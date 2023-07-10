@@ -87,34 +87,67 @@ class ReservaController extends Controller
         );
     }
 
-    public function revisarDisponible(Request $request){
-        try{
+    public function revisarDisponible(Request $request)
+    {
+        try {
             $request->validate([
-                'RES_ANO'=>'required|numeric',
-                'RES_MES'=>'required|numeric',
-                'RES_DIA'=>'required|numeric',
-                'RES_NPERSONAS'=>'required|numeric',
-                'RES_NDIAS'=>'required|numeric',
-                'RES_VEHICULO'=>'required|numeric'
+                'RES_ANO' => 'required|numeric',
+                'RES_MES' => 'required|numeric',
+                'RES_DIA' => 'required|numeric',
+                'RES_NPERSONAS' => 'required|numeric',
+                'RES_NDIAS' => 'required|numeric',
+                'RES_VEHICULO' => 'required|numeric'
             ]);
-            $i = $request->RES_NDIAS;
+            $i = $request->RES_DIA;
             $aux = $request->RES_DIA + $request->RES_NDIAS;
-            $count =0;
-            for($i; $i <= $aux; $i++){
+            $mesAux = $request->RES_MES;
+            $anioAux =  $request->RES_ANO;
+            $count = 0;
 
+            do {
+                $count += Reserva::sumarHuespedes($i, $mesAux, $anioAux);
+
+
+                if ($this->tiene30Dias($mesAux)) {
+                    if ($i > 30) {
+                        $i = 0;
+                        $aux = $aux - 30;
+                        $mesAux = $request->RES_MES + 1;
+                    }
+                } else {
+                    if ($i > 31) {
+                        $i = 0;
+                        $aux = $aux - 31;
+                        $mesAux = $request->RES_MES + 1;
+                        if ($mesAux == 13) {
+                            $mesAux = 1;
+                            $anioAux = $anioAux + 1;
+                        }
+                    }
+                }
+                $i ++;
                 
-
-                $count+= Reserva::sumarHuespedes( $i, $request->RES_MES, $request->RES_ANO);
-            }
-            return response()->json(
-                    $count,
-                    Response::HTTP_OK);
-
-        }catch(ValidationException $e){
+            } while ($i < $aux);
+            return response()->json(                
+                    $count,               
+                Response::HTTP_OK
+            );
+        } catch (ValidationException $e) {
             return response()->json(
                 "Datos ingresados no son correctos",
-                Response::HTTP_BAD_REQUEST);
+                Response::HTTP_BAD_REQUEST
+            );
         }
+    }
 
+    public function tiene30Dias($mes)
+    {
+        $meses30dias = array(4, 6, 9, 11);
+
+        if (in_array($mes, $meses30dias)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

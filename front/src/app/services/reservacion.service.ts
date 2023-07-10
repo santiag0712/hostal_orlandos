@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
+import { SessionService } from './session.service';
 
 
 
@@ -11,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class ReservacionService {
 
   
-  constructor(private httpClient: HttpClient) { }
+  constructor(protected Session : SessionService) { }
 
   async getReservaciones() {
     return axios.get(environment.API_ENDPOINT + '/reservas').
@@ -55,5 +56,21 @@ export class ReservacionService {
     }).catch((error)=>{
       alert("No se encontro la reservacion");
     })
+  }
+
+  async revisarReservaciones(data_res : any[]){
+    let headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.Session.getToken() //the token is a variable which holds the token
+    };
+    let body = JSON.stringify(data_res);
+
+    return axios.post(environment.API_ENDPOINT+'/validarReservaciones',body,{headers}).
+    then((res)=>{
+      return res.data;
+    }).catch((err)=>{
+      alert("No se ha podido revisar la disponibilidad")
+    });
+    
   }
 }
