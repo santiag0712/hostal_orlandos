@@ -28,6 +28,8 @@ import { CuentasComponent } from './cuentas/cuentas.component';
 import { DetalleCuentasComponent } from './detalle-cuentas/detalle-cuentas.component';
 import { VenderproductoComponent } from './venderproducto/venderproducto.component';
 import { ComprarproductosComponent } from './comprarproductos/comprarproductos.component';
+import { SeleccionarHabitacionesComponent } from './seleccionar-habitaciones/seleccionar-habitaciones.component';
+import { GuardarreservacionComponent } from './guardarreservacion/guardarreservacion.component';
 
 //componentes menus
 
@@ -47,6 +49,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { KeysPipe } from './Pipes/keys.pipe';
 
 
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+
+
+
 
 const approutes : Routes = [
   {path:'',component: HomeComponent},
@@ -55,6 +68,8 @@ const approutes : Routes = [
   {path:'login',component: LoginComponent},
   {path:'detalle',component:DetalleInstalacionComponent}, 
   {path:'resenias',component:ReseniasComponent},
+  {path:'seleccionarhabitaciones', component:SeleccionarHabitacionesComponent},
+  {path:'guardarreservacion', component:GuardarreservacionComponent},
   {path:'administracion',component: AdministracionComponent,canActivate: [AuthGuardGuard]},
   {path:'checkin',component: CheckinComponent,canActivate: [AuthGuardGuard]},
   {path:'checkoutcobros',component: CheckoutcobrosComponent,canActivate: [AuthGuardGuard]},
@@ -97,7 +112,9 @@ const approutes : Routes = [
     CuentasComponent,
     DetalleCuentasComponent,
     VenderproductoComponent,
-    ComprarproductosComponent
+    ComprarproductosComponent,
+    SeleccionarHabitacionesComponent,
+    GuardarreservacionComponent
     
   ],
   imports: [
@@ -114,6 +131,15 @@ const approutes : Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     NgbModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

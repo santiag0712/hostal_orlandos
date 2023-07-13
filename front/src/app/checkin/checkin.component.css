@@ -1,0 +1,39 @@
+.grid-container {
+    margin: 20px;
+}
+
+.sidenav-container {
+    height: 100%;
+}
+
+.sidenav {
+    width: 200px;
+}
+
+.sidenav .mat-toolbar {
+    background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.custom-button {
+    background-color: green !important;
+    color: white !important;
+}
+
+@media (max-width: 767px) {
+    .flex-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .flex-buttons .col-md-2 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        margin-bottom: 10px;
+    }
+}

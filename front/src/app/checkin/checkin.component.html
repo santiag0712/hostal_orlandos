@@ -1,94 +1,128 @@
-<div class="container-fluid gradient-custom ">
-    <div class="row row-cols-2">
-        <div class="col-auto col-md-2 bg-dark">
-            <app-sidebar></app-sidebar>
-        </div>
-        <div class="col-md-9 text-white">
-            <br>
-            <h1>
-                <strong>Check-in huesped</strong>
-            </h1>
-            <hr>
-            <h3><strong>Datos del cliente</strong></h3>
-            <div class="row flex">
-                <div class="col-md-6">
-                    <label><strong>Identificación: </strong>{{cliente.CLI_IDENTIFI}}</label>
-                </div>
-                <div class="col-md-6">
-                    <label><strong>Nombre: </strong>{{cliente.CLI_NOMBRE}} {{cliente.CLI_APELLIDOS}}</label>
-                </div>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <ul class="nav nav-pills align-items-center align-items-sm-start" id="menu" *ngFor="let item of menus | keys;">
+                <li class="nav-item">
+                    <a routerLink="{{ menus[item].MENU_ENLACE }}" class="nav-link align-middle px-0 text-dark">
+                        <mat-icon class="text-dark">{{ menus[item].MENU_ICONO }}</mat-icon>
+                        <span class="ms-1 text-dark">{{ menus[item].MENU_NOMBRE }}</span>
+                    </a>
+                </li>
+            </ul>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span>Hostal Orlando's</span>
+            <div class="user-dropdown" style="margin-left: auto;">
+                <button mat-icon-button [matMenuTriggerFor]="userMenu">
+                <mat-icon>person</mat-icon>
+              </button>
+                <mat-menu #userMenu="matMenu">
+                    <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesión</button>
+                </mat-menu>
             </div>
-            <h3><strong>Datos de la reservación</strong></h3>
-            <div class="row flex">
-                <div class="col-md-6">
-                    <label><strong>Número de personas: </strong>{{reservacion.RES_NPERSONAS}}</label>
-                </div>
-                <div class="col-md-6">
-                    <label><strong>Días de estancia: </strong>{{reservacion.RES_NDIAS}} </label>
-                </div>
-            </div>
-
-            <h3><strong>Agregar habitación</strong></h3>
-
-            <div class="row flex">
-                <div class="col-md-2">
-                    <button class="btn btn-danger" (click)="filter(0)">TODAS</button>
-                </div>
-                <div class="col-md-2" *ngFor="let piso of pisos">
-                    <button class="btn btn-danger" (click)="filter(piso.PISO_ID)">{{piso.PISO_NUMERO}}</button>
-
-                </div>
-
-                <hr>
-            </div>
-            <div class="row ">
-                <div class="col-md-10">
-                    <label for="name">Escoger habitaciones:</label>
-                    <select [(ngModel)]="data_check.HAB_ID" class="form-select" aria-label="Default select example">
-                        <option selected>SELECCIONAR HABITACIÓN</option>
-                        <option *ngFor="let habitacion of habitaciones " value= {{habitacion.HAB_ID}}>
-                            {{habitacion.HAB_NOMBRE}}-{{habitacion.TIPHAB_NOMBRE}}</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
+        </mat-toolbar>
+        <div class="grid-container">
+            <mat-grid-list cols="1" rowHeight="450px">
+                <div class="text-black">
                     <br>
-                    <button class="btn btn-success" (click)="agregar()">Agregar</button>
-                </div>
-            </div>
-            <div class="row row-cols">
-                <div class="col">
-                    <div class="table-responsive-sm">
-                        <table class="table">
-                            <thead class="thead-dark text-white">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Habitación</th>
-                                    <th scope="col">Costo</th>
-                                    <th scope="col">Eliminar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let res of request; let i =index"
-                                    class="thead-dark text-white justify-content-md-center">
-                                    <td>{{i+1}}</td>
-                                    <td>{{res.HAB_NOMBRE}}</td>
-                                    <td>{{res.TIPHAB_COSTO}}</td>
-                                    <td>
-                                        <button class="btn btn-danger btn-sm" (click)="eliminar(i)">
-                                            <mat-icon>delete_outline</mat-icon>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <h1 class="mat-title">
+                        <strong>Check-in huésped</strong>
+                    </h1>
+                    <hr>
+                    <h3 class="mat-subheading-2"><strong>Datos del cliente</strong></h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-label><strong>Identificación: </strong>{{cliente.CLI_IDENTIFI}}</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-label><strong>Nombre: </strong>{{cliente.CLI_NOMBRE}} {{cliente.CLI_APELLIDOS}}</mat-label>
+                        </div>
                     </div>
+                    <h3 class="mat-subheading-2"><strong>Datos de la reservación</strong></h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-label><strong>Número de personas: </strong>{{reservacion.RES_NPERSONAS}}</mat-label>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-label><strong>Días de estancia: </strong>{{reservacion.RES_NDIAS}}</mat-label>
+                        </div>
+                    </div>
+
+
+                    <h3><strong>Agregar habitación</strong></h3>
+
+                    <div class="row flex-buttons">
+                        <div class="col-md-2">
+                            <button mat-raised-button color="primary" (click)="filter(0)">TODAS</button>
+                        </div>
+                        <div class="col-md-2" *ngFor="let piso of pisos">
+                            <button mat-stroked-button color="primary" (click)="filter(piso.PISO_ID)">{{piso.PISO_NUMERO}}</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button mat-raised-button color="success" class="custom-button" (click)="guardar()">
+                            <mat-icon>save</mat-icon> Guardar
+                          </button>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Escoger habitaciones</mat-label>
+                                <mat-select [(ngModel)]="data_check.HAB_ID">
+                                    <mat-option disabled selected>SELECCIONAR HABITACIÓN</mat-option>
+                                    <mat-option *ngFor="let habitacion of habitaciones; let i = index" [value]="habitacion.HAB_ID">
+                                        {{habitacion.HAB_NOMBRE}}-{{habitacion.TIPHAB_NOMBRE}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <br>
+                            <button mat-raised-button color="primary" (click)="agregar()">
+                          <mat-icon>add</mat-icon> Agregar
+                        </button>
+                        </div>
+                    </div>
+                    <div class="row row-cols">
+                        <div class="col">
+                            <div class="table-responsive-sm">
+                                <table class="table">
+                                    <thead class="thead-dark text-black">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Habitación</th>
+                                            <th scope="col">Costo</th>
+                                            <th scope="col">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let res of request; let i = index" class="thead-dark text-black justify-content-md-center">
+                                            <td>{{i+1}}</td>
+                                            <td>{{res.HAB_NOMBRE}}</td>
+                                            <td>{{res.TIPHAB_COSTO}}</td>
+                                            <td>
+                                                <button mat-icon-button color="warn" (click)="eliminar(i)">
+                                    <mat-icon>delete_outline</mat-icon>
+                                  </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <button class="btn btn-success" (click)="guardar()">Guardar</button>
-                </div>                
-            </div>
+
+            </mat-grid-list>
         </div>
-    </div>
-</div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

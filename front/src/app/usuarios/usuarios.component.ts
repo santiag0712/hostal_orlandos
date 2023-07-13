@@ -1,9 +1,15 @@
-import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
 import { UserService } from '../services/user.service';
 import { RolesService } from '../services/roles.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Rol } from '../interfaces/rol';
+import { Component, inject, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Menu } from 'src/app/interfaces/menu';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -12,6 +18,9 @@ import { Rol } from '../interfaces/rol';
 })
 
 export class UsuariosComponent implements OnInit {
+
+  displayedColumns: string[] = ['index', 'nombre', 'apellido', 'correo', 'usuario', 'rol', 'acciones'];
+
 
   protected editing = false;
   protected usuarios: any[];
@@ -31,25 +40,39 @@ export class UsuariosComponent implements OnInit {
     updated_at: '',
     created_at: '',
   };
+  dataSource: any;
+  paginator: any;
+
+  protected usuarioS = { ROL_ID: 0, USU_NOMBRE: '', USU_APELLIDOS: '' };
+  protected menus: Menu[];
 
 
-  constructor(private userService: UserService, private rolService: RolesService,
+
+  ngOnInit(): void {
+    this.verPerfil();
+        this.mostrarDatos();
+    this.dataSource.paginator = this.paginator;
+  }
+
+  constructor(protected SessionsService: SessionService,
+    private router: Router,
+    protected RolService: RolesService,
+    private userService: UserService, private rolService: RolesService,
     protected modal: NgbModal) {
 
     this.usuarios = [];
     this.roles = [];
     this.usuario = [];
+    this.menus = [];
 
   }
+  columnas: string[] = ['numero', 'nombre', 'apellido', 'correo', 'usuario', 'rol', 'acciones'];
 
   filter(e:any){
     const search : string =e.target.value;
     console.log(search);
   }
-  ngOnInit (): void{
-    this.mostrarDatos();
 
-  }
 
    mostrarDatos = async  () => {
 
@@ -118,6 +141,38 @@ export class UsuariosComponent implements OnInit {
 
     console.log(id);
   }
+
+
+  cerrarSesion = async () => {
+    this.SessionsService.logout().then((res) => {
+      this.SessionsService.logoutToken();
+      this.router.navigate(['/login']);
+      alert(res);
+    });
+  }
+
+  verPerfil = async () => {
+    this.SessionsService.verPerfil().then((res) => {
+      this.usuarioS.USU_NOMBRE = res.USU_NOMBRE;
+      this.usuarioS.ROL_ID = res.ROL_ID;
+      this.usuarioS.USU_APELLIDOS = res.USU_APELLIDO;
+      this.menu();
+    });
+  }
+
+  menu = async () => {
+    this.RolService.getMenu(this.usuarioS.ROL_ID).then((res) => {
+      this.menus = res;
+    });
+  }
+
+  private breakpointObserver = inject(BreakpointObserver);
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 }
 
 

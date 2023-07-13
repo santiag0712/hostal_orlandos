@@ -60,19 +60,20 @@
 
         <hr size="5px" color="#ffffff">
         <div  class="d-flex justify-content-center" *ngFor="let resenia of resenias|keys;">
-            <div class="childContainer ">
-                <div class="row position-relative">
-                    <div class="col-auto">
+            <div class="childContainer justify-content-center">
+                <div class="row">
+                    <div class="col-md-6">
                         <h3><strong>{{resenias[resenia].RES_NOMBRE}} {{resenias[resenia].RES_APELLIDOS}}</strong></h3>
                     </div>
-                    
-                    <div class="col-auto position-absolute top-0 end-0">
-                        <button class="btn btn-outline-light btn-sm">
+                    <div class="col-md-4">
+                        <h4>{{resenias[resenia].created_at}} </h4>    
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline-light btn-sm"  >
                             <mat-icon>close</mat-icon>
                         </button>
                     </div>
                 </div>
-                <h4>{{resenias[resenia].created_at}} </h4>   
                 <h4>{{resenias[resenia].RES_CORREO}} </h4>
                 <p>{{resenias[resenia].RES_TEXTO}}</p>
             </div>

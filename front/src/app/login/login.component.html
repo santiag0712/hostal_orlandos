@@ -1,26 +1,25 @@
-<div class="container-fluid gradient-custom align-center text-white">
-   <div class="row responsive-sm ">
-        <div class="align-center">
-            <h2>LOGIN</h2>
-  <form #myForm="ngForm" >
-    <input
-      placeholder="USUARIO"
-      type="text"
-      name="email" 
-      [(ngModel)]="credentials.USU_USUARIO" 
-    />
-    <input
-      placeholder="CONTRASEÑA"
-      type="password"
-      name="password"
-      [(ngModel)]="credentials.USU_CLAVE" 
-    />
-    <div class="btn-div">
-      <button class="login-btn" (click)="login()">
-        Login
-      </button>
-    </div>
-  </form>
+<div class="gradient-custom align-center text-white">
+    <div class="row justify-content-center align-items-center" style="height: 100vh;">
+        <div class="col-md-6">
+            <div class="card-group">
+                <div class="card-body">
+                    <h2 class="text-center">
+                        <mat-icon>account_circle</mat-icon>
+                        LOGIN
+                    </h2>
+                    <form #myForm="ngForm">
+                        <div class="form-group">
+                            <input class="form-control" placeholder="USUARIO" type="text" name="email" [(ngModel)]="credentials.USU_USUARIO" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="CONTRASEÑA" type="password" name="password" [(ngModel)]="credentials.USU_CLAVE" />
+                        </div>
+                        <div class="btn-div">
+                            <button class="btn btn-primary btn-block" (click)="login()">Ingresar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-   </div>
+    </div>
 </div>

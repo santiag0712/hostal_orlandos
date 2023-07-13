@@ -1,156 +1,178 @@
-<div class="gradient-custom container-fluid">
+<ng-template #contenido let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Ingresar nuevo Usuario</h4>
 
-    <ng-template #contenido let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title">Ingresar nuevo Usuario</h4>
-
-            <button class="close" aria-label="Close" type="button" (click)="modal.dismiss()">
+        <button class="close" aria-label="Close" type="button" (click)="modal.dismiss()">
                 <mat-icon>close</mat-icon>
             </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" class="form-control" placeholder="Nombre" id="USU_NOMBRE" [(ngModel)]="dataUsuario.USU_NOMBRE">
         </div>
-        <div class="modal-body">
 
-            <div class="form-group">
-                <label for="name">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="USU_NOMBRE"
-                    [(ngModel)]="dataUsuario.USU_NOMBRE">
+        <div class="form-group">
+            <label for="name">Apellido</label>
+            <input type="text" class="form-control" placeholder="Apellido" id="USU_APELLIDO" [(ngModel)]="dataUsuario.USU_APELLIDO">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Foto</label>
+            <input type="file" class="form-control file-upload" accept=" image/*" placeholder="Apellido" id="USU_IMAGEN" [(ngModel)]="dataUsuario.USU_IMAGEN">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Correo</label>
+            <input type="email" class="form-control" placeholder="Correo" id="USU_CORREO" [(ngModel)]="dataUsuario.USU_CORREO">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Usuario</label>
+            <input type="text" class="form-control" placeholder="Usuario" id="USU_USUARIO" [(ngModel)]="dataUsuario.USU_USUARIO">
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="name">Clave</label>
+                <input type="password" class="form-control" placeholder="Clave" id="USU_CLAVE" [(ngModel)]="dataUsuario.USU_CLAVE">
             </div>
-
-            <div class="form-group">
-                <label for="name">Apellido</label>
-                <input type="text" class="form-control" placeholder="Apellido" id="USU_APELLIDO"
-                    [(ngModel)]="dataUsuario.USU_APELLIDO">
+            <div class="col-md-6">
+                <label for="name">Confirmar clave</label>
+                <input type="password" class="form-control" placeholder="Confirmar clave" id="USU_CLAVE_confirmation" [(ngModel)]="dataUsuario.USU_CLAVE_confirmation">
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="name">Foto</label>
-                <input type="file" class="form-control file-upload" accept=" image/*" placeholder="Apellido"
-                    id="USU_IMAGEN" [(ngModel)]="dataUsuario.USU_IMAGEN">
-            </div>
-
-            <div class="form-group">
-                <label for="name">Correo</label>
-                <input type="email" class="form-control" placeholder="Correo" id="USU_CORREO"
-                    [(ngModel)]="dataUsuario.USU_CORREO">
-            </div>
-
-            <div class="form-group">
-                <label for="name">Usuario</label>
-                <input type="text" class="form-control" placeholder="Usuario" id="USU_USUARIO"
-                    [(ngModel)]="dataUsuario.USU_USUARIO">
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="name">Clave</label>
-                    <input type="password" class="form-control" placeholder="Clave" id="USU_CLAVE"
-                        [(ngModel)]="dataUsuario.USU_CLAVE">
-                </div>
-                <div class="col-md-6">
-                    <label for="name">Confirmar clave</label>
-                    <input type="password" class="form-control" placeholder="Confirmar clave"
-                        id="USU_CLAVE_confirmation" [(ngModel)]="dataUsuario.USU_CLAVE_confirmation">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="name">Escoger Rol</label>
-                    <select [(ngModel)]="dataUsuario.ROL_ID" class="form-select" aria-label="Default select example">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="name">Escoger Rol</label>
+                <select [(ngModel)]="dataUsuario.ROL_ID" class="form-select" aria-label="Default select example">
                         <option *ngFor="let rol of roles" value={{rol.ROL_ID}}>{{rol.ROL_NOMBRE}}</option>
                     </select>
-                </div>
+            </div>
 
-                <div class="col-md-6">
-                    <label for="name">Escoger Estado</label>
-                    <select class="form-select" aria-label="Default select example"
-                        [(ngModel)]="dataUsuario.USU_ESTADO">
+            <div class="col-md-6">
+                <label for="name">Escoger Estado</label>
+                <select class="form-select" aria-label="Default select example" [(ngModel)]="dataUsuario.USU_ESTADO">
                         <option value=1>Activo</option>
                         <option value=0>Inactivo</option>
                     </select>
-                </div>
             </div>
-
-
-
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="guardarEditar();"> OK</button>
-        </div>
-    </ng-template>
 
 
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            <div class="col-auto">
-                <app-sidebar></app-sidebar>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="guardarEditar();"> OK</button>
+    </div>
+</ng-template>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <ul class="nav nav-pills align-items-center align-items-sm-start" id="menu" *ngFor="let item of menus | keys;">
+                <li class="nav-item">
+                    <a routerLink="{{ menus[item].MENU_ENLACE }}" class="nav-link align-middle px-0 text-dark">
+                        <mat-icon class="text-dark">{{ menus[item].MENU_ICONO }}</mat-icon>
+                        <span class="ms-1 text-dark">{{ menus[item].MENU_NOMBRE }}</span>
+                    </a>
+                </li>
+            </ul>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span>front</span>
+            <div class="user-dropdown" style="margin-left: auto;">
+                <button mat-icon-button [matMenuTriggerFor]="userMenu">
+                <mat-icon>person</mat-icon>
+              </button>
+                <mat-menu #userMenu="matMenu">
+                    <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesión</button>
+                </mat-menu>
             </div>
-            <div class="col-auto col-md-9 container">
-                <br>
-                <div class="row justify-content-between">
+        </mat-toolbar>
+        <div class="grid-container">
+            <h1 class="mat-h1">Usuarios</h1>
+            <mat-grid-list cols="1" rowHeight="450px">
 
-                    <div class="col-md-auto ">
-                        <br>
-                        <h3 class="text-uppercase text-white"> Nuevo Usuario</h3>
-                        <button type="button" class="btn btn-danger" (click)="modal.open(contenido)">Registrar</button>
-                    </div>
-                    <div class="col -md-auto col-md-auto">
-                        <br>
-                        <form class="input-group mb-3 container-fluid">
-                            <input type="text" class="form-control" placeholder="Buscar usuario"
-                                aria-label="Recipient's username" aria-describedby="basic-addon2"
-                                (input)="filter($event)">
-                            <div class="input-group-append">
-                                <button class="btn btn-danger" type="button">Buscar</button>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="">
+                            <br>
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-md-auto">
+                                    <h3 class="text-uppercase text-black">Nuevo Usuario</h3>
+                                    <button mat-raised-button color="primary" (click)="modal.open(contenido)">Agregar Usuario</button>
+                                </div>
+                                <div class="col-md-auto">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-auto">
+                                    <form class="d-flex">
+                                        <input type="text" class="form-control" placeholder="Buscar usuario" aria-label="Recipient's username" aria-describedby="basic-addon2" (input)="filter($event)">
+                                        <button mat-icon-button color="warn" type="button">
+                                      <mat-icon>search</mat-icon>
+                                    </button>
+                                    </form>
+                                </div>
                             </div>
-                        </form>
-                    </div>
-                    <h6>&nbsp;</h6>   <!--Crear un espacio entre divs-->
-                    <div class="row flex-nowrap linea container-fluid justify-content-md-center">
-                        
-                        <div class="col-auto responsive container-fluid">
-                            <div class="table-responsive-sm">
-                                <table class="table">
-                                    <thead class="thead-dark text-white">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Apellido</th>
-                                            <th scope="col">Correo</th>
-                                            <th scope="col">Usuario</th>
-                                            <th scope="col">Rol</th>
-                                            <th scope="col">Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let usuario of usuarios|keys; let i =index"
-                                            class="thead-dark text-white">
-                                            <td>{{i+1}}</td>
-                                            <td>{{usuarios[usuario].USU_NOMBRE}}</td>
-                                            <td>{{usuarios[usuario].USU_APELLIDO}}</td>
-                                            <td>{{usuarios[usuario].USU_CORREO}}</td>
-                                            <td>{{usuarios[usuario].USU_USUARIO}}</td>
-                                            <td>{{usuarios[usuario].ROL_NOMBRE}}</td>
-                                            <td>
-                                                <button class="btn btn-primary"
-                                                    (click)="editar(contenido,usuarios[usuario].USU_ID)">
-                                                    <mat-icon>edit</mat-icon>
-                                                </button>
 
-                                                <button class="btn btn-danger"
-                                                    (click)="eliminar(usuarios[usuario].USU_ID)">
-                                                    <mat-icon>delete_outline</mat-icon>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                            <br>
+                            <div class="table-responsive">
+                                <table mat-table class="mat-elevation-z8" [dataSource]="usuarios">
+                                    <ng-container matColumnDef="numero">
+                                        <th mat-header-cell *matHeaderCellDef>#</th>
+                                        <td mat-cell *matCellDef="let usuario; let i = index">{{ i + 1 }}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="nombre">
+                                        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                                        <td mat-cell *matCellDef="let usuario">{{ usuario.USU_NOMBRE }}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="apellido">
+                                        <th mat-header-cell *matHeaderCellDef>Apellido</th>
+                                        <td mat-cell *matCellDef="let usuario">{{ usuario.USU_APELLIDO }}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="correo">
+                                        <th mat-header-cell *matHeaderCellDef>Correo</th>
+                                        <td mat-cell *matCellDef="let usuario">{{ usuario.USU_CORREO }}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="usuario">
+                                        <th mat-header-cell *matHeaderCellDef>Usuario</th>
+                                        <td mat-cell *matCellDef="let usuario">{{ usuario.USU_USUARIO }}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="rol">
+                                        <th mat-header-cell *matHeaderCellDef>Rol</th>
+                                        <td mat-cell *matCellDef="let usuario">{{ usuario.ROL_NOMBRE }}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="acciones">
+                                        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                                        <td mat-cell *matCellDef="let usuario">
+                                            <button mat-icon-button color="primary" (click)="editar(contenido, usuario.USU_ID)">
+                                  <mat-icon>edit</mat-icon>
+                                </button>
+                                            <button mat-icon-button color="warn" (click)="eliminar(usuario.USU_ID)">
+                                  <mat-icon>delete_outline</mat-icon>
+                                </button>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-</div>
+
+
+
+            </mat-grid-list>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

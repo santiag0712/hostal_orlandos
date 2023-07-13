@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\DetalleController;
 use App\Http\Controllers\Api\EstadosController;
 use App\Http\Controllers\Api\ProductosController;
 use App\Http\Controllers\ImagenInstalacionesController;
-use App\Models\DetalleCuenta;
+use App\Http\Controllers\ReservacionHabitacion;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,6 +76,8 @@ Route::get('sumar/{id_cuenta}',[DetalleController::class,'sumarTotal']);
 Route::put('actualizarPassword/{id}',[UsuariosController::class,'actualizarPassword']);
 Route::put('actualizarDatos/{id}',[UsuariosController::class,'actualizarDatos']);
 Route::get('habitaciones/{piso}/{estado}',[HabitacionController::class,'habitacionPisoEstado']);
+Route::get('reservacionhabitacion/{res}/{hab}',[ReservacionHabitacion::class,'reservacionhabitacion']);
+Route::get('mostrarhabitaciones/{res}',[ReservacionHabitacion::class,'show']);
 Route::post('validarReservaciones', [ReservaController::class,'revisarDisponible']);
 
 Route::group(['middleware'=>["auth:sanctum"]],function(){

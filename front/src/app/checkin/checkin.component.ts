@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
 import { CuentaService } from '../services/cuenta.service';
 import { NgModel } from '@angular/forms';
 import { DataClienteService } from '../services/data-cliente.service';
 import { Reservaciones, Clientes } from '../interfaces/reservacion';
 import { Habitaciones } from '../interfaces/habitacion';
-
+import { Component, inject, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Menu } from 'src/app/interfaces/menu';
+import { RolesService } from 'src/app/services/roles.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-checkin',
@@ -12,6 +18,9 @@ import { Habitaciones } from '../interfaces/habitacion';
   styleUrls: ['./checkin.component.css']
 })
 export class CheckinComponent implements OnInit {
+
+  protected usuario = { ROL_ID: 0, USU_NOMBRE: '', USU_APELLIDOS: '' };
+  protected menus: Menu[];
 
   cuenta: any[];
   reservacion: Reservaciones={
@@ -49,16 +58,24 @@ export class CheckinComponent implements OnInit {
     CLI_ID: 0
   };
 
-  constructor(private cuentaService: CuentaService, protected dataCliente: DataClienteService) {
+  constructor(
+    private cuentaService: CuentaService, 
+    protected dataCliente: DataClienteService,
+    protected SessionsService: SessionService,
+    private router: Router,
+    protected RolService: RolesService,
+    ) {
     this.cuenta =[];
     this.pisos=[];
     this.habitaciones=[];
+    this.menus = [];
    }
 
   ngOnInit(): void {
     this.mostrarPisos();   
     this.reservacion = this.dataCliente.reservacion;
-    
+    this.verPerfil();
+
     //console.table(this.reservacion.CLI_ID);
 
     this.mostrarCliente();   
@@ -138,4 +155,34 @@ export class CheckinComponent implements OnInit {
       alert("A existido un error durante el registro.")
     });
   }
+  cerrarSesion = async () => {
+    this.SessionsService.logout().then((res) => {
+      this.SessionsService.logoutToken();
+      this.router.navigate(['/login']);
+      alert(res);
+    });
+  }
+
+  verPerfil = async () => {
+    this.SessionsService.verPerfil().then((res) => {
+      this.usuario.USU_NOMBRE = res.USU_NOMBRE;
+      this.usuario.ROL_ID = res.ROL_ID;
+      this.usuario.USU_APELLIDOS = res.USU_APELLIDO;
+      this.menu();
+    });
+  }
+
+  menu = async () => {
+    this.RolService.getMenu(this.usuario.ROL_ID).then((res) => {
+      this.menus = res;
+    });
+  }
+
+  private breakpointObserver = inject(BreakpointObserver);
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 }

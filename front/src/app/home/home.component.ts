@@ -4,6 +4,8 @@ import { InstalacionesService } from '../services/instalaciones.service';
 import { formatDate } from '@angular/common';
 import { ReservacionService } from '../services/reservacion.service';
 import { DataClienteService } from '../services/data-cliente.service';
+import { ReservasessionService } from '../services/reservasession.service';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
@@ -16,12 +18,12 @@ export class HomeComponent implements OnInit {
   carrusel : any[];
   id_carrusel : number = 5;
 
-  protected fecha: String = '';
+  protected fecha: string = '';
   protected today = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
   protected data_res : any ={RES_ANO:'',  RES_MES:'',   RES_DIA:'',   RES_NDIAS:0,  RES_NPERSONAS:0,   RES_VEHICULO:0}
   constructor( private configCarousel: NgbCarouselConfig, 
     private servicioInstalaciones:InstalacionesService, protected ServiceResercacion : ReservacionService,
-    protected datos : DataClienteService ) {
+    protected datos : DataClienteService, protected SessionReserva : ReservasessionService, private router: Router ) {
     
       this.carrusel=[];
    }
@@ -39,7 +41,7 @@ export class HomeComponent implements OnInit {
     
   }
 
-   delay = async (n:number)=>{
+  delay = async (n:number)=>{
     return new Promise(function(resolve){
         setTimeout(resolve,n*1000);
     });
@@ -60,6 +62,10 @@ export class HomeComponent implements OnInit {
       await this.delay(5);
       if(this.datos.capacidadHostal>res){
         alert("Si hay disponibilidad el: "+this.fecha);
+
+        this.SessionReserva.setReservacion(this.fecha,this.data_res.RES_NDIAS,this.data_res.RES_NPERSONAS,this.data_res.RES_VEHICULO)
+        this.router.navigate(['/seleccionarhabitaciones']);
+
       }else{
         alert("Lo sentimos, No contamos con disponibilidad de habitaciones, en esta fecha: "+this.fecha);
       }      

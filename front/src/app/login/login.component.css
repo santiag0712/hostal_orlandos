@@ -3,31 +3,34 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 98%;
-  }
-  
-  form {
+    height: 100vh;
+}
+
+form {
     display: flex;
     flex-direction: column;
-  }
-  
-  input {
+    align-items: center;
+}
+
+input {
     margin: 12px;
     padding: 8px;
     width: 14rem;
-  }
-  
-  input[type="password" i] {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+input[type="password"] {
     margin-top: 6px;
-  }
-  
-  .btn-div {
+}
+
+.btn-div {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .btn-div .login-btn {
+}
+
+.btn-div .login-btn {
     width: 15rem;
     padding: 6px;
     font-size: 14px;
@@ -39,5 +42,4 @@
     font-weight: 700;
     cursor: pointer;
     letter-spacing: 1px;
-  }
-  
+}

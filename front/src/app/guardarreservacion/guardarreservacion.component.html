@@ -1,0 +1,92 @@
+<app-navbar></app-navbar>
+<div class="container-fluid gradient-custom">
+    <h6>&nbsp;</h6>
+    <div class="d-flex justify-content-center text-white">
+        <div class="childContainer ">
+
+            <strong>Datos del cliente</strong>
+            <hr>
+            <div class="form-group row">
+
+                <label for="name">Nombre - Name</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="CLI_NOMBRE"
+                [(ngModel)]="this.reservacion_data.CLI_NOMBRE">
+            </div>
+            <div class="form-group row">
+                <label for="name">Apellidos - Last Name</label>
+                <input type="text" class="form-control" placeholder="Apellidos" id="CLI_APELLIDOS"
+                [(ngModel)]="this.reservacion_data.CLI_APELLIDOS">
+            </div>
+
+            <div class="form-group row">
+
+                <label for="name">Nro de Identificación - Number of identification (DNI)</label>
+                <input type="text" class="form-control" placeholder="Identificación" id="CLI_IDENTIFI"
+                [(ngModel)]="this.reservacion_data.CLI_IDENTIFI">
+            </div>
+            <div class="form-group row">
+                <label for="name">Nacionalidad - Nationality</label>
+                <input type="text" class="form-control" placeholder="Nacionalidad" id="CLI_NACIONALIDAD"
+                [(ngModel)]="this.reservacion_data.CLI_NACIONALIDAD">
+            </div>
+            <div class="form-group row">
+
+                <label for="name">Teléfono - Cellphone</label>
+                <label for="name">(Si ud es extranjero agregue el código de su país)</label>
+                <input type="text" class="form-control" placeholder="Teléfono" id="CLI_TELEFONO"
+                [(ngModel)]="this.reservacion_data.CLI_TELEFONO">
+            </div>
+            <div class="form-group row">
+                <label for="name">Correo - Email</label>
+                <input type="email" class="form-control" placeholder="Correo" id="CLI_CORREO"
+                [(ngModel)]="this.reservacion_data.CLI_CORREO">
+            </div>
+
+            <div class="form-group row">
+                <label for="name">Dirección - Address</label>
+                <input type="text" class="form-control" placeholder="Dirección" id="CLI_DIRECCION"
+                [(ngModel)]="this.reservacion_data.CLI_DIRECCION">
+            </div>
+            <hr>
+            <div>
+                <strong>Datos de la Reservación</strong>
+                <hr>
+                <div class="form-group row">
+                    <div class="col-auto col-md-6">
+                        <label for="name">Fecha de llegada</label>
+                        <input type="text" class="form-control" disabled [(ngModel)]="fecha">
+                            
+                    </div>
+      
+                    <div class="col-auto col-md-6">
+                        <label for="name">Días de hospedaje</label>
+                        <input type="number" min="1" class="form-control" placeholder="Días de hospedaje"
+                            id="RES_NDIAS" disabled [(ngModel)]="this.reservacion_data.RES_NDIAS">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-auto col-md-6">
+                        <label for="name">Número de personas</label>
+                        <input type="number" min="1" class="form-control" placeholder="Nro Personas" 
+                        id="RES_NPERSONAS" disabled [(ngModel)]="this.reservacion_data.RES_NPERSONAS">
+                    </div>
+                    <div class="col-auto col-md-6">
+                        <label for="name">Vehículo</label>
+                        <input type="text" class="form-control" disabled [(ngModel)]="auto">
+                    </div>
+      
+                </div>
+                <div class="form-group">
+                    <label for="name">Observación</label>
+                    <textarea name="RES_OBSERVACION" id="RES_OBSERVACION" class="form-control" 
+                    placeholder="Observacion"></textarea>
+                    </div>
+            </div>
+            <hr>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="guardar()"> OK</button>
+            </div>
+            <h6>&nbsp;</h6>
+        </div>
+    </div>
+</div>

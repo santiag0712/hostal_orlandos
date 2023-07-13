@@ -12,6 +12,7 @@ import { SessionService } from './session.service';
 export class ReservacionService {
 
   
+  
   constructor(protected Session : SessionService) { }
 
   async getReservaciones() {
@@ -25,10 +26,17 @@ export class ReservacionService {
   }
 
   async postReservacion(request: any[]) {
-    return axios.post(environment.API_ENDPOINT + '/clientes', request).then(res => {
+
+    let headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.Session.getToken() //the token is a variable which holds the token
+    };
+    let body = JSON.stringify(request);
+    return axios.post(environment.API_ENDPOINT + '/clientes', body, {headers}).then(res => {
       return res.data;
     }).catch((error) => {
-      return (error);
+      alert(error.response.data.mess);
+      
     });
   }
 
@@ -72,5 +80,15 @@ export class ReservacionService {
       alert("No se ha podido revisar la disponibilidad")
     });
     
+  }
+
+  async reservacionHabitaciones(res: number, hab : number){
+    return axios.get(environment.API_ENDPOINT+'/reservacionhabitacion/'+res+'/'+hab).
+    then((res)=>{
+      return res.data;
+    }).catch((err)=>{
+      alert("A ocurrido un error con la reservación de habitaciones");
+      
+    });  
   }
 }

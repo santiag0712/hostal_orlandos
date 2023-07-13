@@ -1,83 +1,119 @@
-<div class="container-fluid gradient-custom">
-    <div class="row flex-nowrap">
-        <div class="col-sm-3 bg-dark">
-            <app-sidebar></app-sidebar>
-        </div>
-        <br>
-        <div class="col-9">
-            <div class="row justify-content-between">
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <ul class="nav nav-pills align-items-center align-items-sm-start" id="menu" *ngFor="let item of menus | keys;">
+                <li class="nav-item">
+                    <a routerLink="{{ menus[item].MENU_ENLACE }}" class="nav-link align-middle px-0 text-dark">
+                        <mat-icon class="text-dark">{{ menus[item].MENU_ICONO }}</mat-icon>
+                        <span class="ms-1 text-dark">{{ menus[item].MENU_NOMBRE }}</span>
+                    </a>
+                </li>
+            </ul>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+            <span>Hostal Orlando's</span>
+            <div class="user-dropdown" style="margin-left: auto;">
+                <button mat-icon-button [matMenuTriggerFor]="userMenu">
+            <mat-icon>person</mat-icon>
+          </button>
+                <mat-menu #userMenu="matMenu">
+                    <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesión</button>
+                </mat-menu>
+            </div>
+        </mat-toolbar>
+        <div class="grid-container">
+            <h1 class="mat-h1">Habitaciones</h1>
+            <mat-grid-list cols="1" rowHeight="450px">
 
-                <div class="col-md-auto">
+
+                <div class="flex-nowrap">
                     <br>
-                    <h3 class="text-uppercase text-white"> Nueva Habitación</h3>
-                    <button type="button" class="btn btn-danger">Nueva Habitación</button>
+                    <div class="">
+                        <div class="d-flex align-items-center">
+                            <div class="col-md-auto">
+                                <div class="button-group">
+                                    <button mat-raised-button color="primary">
+                                  <mat-icon>bed</mat-icon>
+                                  Nueva Habitación
+                                </button>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <div class="col-md-auto">
+                                    <div class="dropdown pb-4">
+                                        <div class="col">
+                                            <div ngbDropdown class="d-inline-block">
+                                                <button mat-button color="warn" id="dropdownBasic1" ngbDropdownToggle>
+                                          PISOS
+                                        </button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                                                    <button ngbDropdownItem *ngFor="let piso of pisos | keys" (click)="GuardarPiso(pisos[piso].PISO_ID)">
+                                            {{ pisos[piso].PISO_NUMERO }}
+                                          </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-auto">
+                                    <div class="dropdown pb-4">
+                                        <div class="col">
+                                            <div ngbDropdown class="d-inline-block">
+                                                <button mat-button color="warn" id="dropdownBasic1" ngbDropdownToggle>
+                                          ESTADOS
+                                        </button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                                                    <button ngbDropdownItem *ngFor="let estado of estados | keys" (click)="GuardarEstado(estados[estado].ESTHAB_ID)">
+                                            {{ estados[estado].ESTHAB_NOMBRE }}
+                                          </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <h6>&nbsp;</h6>
+                        <div class="row flex-nowrap linea justify-content-md-center">
+                            <div class="col-auto">
+                                <div class="table-responsive-sm">
+                                    <table class="table">
+                                        <thead class="thead-dark text-black">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Piso</th>
+                                                <th scope="col">N° de Habitación</th>
+                                                <th scope="col">Costo</th>
+                                                <th scope="col">Descripción</th>
+                                                <th scope="col">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let hab of habitaciones; let i =index" class="thead-dark text-black justify-content-md-center">
+                                                <td>{{i+1}}</td>
+                                                <td>{{hab.PISO_ID}}</td>
+                                                <td>{{hab.HAB_NOMBRE}}</td>
+                                                <td>{{hab.TIPHAB_COSTO}}</td>
+                                                <td>{{hab.TIPHAB_NOMBRE}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-            </div>
-            <br>
-            <div class="row flex-nowrap">
-                <div class="col-md-auto">
-                    <div class="dropdown pb-4">
-                        <div class="col">
-                            <div ngbDropdown class="d-inline-block">
-                                <button type="button" class="btn btn-outline-danger" id="dropdownBasic1" ngbDropdownToggle>
-                                    PISOS
-                                </button>
-                                <div ngbDropdownMenu aria-labelledby="dropdownBasic2">                                    
-                                    <button ngbDropdownItem *ngFor="let piso of pisos|keys " (click)="GuardarPiso(pisos[piso].PISO_ID)">
-                                        {{pisos[piso].PISO_NUMERO}}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-auto">                    
-                    <div class="dropdown pb-4">
-                        <div class="col">
-                            <div ngbDropdown class="d-inline-block">
-                                <button type="button" class="btn btn-outline-danger" id="dropdownBasic1" ngbDropdownToggle>
-                                    ESTADOS
-                                </button>
-                                <div ngbDropdownMenu aria-labelledby="dropdownBasic2">                                    
-                                    <button ngbDropdownItem *ngFor="let estado of estados|keys" (click)="GuardarEstado(estados[estado].ESTHAB_ID)">
-                                        {{estados[estado].ESTHAB_NOMBRE}}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <h6>&nbsp;</h6>
-        <div class="row flex-nowrap linea justify-content-md-center">
-            <div class="col-9">
-                <div class="table-responsive-sm">
-                    <table class="table">
-                        <thead class="thead-dark text-white">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Piso</th>
-                                <th scope="col">N° de Habitación</th>
-                                <th scope="col">Costo</th>
-                                <th scope="col">Descripción</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                             <tr *ngFor="let hab of habitaciones; let i =index" class="thead-dark text-white justify-content-md-center">
-                                <td>{{i+1}}</td>
-                                <td>{{hab.PISO_ID}}</td>
-                                <td>{{hab.HAB_NOMBRE}}</td>
-                                <td>{{hab.TIPHAB_COSTO}}</td>
-                                <td>{{hab.TIPHAB_NOMBRE}}</td>
-                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
+            </mat-grid-list>
         </div>
-        </div>
-        
-    </div>
-</div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

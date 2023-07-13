@@ -85,36 +85,51 @@ class ClienteController extends Controller
                 Mail::to($correo)->send(new ConfirmarReservacion($cliente, $reserva));
 
                 return response()->json(
-                                "Registro exitoso",
-                                 Response::HTTP_CREATED);
+                    $reserva->RES_ID,
+                    Response::HTTP_CREATED
+                );
             }
             //En caso de que el cliente ya este registrado
             //se procede a registrar unicamente la reservación
             else {
 
                 $id_cliente = $bandera->CLI_ID;
+                if (Reserva::where([['CLI_ID', '=', $id_cliente],
+                    ['RES_DIA', '=', $request->RES_DIA], ['RES_MES', '=', $request->RES_MES],
+                    ['RES_ANO', '=', $request->RES_ANO]
+                ])->exists()) {
+                    return response()->json([
+                        'mess' =>"Ya existe una reservación a su nombre en la misma fecha"],
+                        Response::HTTP_CONFLICT
+                    );
+                } else {
+                    
+                    $reserva = Reserva::create([
+                        "CLI_ID" => $id_cliente,
+                        "RES_DIA" => $request->RES_DIA,
+                        "RES_MES" => $request->RES_MES,
+                        "RES_ANO" => $request->RES_ANO,
+                        "RES_NDIAS" => $request->RES_NDIAS,
+                        "RES_NPERSONAS" => $request->RES_NPERSONAS,
+                        "RES_VEHICULO" => $request->RES_VEHICULO,
+                        "RES_OBSERVACION" => $request->RES_OBSERVACION,
+                        "RES_ESTADO" => 1
 
-                $reserva = Reserva::create([
-                    "CLI_ID" => $id_cliente,
-                    "RES_DIA" => $request->RES_DIA,
-                    "RES_MES" => $request->RES_MES,
-                    "RES_ANO" => $request->RES_ANO,
-                    "RES_NDIAS" => $request->RES_NDIAS,
-                    "RES_NPERSONAS" => $request->RES_NPERSONAS,
-                    "RES_VEHICULO" => $request->RES_VEHICULO,
-                    "RES_OBSERVACION" => $request->RES_OBSERVACION,
-                    "RES_ESTADO" => 1
+                    ]);
 
-                ]);
-
-                Mail::to($correo)->send(new ConfirmarReservacion($bandera, $reserva));
-                return response()->json(
-                                "Registro exitoso",
-                                Response::HTTP_CREATED);
+                    Mail::to($correo)->send(new ConfirmarReservacion($bandera, $reserva));
+                    return response()->json(
+                        $reserva->RES_ID,
+                        Response::HTTP_CREATED
+                    );
+                }
             }
         } catch (ValidationException $exception) {
-            return response()->json(
-                $exception,
+            return response()->json([
+                'error' => $exception,
+                'mess' => "Ha existido un error con los datos ingresados"
+            ],
+                
                 Response::HTTP_BAD_REQUEST
             );
         }

@@ -5,32 +5,39 @@ import { Injectable } from '@angular/core';
 })
 export class ReservasessionService {
 
-  private diaKey = 'dia';
-  private mesKey = 'mes';
-  private anioKey = 'año';
+  private fechaKey = 'fecha';
+  private diasKey = 'dias';
+  private personasKey= 'personas';
+  private autoKey = 'autos';
 
   constructor() { }
 
-  async setFecha (dia: number, mes: number, anio: number){
+  async setReservacion (fecha: string, dias: number, personas: number, auto: number){
 
-    sessionStorage.setItem(this.diaKey,dia.toString());
-    sessionStorage.setItem(this.mesKey,mes.toString());
-    sessionStorage.setItem(this.anioKey,anio.toString());
+    sessionStorage.setItem(this.fechaKey,fecha);
+    sessionStorage.setItem(this.diasKey,dias.toString());
+    sessionStorage.setItem(this.personasKey,personas.toString());
+    sessionStorage.setItem(this.autoKey,auto.toString());
   }
 
-  getDia():string{
-    return sessionStorage.getItem(this.diaKey)!;
+  getFecha():string{
+    return sessionStorage.getItem(this.fechaKey)!;
   }
-  getMes():string{
-    return sessionStorage.getItem(this.mesKey)!;
+  getDias():string{
+    return sessionStorage.getItem(this.diasKey)!;
   }
-  getAnio():string{
-    return sessionStorage.getItem(this.anioKey)!;
+  getPersonas():string{
+    return sessionStorage.getItem(this.personasKey)!;
+  }
+
+  getAuto():string{
+    return sessionStorage.getItem(this.autoKey)!;
   }
 
   async logoutToken(){
-    sessionStorage.removeItem(this.diaKey);
-    sessionStorage.removeItem(this.mesKey);
-    sessionStorage.removeItem(this.anioKey);
+    sessionStorage.removeItem(this.fechaKey);
+    sessionStorage.removeItem(this.diasKey);
+    sessionStorage.removeItem(this.personasKey);
+    sessionStorage.removeItem(this.autoKey);
   }
 }

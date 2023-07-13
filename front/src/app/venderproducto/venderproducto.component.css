@@ -1,6 +1,45 @@
-.ancho_input{
-    width: 25%;
+.grid-container {
+    margin: 20px;
 }
-.ancho_button{
-    height: 40%;
+
+.sidenav-container {
+    height: 100%;
+}
+
+.sidenav {
+    width: 200px;
+}
+
+.sidenav .mat-toolbar {
+    background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.custom-header-cell {
+    width: 150px;
+    /* Ajusta el valor según tus necesidades */
+}
+
+.custom-cell {
+    width: 150px;
+    /* Ajusta el valor según tus necesidades */
+}
+
+.green-button {
+    background-color: green;
+    color: white;
+}
+
+.green-button:hover {
+    background-color: rgb(100, 183, 100);
+}
+
+.mat-spinner {
+    width: 40px;
+    height: 40px;
 }

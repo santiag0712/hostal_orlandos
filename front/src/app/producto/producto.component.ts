@@ -1,8 +1,15 @@
-import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Acciones, Productos } from "../interfaces/producto";
 import { ProductoServicesService } from '../services/producto-services.service';
 import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { Component, inject, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Menu } from 'src/app/interfaces/menu';
+import { RolesService } from 'src/app/services/roles.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-producto',
@@ -25,13 +32,26 @@ export class ProductoComponent implements OnInit {
 
   protected editing: boolean = false;
 
-  constructor(protected modal: NgbModal, protected ProductoService: ProductoServicesService) {
+  protected usuario = { ROL_ID: 0, USU_NOMBRE: '', USU_APELLIDOS: '' };
+  protected menus: Menu[];
+
+
+  constructor(
+    protected modal: NgbModal, 
+    protected ProductoService: ProductoServicesService,
+    protected SessionsService: SessionService,
+    private router: Router,
+    protected RolService: RolesService,
+    ) {
     this.productos = [];
+    this.menus = [];
     this.acciones=[];
   }
 
   ngOnInit(): void {
     this.mostrarProducto();
+    this.verPerfil();
+
   }
 
   mostrarProducto = async () => {
@@ -114,5 +134,35 @@ export class ProductoComponent implements OnInit {
     this.producto ={};
     this.modal.open(contenido, { scrollable: true })
   }
+  cerrarSesion = async () => {
+    this.SessionsService.logout().then((res) => {
+      this.SessionsService.logoutToken();
+      this.router.navigate(['/login']);
+      alert(res);
+    });
+  }
+
+  verPerfil = async () => {
+    this.SessionsService.verPerfil().then((res) => {
+      this.usuario.USU_NOMBRE = res.USU_NOMBRE;
+      this.usuario.ROL_ID = res.ROL_ID;
+      this.usuario.USU_APELLIDOS = res.USU_APELLIDO;
+      this.menu();
+    });
+  }
+
+  menu = async () => {
+    this.RolService.getMenu(this.usuario.ROL_ID).then((res) => {
+      this.menus = res;
+    });
+  }
+
+  private breakpointObserver = inject(BreakpointObserver);
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
 }

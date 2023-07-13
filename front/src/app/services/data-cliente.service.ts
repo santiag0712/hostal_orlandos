@@ -27,6 +27,8 @@ export class DataClienteService {
 
   capacidadHostal = 73;
 
+  habitaciones: any[]=[];
+
   constructor() {
   
    }

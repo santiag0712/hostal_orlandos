@@ -1,61 +1,113 @@
-<div class="gradient-custom container-fluid">
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-                <app-sidebar></app-sidebar>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <ul class="nav nav-pills align-items-center align-items-sm-start" id="menu" *ngFor="let item of menus | keys;">
+                <li class="nav-item">
+                    <a routerLink="{{ menus[item].MENU_ENLACE }}" class="nav-link align-middle px-0 text-dark">
+                        <mat-icon class="text-dark">{{ menus[item].MENU_ICONO }}</mat-icon>
+                        <span class="ms-1 text-dark">{{ menus[item].MENU_NOMBRE }}</span>
+                    </a>
+                </li>
+            </ul>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+            <span>Hostal Orlando's</span>
+            <div class="user-dropdown" style="margin-left: auto;">
+                <button mat-icon-button [matMenuTriggerFor]="userMenu">
+            <mat-icon>person</mat-icon>
+          </button>
+                <mat-menu #userMenu="matMenu">
+                    <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesión</button>
+                </mat-menu>
             </div>
-            <div class="col-auto col-md-9 main-container text-white">
-                <br>
-                <div class="row justify-content-center  container-fluid">
-                    <h2><strong>Editar datos personales</strong></h2>
-                    <div class="col-4 text-center">
-                        <input type="text" class="form-control" placeholder="Nombre"  [(ngModel)]="data_us.USU_NOMBRE">
-                    </div>
-                    <div class="col-4 text-center">
-                        <input type="text" class="form-control" placeholder="Apellidos" [(ngModel)]="data_us.USU_APELLIDOS">
-                    </div>
-                    <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
-                    <div class="row justify-content-center">
-                        <div class="col-8 text-center"> <input type="email" class="form-control" placeholder="Correo" 
-                            [(ngModel)]="data_us.USU_CORREO">
+        </mat-toolbar>
+        <div class="grid-container">
+            <h1 class="mat-h1">Perfil</h1>
+            <mat-grid-list cols="1" rowHeight="450px">
+
+
+                <div class="flex-nowrap">
+                    <div class="col-auto col-md-9 main-container text-black">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <mat-card>
+                                    <mat-card-header>
+                                        <mat-card-title>Editar datos personales</mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <div class="text-center">
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Nombre</mat-label>
+                                                <input matInput placeholder="Nombre" [(ngModel)]="data_us.USU_NOMBRE">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="text-center">
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Apellidos</mat-label>
+                                                <input matInput placeholder="Apellidos" [(ngModel)]="data_us.USU_APELLIDOS">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="text-center">
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Correo</mat-label>
+                                                <input matInput type="email" placeholder="Correo" [(ngModel)]="data_us.USU_CORREO">
+                                            </mat-form-field>
+                                        </div>
+                                    </mat-card-content>
+                                    <mat-card-actions>
+                                        <button mat-raised-button color="primary" class="custom-button" (click)="actualizarDatos()">
+                                          Actualizar Datos
+                                          <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </mat-card-actions>
+
+                                </mat-card>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-card>
+                                    <mat-card-header>
+                                        <mat-card-title>Cambiar contraseña</mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <div class="text-center">
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Contraseña Actual</mat-label>
+                                                <input matInput type="password" placeholder="Contraseña Actual" [(ngModel)]="data_pass.USU_CLAVE">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="text-center">
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Nueva contraseña</mat-label>
+                                                <input matInput type="password" placeholder="Nueva contraseña" [(ngModel)]="data_pass.NUEVA_CLAVE">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="text-center">
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Confirmar contraseña</mat-label>
+                                                <input matInput type="password" placeholder="Confirmar contraseña" [(ngModel)]="data_pass.NUEVA_CLAVE_confirmation">
+                                            </mat-form-field>
+                                        </div>
+                                    </mat-card-content>
+                                    <mat-card-actions>
+                                        <button mat-raised-button color="primary" (click)="actualizarPassword()">
+                                            <mat-icon class="mat-icon-rtl-mirror">edit</mat-icon> Actualizar Contraseña
+                                          </button>
+
+                                    </mat-card-actions>
+                                </mat-card>
+                            </div>
                         </div>
                     </div>
-                    <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
-                    <div class="row justify-content-center">
-                        <div class="col-2 text-center"><button class="btn btn-danger btn-xs"(click)="actualizarDatos()">Editar</button></div>
-                    </div>
-
                 </div>
 
-                <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
 
-                <div class="row linea container-fluid justify-content-center">
-
-                    <h2><strong>Cambiar contraseña</strong></h2>
-                    <div class="col-6 text-center"> <input type="password" class="form-control" placeholder="Contraseña Actual"
-                        [(ngModel)]="data_pass.USU_CLAVE">
-                    </div>
-                    <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
-                    <div class="row justify-content-center">
-
-                        <div class="col-6 text-center">
-                            <input type="password" class="form-control" placeholder="Nueva contraseña"
-                            [(ngModel)]="data_pass.NUEVA_CLAVE">
-                        </div>
-                        <div class="col-6 text-center">
-                            <input type="password" class="form-control" placeholder="Confirmar contraseña"
-                            [(ngModel)]="data_pass.NUEVA_CLAVE_confirmation">
-                        </div>
-                    </div>
-                    <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
-                    <div class="row justify-content-center">
-                        <div class="col-4 text-center"><button class="btn btn-danger btn-xs" (click)="actualizarPassword()">Actualizar Contraseña</button></div>
-                    </div>
-
-
-                </div>
-
-            </div>
+            </mat-grid-list>
         </div>
-    </div>
-</div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

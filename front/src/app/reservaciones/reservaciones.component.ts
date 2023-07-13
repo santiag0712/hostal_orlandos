@@ -1,9 +1,17 @@
-import { Component, OnInit } from '@angular/core';
 import { ReservacionService } from '../services/reservacion.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { formatDate } from '@angular/common';
 import { validarCedula } from '../services/validar-cedula';
 import { DataClienteService } from '../services/data-cliente.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Menu } from 'src/app/interfaces/menu';
+import { RolesService } from 'src/app/services/roles.service';
+import { SessionService } from 'src/app/services/session.service';
+
 
 
 @Component({
@@ -13,10 +21,23 @@ import { DataClienteService } from '../services/data-cliente.service';
 })
 export class ReservacionesComponent implements OnInit {
 
+  columnas: string[] = [
+    'numero',
+    'cliente',
+    'nombre',
+    'apellidos',
+    'fecha',
+    'dias',
+    'personas',
+    'acciones'
+  ];
   protected cedula = "";
   protected reservaciones: any = [];
   protected fecha: String = '';
   protected today = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
+
+  protected usuario = { ROL_ID: 0, USU_NOMBRE: '', USU_APELLIDOS: '' };
+  protected menus: Menu[];
 
   protected editing = false;
 
@@ -37,13 +58,19 @@ export class ReservacionesComponent implements OnInit {
     RES_OBSERVACION: ''
   };
 
-  constructor(private ServicioReservacion: ReservacionService, protected modal: NgbModal,
-    private dataService: DataClienteService) {
-
+  constructor(    protected SessionsService: SessionService,
+    private router: Router,
+    protected RolService: RolesService,
+    private ServicioReservacion: ReservacionService, 
+    protected modal: NgbModal,
+    private dataService: DataClienteService
+    ) {
+        this.menus = [];
   }
 
   ngOnInit(): void {
     this.mostrarReservaciones();
+    this.verPerfil();
 
   }
 
@@ -119,5 +146,35 @@ export class ReservacionesComponent implements OnInit {
       this.reservaciones = res;
     })
   }
+  cerrarSesion = async () => {
+    this.SessionsService.logout().then((res) => {
+      this.SessionsService.logoutToken();
+      this.router.navigate(['/login']);
+      alert(res);
+    });
+  }
+
+  verPerfil = async () => {
+    this.SessionsService.verPerfil().then((res) => {
+      this.usuario.USU_NOMBRE = res.USU_NOMBRE;
+      this.usuario.ROL_ID = res.ROL_ID;
+      this.usuario.USU_APELLIDOS = res.USU_APELLIDO;
+      this.menu();
+    });
+  }
+
+  menu = async () => {
+    this.RolService.getMenu(this.usuario.ROL_ID).then((res) => {
+      this.menus = res;
+    });
+  }
+
+  private breakpointObserver = inject(BreakpointObserver);
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
 }

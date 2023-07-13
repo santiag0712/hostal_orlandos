@@ -9,7 +9,6 @@ import { DataClienteService } from '../services/data-cliente.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   protected credentials: any = {USU_USUARIO : '',   USU_CLAVE : ''};
   
   constructor( protected SessionService : SessionService,  private router: Router){

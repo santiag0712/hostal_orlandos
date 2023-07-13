@@ -1,78 +1,139 @@
-<div class="gradient-custom container-fluid">
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-                <app-sidebar></app-sidebar>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <ul class="nav nav-pills align-items-center align-items-sm-start" id="menu" *ngFor="let item of menus | keys;">
+                <li class="nav-item">
+                    <a routerLink="{{ menus[item].MENU_ENLACE }}" class="nav-link align-middle px-0 text-dark">
+                        <mat-icon class="text-dark">{{ menus[item].MENU_ICONO }}</mat-icon>
+                        <span class="ms-1 text-dark">{{ menus[item].MENU_NOMBRE }}</span>
+                    </a>
+                </li>
+            </ul>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span>Hostal Orlando's</span>
+            <div class="user-dropdown" style="margin-left: auto;">
+                <button mat-icon-button [matMenuTriggerFor]="userMenu">
+                    <mat-icon>person</mat-icon>
+                </button>
+                <mat-menu #userMenu="matMenu">
+                    <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesión</button>
+                </mat-menu>
             </div>
-            <div class="col-auto col-md-9 main-container">
-                <br>
-                <div class="row ">
-                    <!--Crear un espacio entre divs-->
-                    <div class="col-md-3 text-white">
-                        <h3><strong>Buscar habitación</strong></h3>
-                    </div>
-                    <div class="col-md text-white">
-                        <input type="text" class="form-control" placeholder="Buscar cuenta" [(ngModel)]="cliente">
-                    </div>
-                    <div class="col-md text-white">
-                        <button class="btn btn-danger" (click)="filtroClientes()">Buscar Cliente</button>
+        </mat-toolbar>
+        <div class="grid-container">
+            <h1 class="mat-h1">Vender/Productos</h1>
+            <mat-grid-list cols="1" rowHeight="450px">
+
+
+
+                <div class="flex-nowrap">
+                    <div class="col-auto main-container">
+                        <div class="d-flex">
+                            <div class="col-md-3">
+                                <h3><strong>Buscar habitación</strong></h3>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="col-md">
+                                    <mat-form-field appearance="fill" class="mr-2 mb-0">
+                                        <mat-label>Buscar cuenta</mat-label>
+                                        <input matInput type="text" [(ngModel)]="cliente">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md">
+                                    <button mat-icon-button color="warn" type="button" (click)="filtroClientes()" class="ml-2">
+                                        <mat-icon>search</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-md-2"><label>Cliente:</label></div>
+                            <div class="col-md-5"><label>{{data_cuenta.CLI_NOMBRE}} {{data_cuenta.CLI_APELLIDOS}}</label></div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-md-2"><label>Habitación:</label></div>
+                            <div class="col-md-5"><label>{{data_cuenta.HAB_NOMBRE}}</label></div>
+                        </div>
+                        <div class="linea container-fluid justify-content-md-center">
+                            <h6>&nbsp;</h6>
+                            <div class="d-flex">
+                                <div class="col-md-3">
+                                    <h3><strong>Buscar producto</strong></h3>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="col-md">
+                                        <mat-form-field appearance="fill" class="mr-2">
+                                            <mat-label>Buscar producto</mat-label>
+                                            <input matInput type="text" [(ngModel)]="cadena">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md">
+                                        <button mat-icon-button color="warn" type="button" (click)="filtro()" class="ml-2">
+                                            <mat-icon>search</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="table-responsive-sm flex-grow-1">
+                                    <mat-table [dataSource]="productos" class="table" aria-label="Productos">
+                                        <ng-container matColumnDef="index">
+                                            <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+                                            <mat-cell *matCellDef="let producto; let i = index">{{ i + 1 }}</mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="nombre">
+                                            <mat-header-cell *matHeaderCellDef>Producto</mat-header-cell>
+                                            <mat-cell *matCellDef="let producto">{{ producto.PROD_NOMBRE }}</mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="precio">
+                                            <mat-header-cell *matHeaderCellDef>Precio</mat-header-cell>
+                                            <mat-cell *matCellDef="let producto">{{ producto.PROD_PRECIO }}</mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="cantidad">
+                                            <mat-header-cell *matHeaderCellDef class="custom-header-cell">Cantidad</mat-header-cell>
+                                            <mat-cell *matCellDef="let producto" class="custom-cell" colspan="2">
+                                                <mat-form-field appearance="fill">
+                                                    <input matInput type="number" min="0" [(ngModel)]="cantidad">
+                                                </mat-form-field>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="agregar">
+                                            <mat-header-cell *matHeaderCellDef>Agregar</mat-header-cell>
+                                            <mat-cell *matCellDef="let producto">
+                                                <button mat-icon-button color="primary" (click)="carrito(producto.PROD_ID)">
+                                                    <mat-icon>check_circle</mat-icon>
+                                                </button>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                                    </mat-table>
+                                </div>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <button mat-raised-button class="green-button" (click)="vender()">
+                                        <mat-icon>shopping_cart</mat-icon> VENDER
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 
-                <div class = "row" >
-                    <p hidden></p>
-                    <div class = "row">
-                        <div class="col-md-2 text-white"> <label>Cliente:</label> </div>
-                        <div class="col-md-5 text-white"><label>{{data_cuenta.CLI_NOMBRE}} {{data_cuenta.CLI_APELLIDOS}}</label></div>
-                    </div>
-                    <div class = "row">
-                        <div class="col-md-2 text-white"> <label>Habitación:</label> </div>
-                        <div class="col-md-5 text-white"><label>{{data_cuenta.HAB_NOMBRE}}</label></div>
-                    </div>
-                </div>
 
-                <h6>&nbsp;</h6> <!--Crear un espacio entre divs-->
-
-                <div class="row linea container-fluid justify-content-md-center">
-                    <h6>&nbsp;</h6>
-                    <div class="row">
-                        <div class="col-md-3 text-white">
-                            <h3><strong>Buscar producto</strong></h3>
-                        </div>
-                        <div class="col-md text-white">
-                            <input type="text" class="form-control" placeholder="Buscar producto" [(ngModel)]="cadena">
-                        </div>
-                        <div class="col-md text-white">
-                            <button class="btn btn-danger" (click)="filtro()">Buscar</button>
-                        </div>
-                    </div>
-                    <div class="col-auto responsive container-fluid">
-                        <div class="table-responsive-sm">
-                            <table class="table">
-                                <thead class="thead-dark text-white">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Producto</th>
-                                        <th>Precio</th>
-                                        <th>Cantidad</th>
-                                        <th>Agregar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="text-white" *ngFor="let producto of productos|keys;  let i =index">
-                                        <td>{{i+1}}</td>
-                                        <td>{{productos[producto].PROD_NOMBRE}}</td>
-                                        <td>{{productos[producto].PROD_PRECIO}}</td>
-                                        <td><input class="ancho_input" type="number" min="0" [(ngModel)]="cantidad"></td>
-                                        <td><button class="btn btn-success ancho_button" (click)="carrito(productos[producto].PROD_ID)"><mat-icon>check_circle</mat-icon></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <button class="btn btn-success" (click)="vender()">VENDER</button>
-                    </div>
-                </div>
-            </div>
+            </mat-grid-list>
         </div>
-    </div>
-</div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
