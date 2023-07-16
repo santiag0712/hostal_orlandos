@@ -91,4 +91,13 @@ export class ReservacionService {
       
     });  
   }
+
+  async habitacionReservadas (res: any){
+    return axios.get(environment.API_ENDPOINT+'/mostrarhabitaciones/'+res).then((res)=>{
+      return res.data;
+    }).catch((err)=>{
+      console.log("No se ha podido extraer los datos");
+      
+    });
+  }
 }

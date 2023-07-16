@@ -1,60 +1,90 @@
-<div class="gradient-custom container-fluid">
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-                <app-sidebar></app-sidebar>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <ul class="nav nav-pills align-items-center align-items-sm-start" id="menu" *ngFor="let item of menus | keys;">
+                <li class="nav-item">
+                    <a routerLink="{{ menus[item].MENU_ENLACE }}" class="nav-link align-middle px-0 text-dark">
+                        <mat-icon class="text-dark">{{ menus[item].MENU_ICONO }}</mat-icon>
+                        <span class="ms-1 text-dark">{{ menus[item].MENU_NOMBRE }}</span>
+                    </a>
+                </li>
+            </ul>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span>front</span>
+            <div class="user-dropdown" style="margin-left: auto;">
+                <button mat-icon-button [matMenuTriggerFor]="userMenu">
+                <mat-icon>person</mat-icon>
+              </button>
+                <mat-menu #userMenu="matMenu">
+                    <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesión</button>
+                </mat-menu>
             </div>
-            <div class="col-auto col-md-9 main-container">
-                <br>
-                <div class="row justify-content-between">
-                    <h6>&nbsp;</h6>   <!--Crear un espacio entre divs-->
-                    <div class="col-md-auto text-white">
-                        
-                        <div class="row"></div>
-                            <div class="col-md-6">
-                                <label>Cliente:</label><label></label>
+        </mat-toolbar>
+        <div class="grid-container">
+            <h1 class="mat-h1">Usuarios</h1>
+            <mat-grid-list cols="1" rowHeight="450px">
+                <div class="row flex-nowrap">
+                    <div class="col-auto col-md-9 main-container">
+                        <br>
+                        <div class="row justify-content-between">
+                            <div class="col-md-auto">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Cliente:</label>
+                                        <label></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Fecha:</label>
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Dirección:</label>
+                                        <label></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Teléfono:</label>
+                                        <label></label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label>Fecha:</label><label></label>
-                        </div>
-                        <div class="row"></div>
-                            <div class="col-md-6">
-                                <label>Dirección:</label><label></label>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Teléfono:</label><label></label>
-                        </div>                                                  
-                    </div>
-                    <h6>&nbsp;</h6>   <!--Crear un espacio entre divs-->
-                    <div class="row flex-nowrap linea container-fluid justify-content-md-center">
-                        
-                        <div class="col-auto responsive container-fluid">
-                            <div class="table-responsive-sm">
-                                <table class="table">
-                                    <thead class="thead-dark text-white">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Descripció</th>
-                                            <th scope="col">Precio U</th>
-                                            <th scope="col">Precio Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let detalle of detalles | keys; let i =index"
-                                        class="thead-dark text-white">
-                                            <td>{{detalles[detalle].DET_CANTIDAD}}</td>
-                                            <td>{{detalles[detalle].detalle}}</td>
-                                            <td>{{detalles[detalle].DET_SUBTOTAL}}</td>
-                                            <td>{{detalles[detalle].DET_SUBTOTAL}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="row flex-nowrap linea justify-content-md-center">
+                                <div class="col-auto responsive">
+                                    <div class="table-responsive-sm">
+                                        <table class="table">
+                                            <thead class="thead-dark text-black">
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Descripción</th>
+                                                    <th scope="col">Precio U</th>
+                                                    <th scope="col">Precio Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let detalle of detalles; let i = index" class="thead-dark text-black">
+                                                    <td>{{ i + 1 }}</td>
+                                                    <td>{{ detalle.detalle }}</td>
+                                                    <td>{{ detalle.DET_SUBTOTAL }}</td>
+                                                    <td>{{ detalle.DET_SUBTOTAL }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-</div>
+            </mat-grid-list>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

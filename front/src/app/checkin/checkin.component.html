@@ -53,7 +53,10 @@
                             <mat-label><strong>Días de estancia: </strong>{{reservacion.RES_NDIAS}}</mat-label>
                         </div>
                     </div>
-
+                    <mat-label><strong>Habitaciones Reservadas:</strong></mat-label>
+                    <div class="row" *ngFor="let item of res_habitaciones">
+                        <mat-label>{{item.TIPHAB_NOMBRE}}</mat-label>
+                    </div>
 
                     <h3><strong>Agregar habitación</strong></h3>
 

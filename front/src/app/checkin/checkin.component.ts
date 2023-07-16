@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { Menu } from 'src/app/interfaces/menu';
 import { RolesService } from 'src/app/services/roles.service';
 import { SessionService } from 'src/app/services/session.service';
+import { ReservacionService } from '../services/reservacion.service';
 
 @Component({
   selector: 'app-checkin',
@@ -22,8 +23,11 @@ export class CheckinComponent implements OnInit {
   protected usuario = { ROL_ID: 0, USU_NOMBRE: '', USU_APELLIDOS: '' };
   protected menus: Menu[];
 
+  protected res_habitaciones : any[];
+
   cuenta: any[];
   reservacion: Reservaciones={
+    RES_ID:0,
     CLI_ID: 0,
     RES_DIA: 0,
     RES_MES: 0,
@@ -64,11 +68,14 @@ export class CheckinComponent implements OnInit {
     protected SessionsService: SessionService,
     private router: Router,
     protected RolService: RolesService,
+    protected ReservacionService : ReservacionService
     ) {
     this.cuenta =[];
     this.pisos=[];
     this.habitaciones=[];
     this.menus = [];
+    this.res_habitaciones =[];
+
    }
 
   ngOnInit(): void {
@@ -78,7 +85,8 @@ export class CheckinComponent implements OnInit {
 
     //console.table(this.reservacion.CLI_ID);
 
-    this.mostrarCliente();   
+    this.mostrarCliente();
+    this.habitacionesReservadas();   
     
   }
   agregar = async ()=>{
@@ -176,6 +184,12 @@ export class CheckinComponent implements OnInit {
     this.RolService.getMenu(this.usuario.ROL_ID).then((res) => {
       this.menus = res;
     });
+  }
+
+  habitacionesReservadas = async () => {
+    this.ReservacionService.habitacionReservadas( this.reservacion.RES_ID).then((res) => {
+      this.res_habitaciones = res;
+    })
   }
 
   private breakpointObserver = inject(BreakpointObserver);

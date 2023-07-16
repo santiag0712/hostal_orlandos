@@ -11,7 +11,9 @@ class ReservacionHabitacion extends Controller
      
     public function show($id)
     {
-        $habitaciones = ModelReservacionHabitacion::where([['RES_ID','=', $id],['RESHAB_ESTADO','=',1]])->get();
+        $habitaciones = ModelReservacionHabitacion::join('tbl_tipo_habitacion','tbl_reservacion_habitacion.TIPHAB_ID','=','tbl_tipo_habitacion.TIPHAB_ID')
+                        ->where([['RES_ID','=', $id],['RESHAB_ESTADO','=',1]])
+                        ->get(['tbl_tipo_habitacion.TIPHAB_NOMBRE']);
 
         return response()->json(
             $habitaciones,
