@@ -1,35 +1,34 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Menu } from '../interfaces/menu';
 import { SessionService } from '../services/session.service';
 import { Router } from '@angular/router';
 import { RolesService } from '../services/roles.service';
+import { CuentaService } from '../services/cuenta.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable, map, shareReplay } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { Menu } from '../interfaces/menu';
 
 @Component({
-  selector: 'app-administracion',
-  templateUrl: './administracion.component.html',
-  styleUrls: ['./administracion.component.css']
+  selector: 'app-depositos',
+  templateUrl: './depositos.component.html',
+  styleUrls: ['./depositos.component.css']
 })
-export class AdministracionComponent implements OnInit {
+export class DepositosComponent implements OnInit {
+
   protected usuario = { ROL_ID: 0, USU_NOMBRE: '', USU_APELLIDOS: '' };
   protected menus: Menu[];
 
-
   constructor(  protected SessionsService: SessionService,
     private router: Router,
-    protected RolService: RolesService){
+    protected RolService: RolesService,
+    protected cuentaService : CuentaService, ){
 
     this.menus=[];
   }
 
   ngOnInit(): void {
     this.verPerfil(); 
-    this.menu();
   }
-
- 
-
   cerrarSesion = async () => {
     this.SessionsService.logout().then((res) => {
       this.SessionsService.logoutToken();
@@ -60,6 +59,4 @@ export class AdministracionComponent implements OnInit {
       map(result => result.matches),
       shareReplay()
     );
-
-  
 }

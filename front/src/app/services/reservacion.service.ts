@@ -96,8 +96,16 @@ export class ReservacionService {
     return axios.get(environment.API_ENDPOINT+'/mostrarhabitaciones/'+res).then((res)=>{
       return res.data;
     }).catch((err)=>{
-      console.log("No se ha podido extraer los datos");
+      alert("No se ha podido extraer los datos");
       
     });
+  }
+
+  async getDepositos(){
+    return axios.get(environment.API_ENDPOINT+'/depositos').then((res)=>{
+      return res.data;
+    }).catch((err)=>{
+      alert("No se pudieron extraer los depositos")
+    })
   }
 }

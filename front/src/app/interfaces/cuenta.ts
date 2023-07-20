@@ -42,3 +42,17 @@ export interface Productos{
     created_at?:string;
     updated_at?:string;
 }
+
+export interface Cliente{
+    CLI_APELLIDOS: string;
+    CLI_ID : number;
+    CLI_IDENTIFI : string;
+    CLI_NOMBRE: string;
+    CLI_TELEFONO: string;
+    CLI_DIRECCION : string;
+    CUENT_ESTADO: number;
+    CUENT_ID:number;
+    CUENT_TOTAL:number;
+    created_at:string;
+    updated_at:string;
+}

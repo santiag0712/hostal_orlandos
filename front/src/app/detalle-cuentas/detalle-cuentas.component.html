@@ -31,28 +31,32 @@
             <h1 class="mat-h1">Usuarios</h1>
             <mat-grid-list cols="1" rowHeight="450px">
                 <div class="row flex-nowrap">
-                    <div class="col-auto col-md-9 main-container">
+                    <div class="col-auto main-container">
                         <br>
                         <div class="row justify-content-between">
                             <div class="col-md-auto">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>Cliente:</label>
-                                        <label></label>
+                                        <label>Cliente: </label>
+                                        <label>{{datos_cuenta[0].CLI_NOMBRE}} {{datos_cuenta[0].CLI_APELLIDOS}}</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label>Fecha:</label>
-                                        <label></label>
+                                    <div class="col-md-4">
+                                        <label>Fecha: </label>
+                                        <label>{{today}}</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>CI/RUC: </label>
+                                        <label>{{datos_cuenta[0].CLI_IDENTIFI}}</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>Dirección:</label>
-                                        <label></label>
+                                        <label>Dirección: </label>
+                                        <label>{{datos_cuenta[0].CLI_DIRECCION}}</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Teléfono:</label>
-                                        <label></label>
+                                        <label>Teléfono: </label>
+                                        <label>{{datos_cuenta[0].CLI_TELEFONO}}</label>
                                     </div>
                                 </div>
                             </div>

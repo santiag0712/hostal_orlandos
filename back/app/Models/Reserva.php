@@ -33,6 +33,10 @@ class Reserva extends Model
     public function reservacionhabitacion(){
         return $this->hasMany(Reservacionhabitacion::class,'RES_ID');
     }
+
+    public function depositos (){
+        return $this->hasOne(Depositos::class,'RES_ID');
+    }
     //
     public static function sumarHuespedes($dia,$mes,$anio){
         return self :: where([['RES_ESTADO','=',1],['RES_DIA','=',$dia],['RES_MES','=',$mes],['RES_ANO','=',$anio]])

@@ -150,7 +150,7 @@
                             <div class="table-responsive">
                                 <table mat-table class="mat-elevation-z8" [dataSource]="reservaciones">
                                     <ng-container matColumnDef="numero">
-                                        <th mat-header-cell *matHeaderCellDef>#</th>
+                                        <th mat-header-cell *matHeaderCellDef><strong>#</strong></th>
                                         <td mat-cell *matCellDef="let res; let i = index">{{ i + 1 }}</td>
                                     </ng-container>
                                     <ng-container matColumnDef="cliente">

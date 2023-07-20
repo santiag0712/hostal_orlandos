@@ -29,61 +29,66 @@ export class GuardarreservacionComponent implements OnInit {
     RES_OBSERVACION: ''
   };
 
-  protected fecha : string;
-  protected auto : string ='SI';
+  protected fecha: string;
+  protected auto: string = 'SI';
   protected today = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
-  protected habitaciones ;
+  protected habitaciones;
 
-  constructor(protected datos: DataClienteService, protected SessionReservacion : ReservasessionService,
-              protected ServicioReservacion : ReservacionService){
+  constructor(protected datos: DataClienteService, protected SessionReservacion: ReservasessionService,
+    protected ServicioReservacion: ReservacionService) {
 
     this.fecha = this.SessionReservacion.getFecha();
-    this.reservacion_data.RES_NDIAS =parseInt(this.SessionReservacion.getDias());
-    this.reservacion_data.RES_NPERSONAS =parseInt(this.SessionReservacion.getPersonas());
-    this.reservacion_data.RES_VEHICULO =parseInt(this.SessionReservacion.getAuto());
+    this.reservacion_data.RES_NDIAS = parseInt(this.SessionReservacion.getDias());
+    this.reservacion_data.RES_NPERSONAS = parseInt(this.SessionReservacion.getPersonas());
+    this.reservacion_data.RES_VEHICULO = parseInt(this.SessionReservacion.getAuto());
 
     this.habitaciones = datos.habitaciones;
   }
 
   ngOnInit(): void {
-      console.log(this.datos.habitaciones);
-      if (parseInt(this.SessionReservacion.getAuto())==0){
-        this.auto = 'NO'
-      }    
-      
-      
+    console.log(this.datos.habitaciones);
+    if (parseInt(this.SessionReservacion.getAuto()) == 0) {
+      this.auto = 'NO'
+    }
+
+
   }
 
-  guardar = async () =>{
-    var array_fecha = this.fecha.split("-");
+  guardar = async () => {
 
-    this.reservacion_data.RES_DIA = parseInt(array_fecha[2]);
-    this.reservacion_data.RES_MES = parseInt(array_fecha[1]);
-    this.reservacion_data.RES_ANO = parseInt(array_fecha[0]);
-    
-    console.log({reservacion_data: this.reservacion_data});
-    
+    if (confirm("Recuerda al aceptar la reservación deberás realizar depósito o transferencia del 50%"
+                 +" de tu reservación, en caso de no hacerlo se procederá a cancelar la misma"+
+                 " ¿Estás seguro de continuar con este proceso?")) {
+      var array_fecha = this.fecha.split("-");
 
-    if (this.reservacion_data.CLI_NACIONALIDAD == 'Ecuatoriana' || this.reservacion_data.CLI_NACIONALIDAD == 'Ecuatoriano'
+      this.reservacion_data.RES_DIA = parseInt(array_fecha[2]);
+      this.reservacion_data.RES_MES = parseInt(array_fecha[1]);
+      this.reservacion_data.RES_ANO = parseInt(array_fecha[0]);
+
+      console.log({ reservacion_data: this.reservacion_data });
+
+
+      if (this.reservacion_data.CLI_NACIONALIDAD == 'Ecuatoriana' || this.reservacion_data.CLI_NACIONALIDAD == 'Ecuatoriano'
         || this.reservacion_data.CLI_NACIONALIDAD == 'ecuatoriana' || this.reservacion_data.CLI_NACIONALIDAD == 'ecuatoriano' ||
         this.reservacion_data.CLI_NACIONALIDAD == 'ECUATORIANA' || this.reservacion_data.CLI_NACIONALIDAD == 'ECUATORIANO') {
         if (validarCedula(this.reservacion_data.CLI_IDENTIFI)) {
           await this.ServicioReservacion.postReservacion(this.reservacion_data).then((res) => {
-             for(let i=0; i<this.habitaciones.length;i++){
-                             
-                this.ServicioReservacion.reservacionHabitaciones(res,this.habitaciones[i]).then((res)=>{
-                  alert(res);
-                });
-             }
+            for (let i = 0; i < this.habitaciones.length; i++) {
+
+              this.ServicioReservacion.reservacionHabitaciones(res, this.habitaciones[i]).then((res) => {
+                alert(res);
+              });
+            }
           });
         } else {
           alert("El número de identificación no es valida para su nacionalidad")
         }
       } else {
         await this.ServicioReservacion.postReservacion(this.reservacion_data).then((res) => {
-          console.log({res});
+          console.log({ res });
         });;
       }
-  }
 
+    }
+  }
 }

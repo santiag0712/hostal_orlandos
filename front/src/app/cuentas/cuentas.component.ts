@@ -41,7 +41,7 @@ displayedColumns: string[] = ['index', 'nombre', 'apellido', 'identificacion', '
 
   }
   filter = async () => { 
-
+    
   }
 
   mostrarCuentas = async () => {

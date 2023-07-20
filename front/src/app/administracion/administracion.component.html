@@ -1,2 +1,38 @@
-<app-sidebar>
-</app-sidebar>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <ul class="nav nav-pills align-items-center align-items-sm-start" id="menu"
+                *ngFor="let item of menus | keys;">
+                <li class="nav-item">
+                    <a routerLink="{{ menus[item].MENU_ENLACE }}" class="nav-link align-middle px-0 text-dark">
+                        <mat-icon class="text-dark">{{ menus[item].MENU_ICONO }}</mat-icon>
+                        <span class="ms-1 text-dark">{{ menus[item].MENU_NOMBRE }}</span>
+                    </a>
+                </li>
+            </ul>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+                *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span>Hostal Orlando's</span>
+            <div class="user-dropdown" style="margin-left: auto;">
+                <button mat-icon-button [matMenuTriggerFor]="userMenu">
+                    <mat-icon>person</mat-icon>
+                </button>
+                <mat-menu #userMenu="matMenu">
+                    <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesión</button>
+                </mat-menu>
+            </div>
+        </mat-toolbar>
+        <div class="grid-container">
+            <img src="https://live.staticflickr.com/65535/53058752110_656944592c_o.png" width="100%" height="100%"
+                alt="Bienvenidos - 1" />
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

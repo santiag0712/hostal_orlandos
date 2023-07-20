@@ -96,4 +96,14 @@ export class CuentaService {
     });
   }
 
+
+  async getClienteCuenta(id : any){
+    return axios.get(environment.API_ENDPOINT+'/cuentas/'+id).then((res)=>{
+      return(res.data);
+      
+    }).catch((err)=>{
+      console.log(err.message);
+      
+    })
+  }
 }

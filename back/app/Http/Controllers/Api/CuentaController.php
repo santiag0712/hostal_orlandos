@@ -88,7 +88,14 @@ class CuentaController extends Controller
 
     public function show($id)
     {
-        
+        $datos_cuenta = Cuenta :: join('tbl_clientes', 'tbl_cuenta.CLI_ID', '=', 'tbl_clientes.CLI_ID')
+        ->where([['tbl_cuenta.CUENT_ESTADO', '=', 1],['tbl_cuenta.CUENT_ID', '=', $id]])
+        ->get(['tbl_cuenta.*', 'tbl_clientes.CLI_NOMBRE', 'tbl_clientes.CLI_APELLIDOS', 'tbl_clientes.CLI_IDENTIFI', 'tbl_clientes.CLI_TELEFONO', 'tbl_clientes.CLI_DIRECCION']);
+
+        return response()->json(
+        $datos_cuenta,
+        Response::HTTP_OK
+        );
     }
 
     public function update(Request $request, $id)

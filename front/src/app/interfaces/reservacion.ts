@@ -22,3 +22,22 @@ export interface Clientes{
     CLI_CORREO: string;
     CLI_ESTADO: number;
 }
+
+export interface Deposito {
+    CLI_ID:string;
+    CLI_NOMBRE:string;
+    CLI_APELLIDOS:string;
+    CLI_NACIONALIDAD:string;
+    CLI_IDENTIFI:string;
+    CLI_DIRECCION:string;
+    CLI_TELEFONO:string;
+    CLI_CORREO:string;
+    CLI_ESTADO:number;
+    created_at:string;
+    updated_at:string;
+    DEP_ID:number;
+    RES_ID:number;
+    DEP_TRANSACCION:string;
+    DEP_CANTIDAD:number;
+    DEP_ESTADO:number
+}

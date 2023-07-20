@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ClienteController;
 use App\Http\Controllers\Api\CuentaController;
+use App\Http\Controllers\Api\DepositosController;
 use App\Http\Controllers\Api\HabitacionController;
 use App\Http\Controllers\Api\InstalacionController;
 use App\Http\Controllers\Api\PisosController;
@@ -60,6 +61,8 @@ Route::resource('estados',EstadosController::class)
 Route::resource('menus',RolMenuController::class)
     ->only('show');
 Route::resource('cuentas', CuentaController::class)
+    ->only(['index','show','store','update','destroy']);
+    Route::resource('depositos', DepositosController::class)
     ->only(['index','show','store','update','destroy']);
 Route::resource('detallecuentas', DetalleController::class)
     ->only(['index','show','store','update','destroy']);    

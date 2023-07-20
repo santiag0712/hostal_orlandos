@@ -30,7 +30,8 @@ import { VenderproductoComponent } from './venderproducto/venderproducto.compone
 import { ComprarproductosComponent } from './comprarproductos/comprarproductos.component';
 import { SeleccionarHabitacionesComponent } from './seleccionar-habitaciones/seleccionar-habitaciones.component';
 import { GuardarreservacionComponent } from './guardarreservacion/guardarreservacion.component';
-
+import { GuardarDepositoComponent } from './guardar-deposito/guardar-deposito.component';
+import { DepositosComponent } from './depositos/depositos.component';
 //componentes menus
 
 import { FooterComponent } from './components/footer/footer.component';
@@ -60,7 +61,6 @@ import { MatSelectModule } from '@angular/material/select';
 
 
 
-
 const approutes : Routes = [
   {path:'',component: HomeComponent},
   {path:'home',component: HomeComponent},
@@ -70,6 +70,7 @@ const approutes : Routes = [
   {path:'resenias',component:ReseniasComponent},
   {path:'seleccionarhabitaciones', component:SeleccionarHabitacionesComponent},
   {path:'guardarreservacion', component:GuardarreservacionComponent},
+  {path:'guardardeposito/:reservacion', component:GuardarDepositoComponent},
   {path:'administracion',component: AdministracionComponent,canActivate: [AuthGuardGuard]},
   {path:'checkin',component: CheckinComponent,canActivate: [AuthGuardGuard]},
   {path:'checkoutcobros',component: CheckoutcobrosComponent,canActivate: [AuthGuardGuard]},
@@ -78,6 +79,7 @@ const approutes : Routes = [
   {path:'productos',component: ProductoComponent,canActivate: [AuthGuardGuard]},
   {path:'reservaciones',component: ReservacionesComponent,canActivate: [AuthGuardGuard]},
   {path:'usuarios',component: UsuariosComponent,canActivate: [AuthGuardGuard]},
+  {path:'depositos',component: DepositosComponent,canActivate: [AuthGuardGuard]},
   {path:'reportes',component: ReportesComponent,canActivate: [AuthGuardGuard]},
   {path:'cuentas',component: CuentasComponent,canActivate: [AuthGuardGuard]},
   {path:'detalledecuenta',component: DetalleCuentasComponent,canActivate: [AuthGuardGuard]},
@@ -114,8 +116,9 @@ const approutes : Routes = [
     VenderproductoComponent,
     ComprarproductosComponent,
     SeleccionarHabitacionesComponent,
-    GuardarreservacionComponent
-    
+    GuardarreservacionComponent,
+    GuardarDepositoComponent,
+    DepositosComponent    
   ],
   imports: [
     BrowserModule,

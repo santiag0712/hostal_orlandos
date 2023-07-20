@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<div class="container-fluid gradient-custom">
+    <h6>&nbsp;</h6>
+    <div class="d-flex justify-content-center text-white">
+        <div class="childContainer ">
+
+            <strong>Datos del cliente - Data of client</strong>
+            <hr>
+            <div class="form-group row">
+                <div class="col-6">
+                    <label > <strong>Transacción - Transaction number: </strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="data_deposito.transaccion">
+                </div>
+                   <div class="col-6">
+                    <label><strong>Cantidad de depósito - Amount of deposit: </strong></label>
+                    <input type="number" class="form-control" [(ngModel)]="data_deposito.cantidad">
+                   </div>
+                   <h6>&nbsp;</h6>
+                   <hr>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" (click)="guardar()"> Guardar de depósito</button>
+                </div>
+                <h6>&nbsp;</h6>
+            </div>
+        </div>
+    </div>

@@ -83,6 +83,7 @@ export class HabitacionesComponent implements OnInit {
       this.habitaciones = res;      
     });   
   }
+  
   cerrarSesion = async () => {
     this.SessionsService.logout().then((res) => {
       this.SessionsService.logoutToken();

@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { Menu } from 'src/app/interfaces/menu';
 import { RolesService } from 'src/app/services/roles.service';
 import { SessionService } from 'src/app/services/session.service';
+import { Cliente } from '../interfaces/cuenta';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-detalle-cuentas',
@@ -17,9 +19,9 @@ import { SessionService } from 'src/app/services/session.service';
 export class DetalleCuentasComponent implements OnInit {
   protected usuario = { ROL_ID: 0, USU_NOMBRE: '', USU_APELLIDOS: '' };
   protected menus: Menu[];
-
+  protected datos_cuenta : Cliente[];
   id_cuenta :number ;
-
+  protected today = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
   detalles : any[];
 
   constructor( 
@@ -32,13 +34,20 @@ export class DetalleCuentasComponent implements OnInit {
     this.id_cuenta = this.dataService.id_cuenta;
     this.detalles =[];
     this.menus = [];
+    this.datos_cuenta =[];
   }
   
   ngOnInit(): void {
     console.log(this.id_cuenta);
     this.mostrarDetalles();
     this.verPerfil();
+    this.mostrarCliente();
+  }
 
+  mostrarCliente = async () =>{
+    this.cuentaService.getClienteCuenta(this.id_cuenta).then((res)=>{
+      this.datos_cuenta = res;
+    });  
   }
 
   mostrarDetalles = async () => {
