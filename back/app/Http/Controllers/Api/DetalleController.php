@@ -7,6 +7,8 @@ use App\Models\DetalleCuenta;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Api\ProductosController;
+use App\Models\Checkin;
+use App\Models\Depositos;
 
 class DetalleController extends Controller
 {
@@ -35,7 +37,7 @@ class DetalleController extends Controller
         
 
         return response()->json(
-            $json_merge
+            $json_merge                 
         ,Response::HTTP_ACCEPTED
         );
     }

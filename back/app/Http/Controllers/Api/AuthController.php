@@ -27,7 +27,6 @@ class AuthController extends Controller
                 'USU_CORREO' => 'required|email|unique:tbl_usuario',
                 'USU_USUARIO' => 'required|unique:tbl_usuario',
                 'USU_CLAVE' => 'required|confirmed',
-                'USU_IMAGEN' => 'required',
                 'USU_ESTADO' => "required|numeric|min:0|max:1"
 
             ]);

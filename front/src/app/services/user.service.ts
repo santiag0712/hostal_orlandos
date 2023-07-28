@@ -69,7 +69,7 @@ export class UserService {
     then((res)=>{
       return res.data;
     }).catch((error)=>{
-
+      alert("Ha existido un error al ingresar la información");
     });
   }
   async actualizarPassword(usu_id : number, request :any[]) {
@@ -80,7 +80,7 @@ export class UserService {
     then((res)=>{
       return res.data;
     }).catch((error)=>{
-
+      alert("Ha existido un error al ingresar la información");
     });
   }
 }

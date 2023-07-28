@@ -20,7 +20,7 @@ export class CuentasComponent implements OnInit {
 
   protected usuario = { ROL_ID: 0, USU_NOMBRE: '', USU_APELLIDOS: '' };
   protected menus: Menu[];
-
+  protected cadena : string
 cuentas : any[];
 displayedColumns: string[] = ['index', 'nombre', 'apellido', 'identificacion', 'total', 'acciones'];
 
@@ -33,6 +33,7 @@ displayedColumns: string[] = ['index', 'nombre', 'apellido', 'identificacion', '
     ) {
     this.cuentas= [];
     this.menus = [];
+    this.cadena='';
   }
 
   ngOnInit(): void {
@@ -41,7 +42,9 @@ displayedColumns: string[] = ['index', 'nombre', 'apellido', 'identificacion', '
 
   }
   filter = async () => { 
-    
+    await this.CuentasService.showCuenta(this.cadena).then(res => {
+      this.cuentas = res;
+    })
   }
 
   mostrarCuentas = async () => {
@@ -57,7 +60,7 @@ displayedColumns: string[] = ['index', 'nombre', 'apellido', 'identificacion', '
   }
 
   cobrar= async (id_cuenta : number) => {
-
+    this.CuentasService.cobrarCuenta(id_cuenta);
   }
   cerrarSesion = async () => {
     this.SessionsService.logout().then((res) => {

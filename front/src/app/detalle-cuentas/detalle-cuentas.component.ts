@@ -4,12 +4,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Menu } from 'src/app/interfaces/menu';
 import { RolesService } from 'src/app/services/roles.service';
 import { SessionService } from 'src/app/services/session.service';
 import { Cliente } from '../interfaces/cuenta';
 import { formatDate } from '@angular/common';
+import { LoginComponent } from '../login/login.component';
+import { Deposito } from '../interfaces/reservacion';
 
 @Component({
   selector: 'app-detalle-cuentas',
@@ -20,29 +22,37 @@ export class DetalleCuentasComponent implements OnInit {
   protected usuario = { ROL_ID: 0, USU_NOMBRE: '', USU_APELLIDOS: '' };
   protected menus: Menu[];
   protected datos_cuenta : Cliente[];
-  id_cuenta :number ;
+  id_cuenta :any ;
+  total_cuenta :any;
   protected today = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
   detalles : any[];
-
+  protected cantidad =0;
+  protected total_pagar =0;
   constructor( 
     protected dataService: DataClienteService, 
     protected cuentaService : CuentaService,
     protected SessionsService: SessionService,
     private router: Router,
     protected RolService: RolesService,
+    private route: ActivatedRoute
     ){
-    this.id_cuenta = this.dataService.id_cuenta;
+    this.id_cuenta = this.route.snapshot.paramMap.get("cuenta");
+    
     this.detalles =[];
     this.menus = [];
     this.datos_cuenta =[];
+    
   }
   
   ngOnInit(): void {
-    console.log(this.id_cuenta);
-    this.mostrarDetalles();
     this.verPerfil();
     this.mostrarCliente();
+    this.mostrarDetalles();
+    this.mostrarDeposito();
+    this.total_cuenta = this.route.snapshot.paramMap.get("total");
   }
+
+
 
   mostrarCliente = async () =>{
     this.cuentaService.getClienteCuenta(this.id_cuenta).then((res)=>{
@@ -54,7 +64,6 @@ export class DetalleCuentasComponent implements OnInit {
     this.cuentaService.getDetalles(this.id_cuenta).then(
       res => {
         this.detalles = res;
-        console.log(this.detalles);
         
       }
     ).catch(err=>{
@@ -63,6 +72,17 @@ export class DetalleCuentasComponent implements OnInit {
       );
   }
 
+  mostrarDeposito = async ()=>{
+    this.cuentaService.getDeposito(this.id_cuenta).then((res)=>{
+      this.cantidad = res.DEP_CANTIDAD;
+      this.total_pagar = this.total_cuenta-this.cantidad;
+    })
+      
+  }
+
+  cobrar = async () => {
+    this.cuentaService.cobrarCuenta(this.id_cuenta);
+  }
   cerrarSesion = async () => {
     this.SessionsService.logout().then((res) => {
       this.SessionsService.logoutToken();

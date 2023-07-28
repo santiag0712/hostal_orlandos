@@ -24,7 +24,7 @@ class RolMenuController extends Controller
     {
         $rol = Rol::findOrFail($rol_id);
 
-        $menu_data=$rol->menus->all();
+        $menu_data=$rol->menus()->orderBy('MENU_ID','asc')->get();
 
 
 

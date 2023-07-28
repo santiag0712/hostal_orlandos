@@ -1,8 +1,10 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
-            <ul class="nav nav-pills align-items-center align-items-sm-start" id="menu" *ngFor="let item of menus | keys;">
+            <ul class="nav nav-pills align-items-center align-items-sm-start" id="menu"
+                *ngFor="let item of menus | keys;">
                 <li class="nav-item">
                     <a routerLink="{{ menus[item].MENU_ENLACE }}" class="nav-link align-middle px-0 text-dark">
                         <mat-icon class="text-dark">{{ menus[item].MENU_ICONO }}</mat-icon>
@@ -14,31 +16,33 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar color="primary">
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
-              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+                *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-            <span>front</span>
+            <span>Hostal Orlando's</span>
             <div class="user-dropdown" style="margin-left: auto;">
                 <button mat-icon-button [matMenuTriggerFor]="userMenu">
-                <mat-icon>person</mat-icon>
-              </button>
+                    <mat-icon>person</mat-icon>
+                </button>
                 <mat-menu #userMenu="matMenu">
                     <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesión</button>
                 </mat-menu>
             </div>
         </mat-toolbar>
+        <h6>&nbsp;</h6>
         <div class="grid-container">
-            <h1 class="mat-h1">Usuarios</h1>
-            <mat-grid-list cols="1" rowHeight="450px">
+            <h1 class="mat-h1">Detalle de la cuenta</h1>
+            <mat-grid-list cols="1" rowHeight="600px">
                 <div class="row flex-nowrap">
                     <div class="col-auto main-container">
                         <br>
-                        <div class="row justify-content-between">
-                            <div class="col-md-auto">
+                        <div class="row justify-content-center">
+                            <div class="col-md-auto" *ngFor="let item of datos_cuenta | keys;">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Cliente: </label>
-                                        <label>{{datos_cuenta[0].CLI_NOMBRE}} {{datos_cuenta[0].CLI_APELLIDOS}}</label>
+                                        <label>{{datos_cuenta[item].CLI_NOMBRE}} {{datos_cuenta[item].CLI_APELLIDOS}}</label>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Fecha: </label>
@@ -46,17 +50,36 @@
                                     </div>
                                     <div class="col-md-2">
                                         <label>CI/RUC: </label>
-                                        <label>{{datos_cuenta[0].CLI_IDENTIFI}}</label>
+                                        <label>{{datos_cuenta[item].CLI_IDENTIFI}}</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Dirección: </label>
-                                        <label>{{datos_cuenta[0].CLI_DIRECCION}}</label>
+                                        <label>{{datos_cuenta[item].CLI_DIRECCION}}</label>
                                     </div>
                                     <div class="col-md-6">
                                         <label>Teléfono: </label>
-                                        <label>{{datos_cuenta[0].CLI_TELEFONO}}</label>
+                                        <label>{{datos_cuenta[item].CLI_TELEFONO}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-md-auto">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label><strong>Total: </strong> {{ total_cuenta }}</label>
+                                        </div>
+                                    </div>                                    
+                                    <div class="row">
+                                        <div class="col-md-6" >
+                                            <label><strong>Adelanto: </strong> {{ cantidad}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" >
+                                            <label><strong>Total a pagar: </strong> {{ total_pagar }}</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -68,15 +91,14 @@
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">Descripción</th>
-                                                    <th scope="col">Precio U</th>
                                                     <th scope="col">Precio Total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let detalle of detalles; let i = index" class="thead-dark text-black">
+                                                <tr *ngFor="let detalle of detalles; let i = index"
+                                                    class="thead-dark text-black">
                                                     <td>{{ i + 1 }}</td>
                                                     <td>{{ detalle.detalle }}</td>
-                                                    <td>{{ detalle.DET_SUBTOTAL }}</td>
                                                     <td>{{ detalle.DET_SUBTOTAL }}</td>
                                                 </tr>
                                             </tbody>
@@ -84,11 +106,16 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
-
+                </div>                
             </mat-grid-list>
+            <div class="row justify-content-end">
+                <div class="col-md-auto">
+                    <button class="btn btn-success" routerLink="/cuentas" (click)="cobrar()">Cobrar</button>
+                </div>
+            </div>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

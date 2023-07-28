@@ -65,7 +65,7 @@
                                                 <th scope="col">Cliente</th>
                                                 <th scope="col">Transacción</th>
                                                 <th scope="col">Cantidad</th>
-                                                <th scope="col">Acciones</th>
+                                                <th scope="col">Confirmar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -75,7 +75,7 @@
                                                 <td>{{dep.CLI_NOMBRE}} {{dep.CLI_APELLIDOS}}</td>
                                                 <td>{{dep.DEP_TRANSACCION}}</td>
                                                 <td>{{dep.DEP_CANTIDAD}}</td>
-
+                                                <td><button mat-icon-button color="primary" (click)="confirmar(dep.RES_ID)"><mat-icon>check</mat-icon></button></td>
                                             </tr>
                                         </tbody>
                                     </table>

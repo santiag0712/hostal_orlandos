@@ -12,6 +12,9 @@ use App\Http\Controllers\Api\CheckinController;
 use App\Http\Controllers\Api\DetalleController;
 use App\Http\Controllers\Api\HabitacionController;
 use App\Http\Controllers\Api\ReservaController;
+use App\Models\Checkin;
+use App\Models\DetalleCuenta;
+use App\Models\Habitacion;
 
 class CuentaController extends Controller
 {
@@ -28,7 +31,16 @@ class CuentaController extends Controller
         );
     }
 
+    public function buscarcuentas($cadena){
+        $cuentas = Cuenta::join('tbl_clientes', 'tbl_cuenta.CLI_ID', '=', 'tbl_clientes.CLI_ID')
+                            ->where([['tbl_cuenta.CUENT_ESTADO', '=', 1],['tbl_clientes.CLI_IDENTIFI','=',$cadena]])
+                            ->get(['tbl_cuenta.*', 'tbl_clientes.CLI_NOMBRE', 'tbl_clientes.CLI_APELLIDOS', 'tbl_clientes.CLI_IDENTIFI']);
 
+        return response()->json(
+            $cuentas,
+            Response::HTTP_OK
+        );
+    }
 
     public function store(Request $request)
     {
@@ -103,9 +115,30 @@ class CuentaController extends Controller
         //
     }
 
-
+    //Utilizaré este metodo para realizar el cierre de las cuentas
     public function destroy($id)
     {
-        //
+
+        $cuenta = Cuenta::where([['tbl_cuenta.CUENT_ID','=',$id],['tbl_cuenta.CUENT_ESTADO', '=', 1]])
+        ->update(['CUENT_ESTADO'=>2]);//El estado 2 mostrara que la cuenta esta cerrada.
+
+        
+
+        $detalles = DetalleCuenta::where([['tbl_detalle_cuenta.CUENT_ID','=',$id]])->get()->all();
+        foreach ($detalles as $detalle){
+            $check_in = Checkin::where('tbl_checkin.CHECK_ID', '=', $detalle['CHECK_ID'])->first();
+
+            if ($check_in != null) {
+                Habitacion::where('tbl_habitacion.HAB_ID', '=', $check_in->HAB_ID)
+                    ->update(['tbl_habitacion.ESTHAB_ID' => 1]);
+            }
+          
+        }
+
+        return response()->json([
+            "La cuenta a sido cerrada con exito"
+            ],
+            Response::HTTP_OK
+        );
     }
 }

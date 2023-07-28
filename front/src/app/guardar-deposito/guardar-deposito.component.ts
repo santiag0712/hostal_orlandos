@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ReservacionService } from '../services/reservacion.service';
 
 @Component({
   selector: 'app-guardar-deposito',
@@ -8,19 +9,21 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GuardarDepositoComponent implements OnInit {
 
-  protected data_deposito : any={transaccion :'',  cantidad :0.0,  res_id:0};
-  constructor(private route : ActivatedRoute){
+  protected data_deposito : any={DEP_TRANSACCION :'',  DEP_CANTIDAD :0.0,  RES_ID:0};
+  constructor(private route : ActivatedRoute, protected ReservacionService : ReservacionService){
 
   }
   ngOnInit(): void {
-    this.data_deposito['res_id'] = +this.route.snapshot.paramMap.get('reservacion')!;
+    this.data_deposito['RES_ID'] = +this.route.snapshot.paramMap.get('reservacion')!;
 
-    console.log(this.data_deposito['res_id']);
+    console.log(this.data_deposito['RES_ID']);
     
   }
   guardar = async () =>{
-    console.log(this.data_deposito['transaccion']);
-    console.log(this.data_deposito['cantidad']);
+    
+    this.ReservacionService.postDepositos(this.data_deposito).then((res) =>{
+      alert("Su depósito a sido registrado con éxito")
+    });
     
   }
 }

@@ -6,32 +6,15 @@
         <div class="childContainer ">
             <div class="row">  
                 <div class="col-auto">
-                    <div class="card gradient-custom custom" style="width: 100%;">
+                    <div class="card gradient-custom custom" *ngIf="npersonas >=1" style="width: 100%;">
                         <img class="card-img-top" src="https://live.staticflickr.com/65535/52861596277_212dc1540d.jpg"
                             alt="Card image cap">
                         <div class="card-body text-white">
-                            <h5 class="card-title">HABITACIÓN MATRIMINIAL</h5>
+                            <h5 class="card-title">HABITACIÓN MATRIMONIAL</h5>
                             <p class="card-description">1 Cama matrimonial para dos personas.</p>
                             <p class="card-description"><strong>Precio:</strong> 15$ por persona.</p>
                             <p class="card-description"><strong>Capacidad máxima:</strong> 2 personas.</p>
-                            <a class="btn btn-primary" (click)="agregarHabitacion(1,2)">Agregar</a>
-                        </div>
-                    </div>
-                    <br>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-auto">
-                    <div class="card gradient-custom custom" style="width: 100%;">
-                        <img class="card-img-top" src="https://live.staticflickr.com/65535/52845573089_491aceb796.jpg"
-                            alt="Card image cap">
-                        <div class="card-body text-white">
-                            <h5 class="card-title">HABITACIÓN DOBLE</h5>
-                            <p class="card-description">2 camas individuales</p>                            
-                            <p class="card-description"><strong>Precio:</strong> 15$ por persona.</p>
-                            <p class="card-description"><strong>Capacidad máxima:</strong> 2 personas.</p>
-                            <a class="btn btn-primary"(click)="agregarHabitacion(2,2)">Agregar</a>
+                            <a class="btn btn-primary" (click)="agregarHabitacion(1,2,15, 'HABITACIÓN MATRIMONIAL')">Agregar</a>
                         </div>
                     </div>
                     <br>
@@ -39,23 +22,7 @@
             </div>
             <div class="row">
                 <div class="col-auto">
-                    <div class="card gradient-custom custom" style="width: 100%;">
-                        <img class="card-img-top" src="https://live.staticflickr.com/65535/52845837828_60095c3bdd.jpg"
-                            alt="Card image cap">
-                        <div class="card-body text-white">
-                            <h5 class="card-title">HABITACIÓN TRIPLE</h5>
-                            <p class="card-description">3 camas individuales</p>
-                            <p class="card-description"><strong>Precio:</strong> 15$ por persona.</p>
-                            <p class="card-description"><strong>Capacidad máxima:</strong> 3 personas.</p>
-                            <a class="btn btn-primary" (click)="agregarHabitacion(3,3)">Agregar</a>
-                        </div>
-                    </div>
-                    <br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-auto">
-                    <div class="card gradient-custom custom" style="width: 100%;">
+                    <div class="card gradient-custom custom" *ngIf="npersonas >=1" style="width: 100%;">
                         <img class="card-img-top" src="https://live.staticflickr.com/65535/52844791532_ff6a52db74.jpg"
                             alt="Card image cap">
                         <div class="card-body text-white">
@@ -63,7 +30,39 @@
                             <p class="card-description">1 Cama matrimonial para dos personas</p>
                             <p class="card-description"><strong>Precio:</strong> 20$ por persona.</p>
                             <p class="card-description"><strong>Capacidad máxima:</strong> 2 personas.</p>
-                            <a class="btn btn-primary" (click)="agregarHabitacion(4,2)">Agregar</a>
+                            <a class="btn btn-primary" (click)="agregarHabitacion(2,2,20, 'HABITACIÓN MATRIMONIAL 3r PISO')">Agregar</a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <div class="card gradient-custom custom" *ngIf="npersonas >= 2" style="width: 100%;">
+                        <img class="card-img-top" src="https://live.staticflickr.com/65535/52845573089_491aceb796.jpg"
+                            alt="Card image cap">
+                        <div class="card-body text-white">
+                            <h5 class="card-title">HABITACIÓN DOBLE</h5>
+                            <p class="card-description">2 camas individuales</p>                            
+                            <p class="card-description"><strong>Precio:</strong> 15$ por persona.</p>
+                            <p class="card-description"><strong>Capacidad máxima:</strong> 2 personas.</p>
+                            <a class="btn btn-primary"(click)="agregarHabitacion(4,2,15, 'HABITACIÓN DOBLE')">Agregar</a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <div class="card gradient-custom custom" *ngIf="npersonas >=3" style="width: 100%;">
+                        <img class="card-img-top" src="https://live.staticflickr.com/65535/52845837828_60095c3bdd.jpg"
+                            alt="Card image cap">
+                        <div class="card-body text-white">
+                            <h5 class="card-title">HABITACIÓN TRIPLE</h5>
+                            <p class="card-description">3 camas individuales</p>
+                            <p class="card-description"><strong>Precio:</strong> 15$ por persona.</p>
+                            <p class="card-description"><strong>Capacidad máxima:</strong> 3 personas.</p>
+                            <a class="btn btn-primary" (click)="agregarHabitacion(3,3,15,'HABITACIÓN TRIPLE')">Agregar</a>
                         </div>
                     </div>
                     <br>
@@ -72,6 +71,8 @@
         </div>
     </div>
 
-
+    <div class="grid-container">
+        <app-footer></app-footer>  
+    </div>
 
 </div>

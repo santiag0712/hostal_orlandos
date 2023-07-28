@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataClienteService } from '../services/data-cliente.service';
 import { InstalacionesService } from '../services/instalaciones.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detalle-instalacion',
@@ -10,14 +11,15 @@ import { InstalacionesService } from '../services/instalaciones.service';
 
 export class DetalleInstalacionComponent implements OnInit {
 
-  id_habitacion : number ;
+  id_habitacion : any ;
   carrusel : any[];
   description :string='';
   precio: number =0;
   habitacion :string = '';
-  constructor(protected dataService:DataClienteService, protected servicioInstalaciones:InstalacionesService) {
+  constructor(protected dataService:DataClienteService, protected servicioInstalaciones:InstalacionesService,
+    private route: ActivatedRoute) {
     
-    this.id_habitacion = this.dataService.instalacion;
+    this.id_habitacion =  this.route.snapshot.paramMap.get("habitacion");
     this.carrusel=[];
 
    }

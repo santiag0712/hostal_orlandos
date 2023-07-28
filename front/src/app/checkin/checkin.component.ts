@@ -22,7 +22,8 @@ export class CheckinComponent implements OnInit {
 
   protected usuario = { ROL_ID: 0, USU_NOMBRE: '', USU_APELLIDOS: '' };
   protected menus: Menu[];
-
+  protected npersonas: any;
+  protected capacidad: any;
   protected res_habitaciones : any[];
 
   cuenta: any[];
@@ -84,7 +85,7 @@ export class CheckinComponent implements OnInit {
     this.verPerfil();
 
     //console.table(this.reservacion.CLI_ID);
-
+    this.npersonas = this.reservacion.RES_NPERSONAS;
     this.mostrarCliente();
     this.habitacionesReservadas();   
     
@@ -99,7 +100,13 @@ export class CheckinComponent implements OnInit {
       
     })
     this.data_check.HAB_NOMBRE = findHabitacion.HAB_NOMBRE;
-    this.data_check.TIPHAB_COSTO = findHabitacion.TIPHAB_COSTO;
+    this.capacidad = findHabitacion.TIPHAB_CAPACIDAD;
+    if(this.capacidad <= this.npersonas){
+      this.data_check.TIPHAB_COSTO = findHabitacion.TIPHAB_COSTO*this.reservacion.RES_NDIAS*this.capacidad;    
+    }else if(this.capacidad>=this.npersonas){
+      this.data_check.TIPHAB_COSTO = findHabitacion.TIPHAB_COSTO*this.reservacion.RES_NDIAS*this.npersonas;  
+    }   
+    this.npersonas = this.npersonas-this.capacidad;
     this.data_check.HAB_ID = parseInt(this.data_check.HAB_ID);
     this.request.push(this.data_check);
     this.data_check ={};

@@ -3,8 +3,8 @@
         <h2 class="modal-title">Ingresar nueva Reservación</h2>
 
         <button class="close" aria-label="Close" type="button" (click)="modal.dismiss()">
-                <mat-icon>close</mat-icon>
-            </button>
+            <mat-icon>close</mat-icon>
+        </button>
     </div>
     <div class="modal-body">
         <strong>Datos del cliente</strong>
@@ -12,33 +12,39 @@
         <div class="form-group row">
             <div class="col-md-6">
                 <label for="name">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="CLI_NOMBRE" [(ngModel)]="reservacion_data.CLI_NOMBRE">
+                <input type="text" class="form-control" placeholder="Nombre" id="CLI_NOMBRE"
+                    [(ngModel)]="reservacion_data.CLI_NOMBRE">
             </div>
             <div class="col-md-6">
                 <label for="name">Apellidos</label>
-                <input type="text" class="form-control" placeholder="Apellidos" id="CLI_APELLIDOS" [(ngModel)]="reservacion_data.CLI_APELLIDOS">
+                <input type="text" class="form-control" placeholder="Apellidos" id="CLI_APELLIDOS"
+                    [(ngModel)]="reservacion_data.CLI_APELLIDOS">
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-md-6">
                 <label for="name">Nro de Identificación</label>
-                <input type="text" class="form-control" placeholder="Identificación" id="CLI_IDENTIFI" [(ngModel)]="reservacion_data.CLI_IDENTIFI">
+                <input type="text" class="form-control" placeholder="Identificación" id="CLI_IDENTIFI"
+                    [(ngModel)]="reservacion_data.CLI_IDENTIFI">
             </div>
             <div class="col-md-6">
                 <label for="name">Nacionalidad</label>
-                <input type="text" class="form-control" placeholder="Nacionalidad" id="CLI_NACIONALIDAD" [(ngModel)]="reservacion_data.CLI_NACIONALIDAD">
+                <input type="text" class="form-control" placeholder="Nacionalidad" id="CLI_NACIONALIDAD"
+                    [(ngModel)]="reservacion_data.CLI_NACIONALIDAD">
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-md-6">
                 <label for="name">Teléfono</label>
-                <input type="text" class="form-control" placeholder="Teléfono" id="CLI_TELEFONO" [(ngModel)]="reservacion_data.CLI_TELEFONO">
+                <input type="text" class="form-control" placeholder="Teléfono" id="CLI_TELEFONO"
+                    [(ngModel)]="reservacion_data.CLI_TELEFONO">
             </div>
             <div class="col-md-6">
                 <label for="name">Correo</label>
-                <input type="email" class="form-control" placeholder="Correo" id="CLI_CORREO" [(ngModel)]="reservacion_data.CLI_CORREO">
+                <input type="email" class="form-control" placeholder="Correo" id="CLI_CORREO"
+                    [(ngModel)]="reservacion_data.CLI_CORREO">
             </div>
 
         </div>
@@ -46,7 +52,8 @@
 
         <div class="form-group">
             <label for="name">Dirección</label>
-            <input type="text" class="form-control" placeholder="Dirección" id="CLI_DIRECCION" [(ngModel)]="reservacion_data.CLI_DIRECCION">
+            <input type="text" class="form-control" placeholder="Dirección" id="CLI_DIRECCION"
+                [(ngModel)]="reservacion_data.CLI_DIRECCION">
         </div>
         <hr>
         <div>
@@ -55,45 +62,52 @@
             <div class="form-group row">
                 <div class="col-auto col-md-6">
                     <label for="name">Fecha de llegada</label>
-                    <input type="date" id="start" name="trip-start" value="{{today}}" min="{{today}}" class="form-control" required [(ngModel)]="fecha">
+                    <input type="date" id="start" name="trip-start" value="{{today}}" min="{{today}}"
+                        class="form-control" required [(ngModel)]="fecha">
                     <span class="validity"></span>
                 </div>
 
                 <div class="col-auto col-md-6">
                     <label for="name">Días de hospedaje</label>
-                    <input type="number" min="1" class="form-control" placeholder="Días de hospedaje" id="RES_NDIAS" [(ngModel)]="reservacion_data.RES_NDIAS">
+                    <input type="number" min="1" class="form-control" placeholder="Días de hospedaje" id="RES_NDIAS"
+                        [(ngModel)]="reservacion_data.RES_NDIAS">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-auto col-md-6">
                     <label for="name">Número de personas</label>
-                    <input type="number" min="1" class="form-control" placeholder="Nro Personas" id="RES_NPERSONAS" [(ngModel)]="reservacion_data.RES_NPERSONAS">
+                    <input type="number" min="1" class="form-control" placeholder="Nro Personas" id="RES_NPERSONAS"
+                        [(ngModel)]="reservacion_data.RES_NPERSONAS">
                 </div>
                 <div class="col-auto col-md-6">
                     <label for="name">Vehículo</label>
-                    <select class="form-select" aria-label="Default select example" id="RES_VEHICULO" [(ngModel)]="reservacion_data.RES_VEHICULO">
-                            <option value=1>SI</option>
-                            <option value=0>NO</option>
-                        </select>
+                    <select class="form-select" aria-label="Default select example" id="RES_VEHICULO"
+                        [(ngModel)]="reservacion_data.RES_VEHICULO">
+                        <option value=1>SI</option>
+                        <option value=0>NO</option>
+                    </select>
                 </div>
 
             </div>
             <div class="form-group">
                 <label for="name">Observación</label>
-                <textarea name="RES_OBSERVACION" id="RES_OBSERVACION" class="form-control" placeholder="Observacion" [(ngModel)]="reservacion_data.RES_OBSERVACION"></textarea>
+                <textarea name="RES_OBSERVACION" id="RES_OBSERVACION" class="form-control" placeholder="Observacion"
+                    [(ngModel)]="reservacion_data.RES_OBSERVACION"></textarea>
             </div>
         </div>
         <hr>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="guardar_Editar_Res()"> OK</button>
+            <button type="button" class="btn btn-success" (click)="guardar_Editar_Res()">GUARDAR</button>
         </div>
     </div>
 </ng-template>
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
-            <ul class="nav nav-pills align-items-center align-items-sm-start" id="menu" *ngFor="let item of menus | keys;">
+            <ul class="nav nav-pills align-items-center align-items-sm-start" id="menu"
+                *ngFor="let item of menus | keys;">
                 <li class="nav-item">
                     <a routerLink="{{ menus[item].MENU_ENLACE }}" class="nav-link align-middle px-0 text-dark">
                         <mat-icon class="text-dark">{{ menus[item].MENU_ICONO }}</mat-icon>
@@ -105,14 +119,15 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar color="primary">
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
-              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+                *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
             <span>Hostal Orlando's</span>
             <div class="user-dropdown" style="margin-left: auto;">
                 <button mat-icon-button [matMenuTriggerFor]="userMenu">
-                <mat-icon>person</mat-icon>
-              </button>
+                    <mat-icon>person</mat-icon>
+                </button>
                 <mat-menu #userMenu="matMenu">
                     <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesión</button>
                 </mat-menu>
@@ -120,7 +135,7 @@
         </mat-toolbar>
         <div class="grid-container">
             <h1 class="mat-h1">Reservaciones</h1>
-            <mat-grid-list cols="1" rowHeight="450px">
+            <mat-grid-list cols="1" rowHeight="600px">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="">
@@ -130,75 +145,82 @@
                                     <button mat-raised-button color="primary" (click)="openModal(contenido)">
                                         Nueva Reservación
                                         <mat-icon>add</mat-icon>
-                                      </button>
+                                    </button>
+                                </div>
+                                <div class="col-md-auto">
+                                    <div class="dropdown pb-4">
+                                        <div class="col">
+                                            <div ngbDropdown class="d-inline-block">
+                                                <button mat-button color="warn" id="dropdownBasic1" ngbDropdownToggle>
+                                                    Reservaciones
+                                                </button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                                                    <button ngbDropdownItem (click)="mostrarconfirmadas()">Confirmadas</button>
+                                                    <button ngbDropdownItem (click)="mostrarTodas()">Todas</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <br>
                                     <br>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="¿Qué deseas encontrar?" [(ngModel)]="cedula">
+                                        <input type="text" class="form-control" placeholder="¿Qué deseas encontrar?"
+                                            [(ngModel)]="cedula">
                                         <div class="input-group-append">
                                             <button mat-icon-button color="warn" type="button" (click)="buscar()">
-                                            <mat-icon>search</mat-icon>
-                                          </button>
+                                                <mat-icon>search</mat-icon>
+                                            </button>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <br>
                             <div class="table-responsive">
-                                <table mat-table class="mat-elevation-z8" [dataSource]="reservaciones">
-                                    <ng-container matColumnDef="numero">
-                                        <th mat-header-cell *matHeaderCellDef><strong>#</strong></th>
-                                        <td mat-cell *matCellDef="let res; let i = index">{{ i + 1 }}</td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="cliente">
-                                        <th mat-header-cell *matHeaderCellDef>Cliente</th>
-                                        <td mat-cell *matCellDef="let res">{{ res.CLI_IDENTIFI }}</td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="nombre">
-                                        <th mat-header-cell *matHeaderCellDef>Nombre</th>
-                                        <td mat-cell *matCellDef="let res">{{ res.CLI_NOMBRE }}</td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="apellidos">
-                                        <th mat-header-cell *matHeaderCellDef>Apellidos</th>
-                                        <td mat-cell *matCellDef="let res">{{ res.CLI_APELLIDOS }}</td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="fecha">
-                                        <th mat-header-cell *matHeaderCellDef>Fecha</th>
-                                        <td mat-cell *matCellDef="let res">{{ res.RES_DIA }}/{{ res.RES_MES }}/{{ res.RES_ANO }}</td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="dias">
-                                        <th mat-header-cell *matHeaderCellDef>Días de hospedaje</th>
-                                        <td mat-cell *matCellDef="let res">{{ res.RES_NDIAS }}</td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="personas">
-                                        <th mat-header-cell *matHeaderCellDef># Personas</th>
-                                        <td mat-cell *matCellDef="let res">{{ res.RES_NPERSONAS }}</td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="acciones">
-                                        <th mat-header-cell *matHeaderCellDef># Acciones</th>
-                                        <td mat-cell *matCellDef="let res">
-                                            <button mat-icon-button color="primary" (click)="editar(contenido, res.RES_ID)" placeholder="Editar">
-                                  <mat-icon>edit</mat-icon>
-                                </button>
-                                            <button mat-icon-button color="warn" (click)="eliminar(res.RES_ID)">
-                                  <mat-icon>delete_outline</mat-icon>
-                                </button>
-                                            <button mat-icon-button color="success" (click)="enviarDatos(res.RES_ID)" routerLink="/checkin">
-                                  <mat-icon>assignment</mat-icon>
-                                </button>
-                                        </td>
-                                    </ng-container>
-                                    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+
+                                <table class="table">
+                                    <thead class="thead-dark text-black">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Identificación</th>
+                                            <th scope="col">Cliente</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Días de hospedaje</th>
+                                            <th scope="col">Nro de huespedes</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let res of reservaciones; let i =index"
+                                            class="thead-dark text-black justify-content-md-center">
+                                            <td>{{i+1}}</td>
+                                            <td> {{res.CLI_IDENTIFI}}</td>
+                                            <td>{{res.CLI_NOMBRE}} {{res.CLI_APELLIDOS}}</td>
+                                            <td>{{ res.RES_DIA }}/{{ res.RES_MES }}/{{ res.RES_ANO }}</td>
+                                            <td>{{ res.RES_NDIAS }}</td>
+                                            <td>{{ res.RES_NPERSONAS }}</td>
+                                            <td>
+                                                <button mat-icon-button color="primary"
+                                                    (click)="editar(contenido, res.RES_ID)" placeholder="Editar">
+                                                    <mat-icon>edit</mat-icon>
+                                                </button>
+                                                <button mat-icon-button color="warn" (click)="eliminar(res.RES_ID)">
+                                                    <mat-icon>delete_outline</mat-icon>
+                                                </button>
+                                                <button mat-icon-button color="success"
+                                                    (click)="enviarDatos(res.RES_ID)" routerLink="/checkin">
+                                                    <mat-icon>assignment</mat-icon>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>
                 </div>
-
             </mat-grid-list>
         </div>
     </mat-sidenav-content>

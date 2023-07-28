@@ -51,6 +51,7 @@ export class VenderproductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.verPerfil();
+    
   }
 
   filtroClientes = async () => {
@@ -108,6 +109,9 @@ export class VenderproductoComponent implements OnInit {
       this.usuario.USU_NOMBRE = res.USU_NOMBRE;
       this.usuario.ROL_ID = res.ROL_ID;
       this.usuario.USU_APELLIDOS = res.USU_APELLIDO;
+      if(this.usuario.ROL_ID != 2){
+        this.router.navigate(['/administracion']);
+      }
       this.menu();
     });
   }

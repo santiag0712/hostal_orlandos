@@ -77,8 +77,6 @@ export class CuentaService {
 
   async getDetalles (id : number) {
     return axios.get(environment.API_ENDPOINT + '/detallecuentas/'+id).then(res => {
-      console.log(res.data);
-      
       return res.data;
     }).catch(err => {
       console.log(err);
@@ -96,6 +94,13 @@ export class CuentaService {
     });
   }
 
+  async showCuenta(cedula: string){
+    return axios.get(environment.API_ENDPOINT+'/buscarcuentas/'+cedula).then(res=>{
+      return res.data;
+    }).catch(err=>{
+      alert("No se ha encontrado la cuenta");
+    })
+  }
 
   async getClienteCuenta(id : any){
     return axios.get(environment.API_ENDPOINT+'/cuentas/'+id).then((res)=>{
@@ -105,5 +110,33 @@ export class CuentaService {
       console.log(err.message);
       
     })
+  }
+
+  async cobrarCuenta(id:number){
+    return axios.delete(environment.API_ENDPOINT+'/cuentas/'+id).then((res)=>{
+      alert(res.data);
+    }).catch((err)=>{
+      alert("Ha existido un error durante el cobro de la cuenta");
+    })
+  }
+
+  async getCuentasCerradas (){
+    return axios.get(environment.API_ENDPOINT + '/salidas').then(res => {
+      console.log(res.data);
+      
+      return res.data;
+    }).catch(err => {
+      console.log(err);
+      return err;
+    })
+  }
+
+  async getDeposito(id : any){
+    return axios.get(environment.API_ENDPOINT+'/mostrardepositoconreserva/'+id)
+    .then((res)=>{
+      return res.data;
+    }).catch((err) => {
+      alert("A ocurrido un error")
+    });
   }
 }

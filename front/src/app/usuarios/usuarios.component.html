@@ -19,11 +19,6 @@
         </div>
 
         <div class="form-group">
-            <label for="name">Foto</label>
-            <input type="file" class="form-control file-upload" accept=" image/*" placeholder="Apellido" id="USU_IMAGEN" [(ngModel)]="dataUsuario.USU_IMAGEN">
-        </div>
-
-        <div class="form-group">
             <label for="name">Correo</label>
             <input type="email" class="form-control" placeholder="Correo" id="USU_CORREO" [(ngModel)]="dataUsuario.USU_CORREO">
         </div>
@@ -168,11 +163,10 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
             </mat-grid-list>
+        </div>
+        <div class="grid-container">
+            <app-footer></app-footer>  
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

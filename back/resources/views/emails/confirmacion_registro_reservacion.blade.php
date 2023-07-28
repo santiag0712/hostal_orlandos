@@ -12,10 +12,15 @@
     </p>
 
     <p>
-        Recuerda si existe algún inconveniente o necesitas cancelar la reservación
-        comunicarte con recepción del Hostal, los encargados estarán gustosos de atenderte.
+        Recuerda debes realizar el depósito o transferencia bancaria en el siguiente Nro de cuenta: 00000000 para poder confirmar tu reservación,
+        podrás registrar tu depósito a través del siguiente enlace http://localhost:4200/guardardeposito/{{$reserva['RES_ID'] }}, posteriormente, 
+        el hostal procederá a confirmar la recepción del mismo.
     </p>
-    
+    <h2></strong>Datos de cuenta bancaria</strong></h2>
+    <label><strong>Nro de cuenta: </strong>2206553329</label>
+    <label><strong>Cuenta de ahorros</strong></label>
+    <label><strong>Nombre: </strong>Enrique Osorio</label>
+    <label><strong>Documento de identidad: </strong>1709744864</label>
     <p>¡Gracias!</p>
 </body>
 </html>

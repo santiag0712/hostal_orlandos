@@ -13,6 +13,7 @@ class Habitacion extends Model
     protected $primaryKey ='HAB_ID';
 
     protected $fillable = [
+        'HAB_ID',
         'PISO_ID', 
         'TIPHAB_ID', 
         'ESTHAB_ID', 

@@ -65,6 +65,10 @@ export class ReportesComponent implements OnInit {
     });
   }
 
+  confirmar = async (res_id :any)=>{
+    this.DepositoService.confirmDeposito(res_id);
+  }
+
   private breakpointObserver = inject(BreakpointObserver);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)

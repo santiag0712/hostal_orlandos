@@ -66,7 +66,7 @@ const approutes : Routes = [
   {path:'home',component: HomeComponent},
   {path:'instalaciones',component: InstalacionesComponent},
   {path:'login',component: LoginComponent},
-  {path:'detalle',component:DetalleInstalacionComponent}, 
+  {path:'detalle/:habitacion',component:DetalleInstalacionComponent}, 
   {path:'resenias',component:ReseniasComponent},
   {path:'seleccionarhabitaciones', component:SeleccionarHabitacionesComponent},
   {path:'guardarreservacion', component:GuardarreservacionComponent},
@@ -82,7 +82,7 @@ const approutes : Routes = [
   {path:'depositos',component: DepositosComponent,canActivate: [AuthGuardGuard]},
   {path:'reportes',component: ReportesComponent,canActivate: [AuthGuardGuard]},
   {path:'cuentas',component: CuentasComponent,canActivate: [AuthGuardGuard]},
-  {path:'detalledecuenta',component: DetalleCuentasComponent,canActivate: [AuthGuardGuard]},
+  {path:'detalledecuenta/:cuenta/:total',component: DetalleCuentasComponent,canActivate: [AuthGuardGuard]},
   {path:'ventas', component: VenderproductoComponent,canActivate: [AuthGuardGuard]},
 ];
 

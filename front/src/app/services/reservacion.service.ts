@@ -16,15 +16,28 @@ export class ReservacionService {
   constructor(protected Session : SessionService) { }
 
   async getReservaciones() {
+    
     return axios.get(environment.API_ENDPOINT + '/reservas').
       then(res => {
+        
+        console.log(res.data);
         return res.data;
-
+        
       }).catch((error) => {
         return (error);
       });
   }
-
+  async getTodasReservaciones(){
+    return axios.get(environment.API_ENDPOINT + '/todaslasreservaciones').
+    then(res => {
+      
+      console.log(res.data);
+      return res.data;
+      
+    }).catch((error) => {
+      alert("Ha ocurrido un error");
+    });
+  }
   async postReservacion(request: any[]) {
 
     let headers = {
@@ -107,5 +120,37 @@ export class ReservacionService {
     }).catch((err)=>{
       alert("No se pudieron extraer los depositos")
     })
+  }
+
+  async postDepositos(request : any){
+    let headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.Session.getToken() //the token is a variable which holds the token
+    };
+    let body = JSON.stringify(request);
+    return axios.post(environment.API_ENDPOINT+'/depositos',body,{headers}).then((res)=>{
+      return res.data;
+    }).catch((err)=>{
+      console.log(err);
+      
+      alert("Ha existido un error en el registro");
+    });
+  }
+
+  async confirmDeposito (res_id : any){
+    return axios.get(environment.API_ENDPOINT+'/confirmardeposito/'+res_id).then((response) =>{
+      alert("Se a enviado la confirmación");
+    }).catch((error) =>{
+      console.log(error);
+      
+    });
+  }
+
+  async getCliente (cedula : any){
+    return axios.get(environment.API_ENDPOINT+'/clientes/'+cedula).then((res)=>{
+      return res.data;
+    }).catch((error) =>{
+      alert ("Ha existido un error al buscar los datos")
+    });
   }
 }

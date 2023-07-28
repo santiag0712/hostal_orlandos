@@ -137,9 +137,9 @@ class ClienteController extends Controller
 
     //buscar un cliente en particular con su número 
     # de identificación
-    public function show($cli_id)
+    public function show($cli_cedula)
     {
-        $cliente = Cliente::where('CLI_ID', "=", $cli_id)->first();
+        $cliente = Cliente::where('CLI_IDENTIFI', "=", $cli_cedula)->first();
 
         return response()->json(
             $cliente,

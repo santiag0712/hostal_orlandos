@@ -156,6 +156,9 @@ export class UsuariosComponent implements OnInit {
       this.usuarioS.USU_NOMBRE = res.USU_NOMBRE;
       this.usuarioS.ROL_ID = res.ROL_ID;
       this.usuarioS.USU_APELLIDOS = res.USU_APELLIDO;
+      if(this.usuarioS.ROL_ID != 1){
+        this.router.navigate(['/administracion']);
+      }
       this.menu();
     });
   }

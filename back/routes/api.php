@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\UsuariosController;
 use App\Http\Controllers\Api\DetalleController;
 use App\Http\Controllers\Api\EstadosController;
 use App\Http\Controllers\Api\ProductosController;
+use App\Http\Controllers\Api\SalidasController;
 use App\Http\Controllers\ImagenInstalacionesController;
 use App\Http\Controllers\ReservacionHabitacion;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,8 @@ Route::resource('habitaciones', HabitacionController::class)
     ->only(['index','show','store','update','destroy']);
 Route::resource('pisos',PisosController::class)
     ->only('index');
+Route::resource('salidas',SalidasController::class)
+    ->only('index','show');
 Route::resource('estados',EstadosController::class)
     ->only('index');
 Route::resource('menus',RolMenuController::class)
@@ -82,6 +85,10 @@ Route::get('habitaciones/{piso}/{estado}',[HabitacionController::class,'habitaci
 Route::get('reservacionhabitacion/{res}/{hab}',[ReservacionHabitacion::class,'reservacionhabitacion']);
 Route::get('mostrarhabitaciones/{res}',[ReservacionHabitacion::class,'show']);
 Route::post('validarReservaciones', [ReservaController::class,'revisarDisponible']);
+Route::get('confirmardeposito/{res_id}', [DepositosController::class,'confirmarDeposito']);
+Route::get('mostrardepositoconreserva/{cuent_id}', [DepositosController::class,'mostrardeposito_reservas']);
+Route::get('buscarcuentas/{cadena}',[CuentaController::class,'buscarcuentas']);
+Route::get('todaslasreservaciones',[ReservaController::class,'todaslasreservaciones']);
 
 Route::group(['middleware'=>["auth:sanctum"]],function(){
     Route::get('user-profile',[AuthController::class,'userProfile']);

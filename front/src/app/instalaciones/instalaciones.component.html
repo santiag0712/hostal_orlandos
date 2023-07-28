@@ -1,134 +1,22 @@
 <app-navbar></app-navbar>
 <div class="container-fluid gradient-custom">
-
-  <ng-template #contenido let-modal>
-    <div class="modal-header">
-        <h2 class="modal-title">Ingresar nueva Reservación</h2>
-
-        <button class="close" aria-label="Close" type="button" (click)="modal.dismiss()">
-            <mat-icon>close</mat-icon>
-        </button>
-    </div>
-    <div class="modal-body">
-        <strong>Datos del cliente</strong>
-        <hr>
-        <div class="form-group row">
-            <div class="col-md-6">
-                <label for="name">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" 
-                id="CLI_NOMBRE" [(ngModel)]="reservacion_data.CLI_NOMBRE">
-            </div>
-            <div class="col-md-6">
-                <label for="name">Apellidos</label>
-                <input type="text" class="form-control" placeholder="Apellidos" 
-                id="CLI_APELLIDOS" [(ngModel)]="reservacion_data.CLI_APELLIDOS">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-6">
-                <label for="name">Nro de Identificación</label>
-                <input type="text" class="form-control" placeholder="Identificación" 
-                id="CLI_IDENTIFI" [(ngModel)]="reservacion_data.CLI_IDENTIFI">
-            </div>
-            <div class="col-md-6">
-                <label for="name">Nacionalidad</label>
-                <input type="text" class="form-control" placeholder="Nacionalidad" 
-                id="CLI_NACIONALIDAD" [(ngModel)]="reservacion_data.CLI_NACIONALIDAD">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-6">
-                <label for="name">Teléfono</label>
-                <input type="text" class="form-control" placeholder="Teléfono" 
-                id="CLI_TELEFONO" [(ngModel)]="reservacion_data.CLI_TELEFONO">
-            </div>
-            <div class="col-md-6">
-                <label for="name">Correo</label>
-                <input type="email" class="form-control" placeholder="Correo" 
-                id="CLI_CORREO" [(ngModel)]="reservacion_data.CLI_CORREO">
-            </div>
-
-        </div>
-
-
-        <div class="form-group">
-            <label for="name">Dirección</label>
-            <input type="text" class="form-control" placeholder="Dirección" 
-            id="CLI_DIRECCION" [(ngModel)]="reservacion_data.CLI_DIRECCION">
-        </div>
-        <hr>
-        <div>
-            <strong>Datos de la Reservación</strong>
-            <hr>
-            <div class="form-group row">
-                <div class="col-auto col-md-6">
-                    <label for="name">Fecha de llegada</label>
-                    <input type="date" id="start" name="trip-start" value="{{today}}" min="{{today}}"
-                        class="form-control" required [(ngModel)]="fecha">
-                        <span class="validity"></span>
+    <h6>&nbsp;</h6>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col" *ngFor="let data of cards_data">
+                <div class="card gradient-custom custom" style="width: 18rem;">
+                    <img class="card-img-top" src={{data.INST_PORTADA}} alt="Card image cap">
+                    <div class="card-body text-white">
+                        <h5 class="card-title">{{data.INST_NOMBRE}}</h5>
+                        <a class="btn btn-primary" [routerLink]="['/detalle',data.INST_ID]">Ver más</a>
+                    </div>
                 </div>
-
-                <div class="col-auto col-md-6">
-                    <label for="name">Días de hospedaje</label>
-                    <input type="number" min="1" class="form-control" placeholder="Días de hospedaje"
-                        id="RES_NDIAS" [(ngModel)]="reservacion_data.RES_NDIAS">
-                </div>
+                <br>
             </div>
-            <div class="form-group row">
-                <div class="col-auto col-md-6">
-                    <label for="name">Número de personas</label>
-                    <input type="number" min="1" class="form-control" placeholder="Nro Personas" 
-                    id="RES_NPERSONAS" [(ngModel)]="reservacion_data.RES_NPERSONAS">
-                </div>
-                <div class="col-auto col-md-6">
-                    <label for="name">Vehículo</label>
-                    <select class="form-select" aria-label="Default select example"
-                     id="RES_VEHICULO" [(ngModel)]="reservacion_data.RES_VEHICULO">
-                        <option value=1>SI</option>
-                        <option value=0>NO</option>
-                    </select>
-                </div>
-
-            </div>
-            <div class="form-group">
-                <label for="name">Observación</label>
-                <textarea name="RES_OBSERVACION" id="RES_OBSERVACION" class="form-control" 
-                placeholder="Observacion" [(ngModel)]="reservacion_data.RES_OBSERVACION"></textarea>
-                </div>
-        </div>
-        <hr>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="guardar()"> OK</button>
         </div>
     </div>
-</ng-template>
-
-<div class="row justify-content-between">
-
-  <div class="col-md-auto ">
-      <br>
-      <h3 class="text-uppercase text-white">RESERVA ¡YA!</h3>
-      <button type="button" class="btn btn-danger" (click)="openModal(contenido)">Nueva
-          Reservación</button>
-  </div>
-</div>
-
-  <br>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col" *ngFor="let data of cards_data">
-        <div class="card gradient-custom custom" style="width: 18rem;">
-          <img class="card-img-top" src={{data.INST_PORTADA}} alt="Card image cap">
-          <div class="card-body text-white">
-            <h5 class="card-title">{{data.INST_NOMBRE}}</h5>
-            <a  class="btn btn-primary" (click)="enviarDatos(data.INST_ID)" routerLink="/detalle">Ver más</a>
-          </div>
-        </div>
-        <br>
-      </div>
+    <h6>&nbsp;</h6>
+    <div class="grid-container">
+        <app-footer></app-footer>
     </div>
-  </div>
-
 </div>

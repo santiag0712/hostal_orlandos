@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
+use App\Models\Depositos;
 use App\Models\Reserva;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
@@ -14,12 +15,24 @@ class ReservaController extends Controller
 
     public function index()
     {
-        $reservaciones = Reserva::join('tbl_clientes', 'tbl_reservas.CLI_ID', '=', 'tbl_clientes.CLI_ID')
-            ->where('tbl_reservas.RES_ESTADO', '1')
+
+        $reservaciones = Depositos::join('tbl_reservas', 'tbl_depositos.RES_ID', '=', 'tbl_reservas.RES_ID')
+            ->join('tbl_clientes', 'tbl_reservas.CLI_ID', '=', 'tbl_clientes.CLI_ID')
+            ->where([['tbl_reservas.RES_ESTADO', '1'], ['tbl_depositos.DEP_ESTADO', '1']])
             ->get(['tbl_reservas.*', 'tbl_clientes.CLI_IDENTIFI', 'tbl_clientes.CLI_NOMBRE', 'tbl_clientes.CLI_APELLIDOS']);
 
         return response()->json(
             $reservaciones,
+            Response::HTTP_OK
+        );
+    }
+
+    public function todaslasreservaciones(){
+        $reservacion = Reserva::join('tbl_clientes', 'tbl_reservas.CLI_ID', '=', 'tbl_clientes.CLI_ID')
+            ->where('tbl_reservas.RES_ESTADO', '=', 1)
+            ->get(['tbl_reservas.*', 'tbl_clientes.CLI_IDENTIFI', 'tbl_clientes.CLI_NOMBRE', 'tbl_clientes.CLI_APELLIDOS']);
+        return response()->json(
+            $reservacion,
             Response::HTTP_OK
         );
     }
@@ -125,11 +138,10 @@ class ReservaController extends Controller
                         }
                     }
                 }
-                $i ++;
-                
-            } while ($i < $aux);
-            return response()->json(                
-                    $count,               
+                $i++;
+            } while ($i <= $aux);
+            return response()->json(
+                $count,
                 Response::HTTP_OK
             );
         } catch (ValidationException $e) {

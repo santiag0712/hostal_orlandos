@@ -9,11 +9,11 @@
             <div class="form-group row">
                 <div class="col-6">
                     <label > <strong>Transacción - Transaction number: </strong></label>
-                    <input type="text" class="form-control" [(ngModel)]="data_deposito.transaccion">
+                    <input type="text" class="form-control" [(ngModel)]="data_deposito.DEP_TRANSACCION">
                 </div>
                    <div class="col-6">
                     <label><strong>Cantidad de depósito - Amount of deposit: </strong></label>
-                    <input type="number" class="form-control" [(ngModel)]="data_deposito.cantidad">
+                    <input type="number" class="form-control" [(ngModel)]="data_deposito.DEP_CANTIDAD">
                    </div>
                    <h6>&nbsp;</h6>
                    <hr>
@@ -24,3 +24,7 @@
             </div>
         </div>
     </div>
+    <div class="grid-container">
+        <app-footer></app-footer>  
+    </div>
+</div>

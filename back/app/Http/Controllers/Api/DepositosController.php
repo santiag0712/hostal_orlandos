@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ConfirmacionDeposito;
+use App\Mail\DepositoCliente;
+use App\Models\Checkin;
 use App\Models\Depositos;
+use App\Models\DetalleCuenta;
+use App\Models\Reserva;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -67,25 +71,33 @@ class DepositosController extends Controller
                     ->where([['tbl_depositos.DEP_ESTADO','=',1],['tbl_depositos.RES_ID','=',$id]])
                     ->get(['tbl_clientes.*','tbl_depositos.*']);
 
-        return $deposito;
+        return response()->json(
+            $deposito,
+            Response::HTTP_OK
+        );
           
     }
 
-   
-    public function edit($id)
-    {
-        //
-    }
-
-   
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
+   public function mostrardeposito_reservas($cuent_id){
+        $detalle = DetalleCuenta::where('tbl_detalle_cuenta.CUENT_ID','=',$cuent_id)->first();
+        $checkin = Checkin::where('tbl_checkin.CHECK_ID','=',$detalle->CHECK_ID)->first();
+        $deposito = Depositos::where('tbl_depositos.RES_ID','=',$checkin->RES_ID)->first();
     
-    public function destroy($id)
-    {
-        //
+        return response()->json(
+            $deposito,
+            Response::HTTP_OK
+        );
+        
+   }
+    
+    public function confirmarDeposito($res_id){
+        
+        $reserva = Reserva::findOrFail($res_id);
+
+        // Obtener un cliente específico de la reserva
+        $cliente = $reserva->clientes()->first();
+
+        Mail::to($cliente->CLI_CORREO)->send(new DepositoCliente($cliente));
     }
+   
 }

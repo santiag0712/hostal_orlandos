@@ -147,6 +147,9 @@ export class ProductoComponent implements OnInit {
       this.usuario.USU_NOMBRE = res.USU_NOMBRE;
       this.usuario.ROL_ID = res.ROL_ID;
       this.usuario.USU_APELLIDOS = res.USU_APELLIDO;
+      if(this.usuario.ROL_ID != 1){
+        this.router.navigate(['/administracion']);
+      }
       this.menu();
     });
   }

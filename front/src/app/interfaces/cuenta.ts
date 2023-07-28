@@ -56,3 +56,13 @@ export interface Cliente{
     created_at:string;
     updated_at:string;
 }
+
+export interface Deposito{
+    DEP_ID: number;
+    RES_ID: number;
+    DEP_TRANSACCION: string;
+    DEP_CANTIDAD: number;
+    DEP_ESTADO: number;
+    created_at: string;
+    updated_at:string;
+}

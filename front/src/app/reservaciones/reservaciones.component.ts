@@ -5,7 +5,7 @@ import { validarCedula } from '../services/validar-cedula';
 import { DataClienteService } from '../services/data-cliente.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { async, Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Menu } from 'src/app/interfaces/menu';
@@ -57,7 +57,6 @@ export class ReservacionesComponent implements OnInit {
     RES_VEHICULO: '',
     RES_OBSERVACION: ''
   };
-
   constructor(    protected SessionsService: SessionService,
     private router: Router,
     protected RolService: RolesService,
@@ -74,6 +73,16 @@ export class ReservacionesComponent implements OnInit {
 
   }
 
+  mostrarconfirmadas = async ()=>{
+    this.mostrarReservaciones();
+  }
+
+  mostrarTodas = async ()=>{
+    await this.ServicioReservacion.getTodasReservaciones().then(resp => {
+      this.reservaciones = resp;
+
+    });
+  }
   mostrarReservaciones = async () => {
     await this.ServicioReservacion.getReservaciones().then(resp => {
       this.reservaciones = resp;
