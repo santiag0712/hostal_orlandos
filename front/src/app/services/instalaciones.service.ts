@@ -30,5 +30,13 @@ export class InstalacionesService {
     });
   }
 
+  async indexImagenes(){
+    return axios.get(environment.API_ENDPOINT +'/imagenes').
+    then(res=>{
+      return res.data
+    }).catch((error)=>{
+      return(error);
+    }); 
+  }
 
 }

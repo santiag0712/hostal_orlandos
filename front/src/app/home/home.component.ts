@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
     protected datos : DataClienteService, protected SessionReserva : ReservasessionService, private router: Router ) {
     
       this.carrusel=[];
+      configCarousel.showNavigationIndicators=false;
    }
 
   ngOnInit (): void {
@@ -33,7 +34,7 @@ export class HomeComponent implements OnInit {
   }
 
   imagenesCarrusel = async () => {
-    this.servicioInstalaciones.showImagenes(this.id_carrusel).
+    this.servicioInstalaciones.indexImagenes().
     then(res=>{
       this.carrusel=res;
       

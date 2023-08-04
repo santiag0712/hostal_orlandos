@@ -14,6 +14,7 @@ class Instalacion extends Model
     protected $primaryKey = 'INST_ID ';
 
     protected $fillable = [
+        'INST_ID',
         'INST_NOMBRE', 
         'INST_DESCIPCION',
         'INST_PORTADA',

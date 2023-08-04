@@ -12,7 +12,7 @@
     </p>
 
     <p>
-        Recuerda debes realizar el depósito o transferencia bancaria en el siguiente Nro de cuenta: 00000000 para poder confirmar tu reservación,
+        Recuerda debes realizar el depósito o transferencia bancaria para poder confirmar tu reservación,
         podrás registrar tu depósito a través del siguiente enlace http://localhost:4200/guardardeposito/{{$reserva['RES_ID'] }}, posteriormente, 
         el hostal procederá a confirmar la recepción del mismo.
     </p>
