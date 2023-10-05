@@ -208,8 +208,8 @@
                                                 <button mat-icon-button color="warn" (click)="eliminar(res.RES_ID)">
                                                     <mat-icon>delete_outline</mat-icon>
                                                 </button>
-                                                <button mat-icon-button color="success"
-                                                    (click)="enviarDatos(res.RES_ID)" routerLink="/checkin">
+                                                <button mat-icon-button color="success" (click)="enviarDatos(res.RES_ID)"
+                                                    [routerLink]="['/checkin',res.CLI_IDENTIFI]">
                                                     <mat-icon>assignment</mat-icon>
                                                 </button>
                                             </td>

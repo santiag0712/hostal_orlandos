@@ -40,13 +40,13 @@ export class CuentaService {
   }
 
   async getCliente(id: number) {
-    return (await axios.get(environment.API_ENDPOINT + '/clientes/' + id).
+    return  axios.get(environment.API_ENDPOINT +'/clientes/'+ id).
       then(res => {
         return (res.data);
       }).
       catch((error) => {
         return (error);
-      }));
+      });
   }
 
   async postCuenta(request: any) {

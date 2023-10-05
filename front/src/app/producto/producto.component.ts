@@ -56,7 +56,8 @@ export class ProductoComponent implements OnInit {
 
   mostrarProducto = async () => {
     await this.ProductoService.getProductos().then((resp) => {
-
+      console.log(resp);
+      
       this.productos = resp;
     }).catch((err) => {
       alert("Error a cargar los productos")

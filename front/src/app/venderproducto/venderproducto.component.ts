@@ -70,27 +70,30 @@ export class VenderproductoComponent implements OnInit {
   }
 
   carrito = async (id_prod: any) => {
-    const findproducto = this.productos.find((item) => {
-        return item.PROD_ID === id_prod
-    });
-      
-    this.data_detalle.CUENT_ID = this.data_cuenta.CUENT_ID;
-    this.data_detalle.PROD_ID = findproducto?.PROD_ID;
-    this.data_detalle.PROD_CANTIDAD = this.cantidad;
-    this.data_detalle.TOTAL =findproducto?.PROD_PRECIO;
-    this.data_detalle.TOTAL = parseFloat((this.data_detalle.TOTAL*this.cantidad).toFixed(2));
 
-    this.request.push(this.data_detalle);
+     const findproducto = this.productos.find((item) => {
+          return item.PROD_ID === id_prod
+      });
+      if(findproducto?.PROD_CANTIDAD!>this.cantidad)  {
+      this.data_detalle.CUENT_ID = this.data_cuenta.CUENT_ID;
+      this.data_detalle.PROD_ID = findproducto?.PROD_ID;
+      this.data_detalle.PROD_CANTIDAD = this.cantidad;
+      this.data_detalle.TOTAL =findproducto?.PROD_PRECIO;
+      this.data_detalle.TOTAL = parseFloat((this.data_detalle.TOTAL*this.cantidad).toFixed(2));
 
-    this.data_detalle ={};
+      this.request.push(this.data_detalle);
 
-    console.log(this.request);
-    
+      this.data_detalle ={};
+
+      alert("Producto agregado al carrito")
+    }else{
+      alert("Cantidad de productos insuficiente para vender");
+    }
   }
 
   vender = async() => {
     this.ProductoServices.venderProducto(this.request).then((res) => {
-      alert(res);
+      alert("Producto vendido");
     }).catch((err) => {
       alert("Ocurrio un error");
     });

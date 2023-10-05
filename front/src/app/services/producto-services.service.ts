@@ -65,7 +65,7 @@ export class ProductoServicesService {
   async comprarProducto(producto: Productos){
     let headers = { 'Content-Type': 'application/json' };   
     let body = JSON.stringify(producto);
-    return axios.post(environment.API_ENDPOINT+'/comprarproducto/',body,{headers}).
+    return axios.post(environment.API_ENDPOINT+'/comprarproducto',body,{headers}).
     then(res=>{
       return res.data;
     }).catch(err=>{

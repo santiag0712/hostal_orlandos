@@ -26,7 +26,7 @@ class DepositosController extends Controller
         $depositos = Depositos::join('tbl_reservas', 'tbl_depositos.RES_ID','=','tbl_reservas.RES_ID')
                     ->join('tbl_clientes', 'tbl_reservas.CLI_ID','=','tbl_clientes.CLI_ID')
                     ->where('tbl_depositos.DEP_ESTADO','=',1)
-                    ->get(['tbl_clientes.*','tbl_depositos.*']);
+                    ->get(['tbl_clientes.*','tbl_depositos.*','tbl_reservas.*']);
 
         return response()->json(
             $depositos,
@@ -69,7 +69,7 @@ class DepositosController extends Controller
         $deposito = Depositos::join('tbl_reservas', 'tbl_depositos.RES_ID','=','tbl_reservas.RES_ID')
                     ->join('tbl_clientes', 'tbl_reservas.CLI_ID','=','tbl_clientes.CLI_ID')
                     ->where([['tbl_depositos.DEP_ESTADO','=',1],['tbl_depositos.RES_ID','=',$id]])
-                    ->get(['tbl_clientes.*','tbl_depositos.*']);
+                    ->get(['tbl_clientes.*','tbl_depositos.*','tbl_reservas.*']);
 
         return response()->json(
             $deposito,

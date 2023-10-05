@@ -32,10 +32,10 @@ class DetalleCuenta extends Model
                     ->join('tbl_cuenta','tbl_detalle_cuenta.CUENT_ID','=','tbl_cuenta.CUENT_ID')
                     ->join('tbl_habitacion','tbl_checkin.HAB_ID','=','tbl_habitacion.HAB_ID')
                     ->join('tbl_clientes','tbl_cuenta.CLI_ID','=','tbl_clientes.CLI_ID')
-                    ->where([['tbl_detalle_cuenta.DET_ESTADO','=',1],['HAB_NOMBRE','like',"%$query%"]])
-                    ->orWhere([['tbl_detalle_cuenta.DET_ESTADO','=',1],['CLI_IDENTIFI','like',"%$query%"]])
-                    ->orWhere([['tbl_detalle_cuenta.DET_ESTADO','=',1],['CLI_NOMBRE','like',"%$query%"]])
-                    ->orWhere([['tbl_detalle_cuenta.DET_ESTADO','=',1],['CLI_APELLIDOS','like',"%$query%"]])
+                    ->where([['tbl_cuenta.CUENT_ESTADO','=',1],['HAB_NOMBRE','like',"%$query%"]])
+                    /*->orWhere([['tbl_cuenta.CUENT_ESTADO','=',1],['CLI_IDENTIFI','like',"%$query%"]])
+                    ->orWhere([['tbl_cuenta.CUENT_ESTADO','=',1],['CLI_NOMBRE','like',"%$query%"]])
+                    ->orWhere([['tbl_cuenta.CUENT_ESTADO','=',1],['CLI_APELLIDOS','like',"%$query%"]])*/
                     ->get(['tbl_detalle_cuenta.CUENT_ID','tbl_clientes.CLI_IDENTIFI','tbl_clientes.CLI_APELLIDOS','tbl_clientes.CLI_NOMBRE','tbl_habitacion.HAB_NOMBRE'])
                     ->first();
 

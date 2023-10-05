@@ -7,7 +7,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Menu } from 'src/app/interfaces/menu';
 import { RolesService } from 'src/app/services/roles.service';
 import { SessionService } from 'src/app/services/session.service';
@@ -25,6 +25,7 @@ export class CheckinComponent implements OnInit {
   protected npersonas: any;
   protected capacidad: any;
   protected res_habitaciones : any[];
+  protected id_cliente :any;
 
   cuenta: any[];
   reservacion: Reservaciones={
@@ -69,14 +70,15 @@ export class CheckinComponent implements OnInit {
     protected SessionsService: SessionService,
     private router: Router,
     protected RolService: RolesService,
-    protected ReservacionService : ReservacionService
+    protected ReservacionService : ReservacionService,
+    private route: ActivatedRoute
     ) {
     this.cuenta =[];
     this.pisos=[];
     this.habitaciones=[];
     this.menus = [];
     this.res_habitaciones =[];
-
+    this.id_cliente = this.route.snapshot.paramMap.get("cliente")
    }
 
   ngOnInit(): void {
@@ -141,7 +143,7 @@ export class CheckinComponent implements OnInit {
   }
 
   mostrarCliente = async ()=> {
-    this.cuentaService.getCliente(this.reservacion.CLI_ID).
+    this.cuentaService.getCliente(this.id_cliente).
     then(res=>{
       this.cliente = res;
       console.log(this.cliente);

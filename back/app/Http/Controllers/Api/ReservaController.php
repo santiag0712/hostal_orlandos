@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\CancelarReservacion;
 use App\Models\Cliente;
 use App\Models\Depositos;
 use App\Models\Reserva;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response;
 
 class ReservaController extends Controller
@@ -40,8 +42,9 @@ class ReservaController extends Controller
     public function show($cedula_cli)
     {
         $reservacion = Reserva::join('tbl_clientes', 'tbl_reservas.CLI_ID', '=', 'tbl_clientes.CLI_ID')
-            ->where([['tbl_reservas.RES_ESTADO', '=', '1'], ['tbl_clientes.CLI_IDENTIFI', '=', $cedula_cli]])
-            ->get(['tbl_reservas.*', 'tbl_clientes.CLI_IDENTIFI', 'tbl_clientes.CLI_NOMBRE', 'tbl_clientes.CLI_APELLIDOS']);
+            ->where([['tbl_reservas.RES_ESTADO', '=', '1'],['tbl_clientes.CLI_IDENTIFI', '=', $cedula_cli]])
+            ->get(['tbl_reservas.*', 'tbl_clientes.CLI_IDENTIFI', 'tbl_clientes.CLI_NOMBRE', 'tbl_clientes.CLI_APELLIDOS'])
+            ->first();
         return response()->json(
             $reservacion,
             Response::HTTP_OK
@@ -90,9 +93,12 @@ class ReservaController extends Controller
 
     public function destroy($id)
     {
-        Reserva::where('RES_ID', $id)->update([
+        $reserva = Reserva::where('RES_ID', $id)->update([
             'RES_ESTADO' => '0'
         ]);
+
+        $cliente = Cliente::where($reserva->CLI_ID)->first;
+        Mail::to($cliente->CLI_CORREO)->send(new CancelarReservacion($cliente, $reserva));
 
         return response()->json(
             "Reservación cancelada",

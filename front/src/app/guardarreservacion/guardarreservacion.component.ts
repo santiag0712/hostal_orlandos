@@ -110,6 +110,7 @@ export class GuardarreservacionComponent implements OnInit {
       } else {
         await this.ServicioReservacion.postReservacion(this.reservacion_data).then((res) => {
           console.log("Se ha concluido con exito su reservación");
+          this.router.navigate(['/home']);
         });
       }
 

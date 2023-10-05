@@ -17,9 +17,10 @@ class ProductosController extends Controller
     public function index()
     {
         $productos = CompraVentaProductos::join('tbl_prudctos','tbl_compra_ventas_producto.PROD_ID','=','tbl_prudctos.PROD_ID')
+            ->join('tbl_accion','tbl_compra_ventas_producto.ACC_ID','=','tbl_accion.ACC_ID')
             ->where('COMP_VENT_ESTADO', '=', 1)
             ->orderBy('PROD_ID','ASC')
-            ->get(['tbl_compra_ventas_producto.*','tbl_prudctos.PROD_NOMBRE','tbl_prudctos.PROD_PRECIO']);
+            ->get(['tbl_compra_ventas_producto.*','tbl_prudctos.PROD_NOMBRE','tbl_prudctos.PROD_PRECIO','tbl_accion.ACC_NOMBRE']);
 
         return response()->json(
             $productos,

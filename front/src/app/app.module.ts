@@ -72,7 +72,7 @@ const approutes : Routes = [
   {path:'guardarreservacion', component:GuardarreservacionComponent},
   {path:'guardardeposito/:reservacion', component:GuardarDepositoComponent},
   {path:'administracion',component: AdministracionComponent,canActivate: [AuthGuardGuard]},
-  {path:'checkin',component: CheckinComponent,canActivate: [AuthGuardGuard]},
+  {path:'checkin/:cliente',component: CheckinComponent,canActivate: [AuthGuardGuard]},
   {path:'checkoutcobros',component: CheckoutcobrosComponent,canActivate: [AuthGuardGuard]},
   {path:'habitaciones',component: HabitacionesComponent,canActivate: [AuthGuardGuard]},
   {path:'perfil',component: PerfilComponent,canActivate: [AuthGuardGuard]},

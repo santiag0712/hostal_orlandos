@@ -5,7 +5,7 @@ import { RolesService } from '../services/roles.service';
 import { CuentaService } from '../services/cuenta.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { isEmpty, map, shareReplay } from 'rxjs/operators';
 import { Menu } from '../interfaces/menu';
 import { Deposito } from '../interfaces/reservacion';
 import { ReservacionService } from '../services/reservacion.service';
@@ -18,6 +18,7 @@ export class ReportesComponent implements OnInit {
 
   protected usuario = { ROL_ID: 0, USU_NOMBRE: '', USU_APELLIDOS: '' };
   protected menus: Menu[];
+  protected cedula : string;
 
   protected depositos : Deposito []
 
@@ -28,6 +29,7 @@ export class ReportesComponent implements OnInit {
 
     this.menus=[];
     this.depositos=[];
+    this.cedula ="";
   }
 
   ngOnInit(): void {
@@ -67,6 +69,54 @@ export class ReportesComponent implements OnInit {
 
   confirmar = async (res_id :any)=>{
     this.DepositoService.confirmDeposito(res_id);
+  }
+
+  devolucion = async (res_id :any)=>{
+    const findcliente = this.depositos.find((item) => {
+      return item.RES_ID ==res_id
+  });
+  this.DepositoService.getUnaReservacion(findcliente?.CLI_IDENTIFI!).then((res) => {
+    if(Object.entries(res).length ===0) {
+      alert("La reservación ya no está activa");      
+    }else{
+      let date: Date = new Date();
+      const anio = date.getFullYear();     
+      const mes = date.getMonth()+1;     
+      const day = date.getDate();  
+      let devolver = 0;
+      console.log({day},{mes},{anio});
+      console.log(res.RES_DIA,res.RES_MES,res.RES_ANO);
+      
+      if(res.RES_ANO == anio){
+        if(res.RES_MES == mes){
+          //Si se va a cancelar en menos de 7 días la reservación
+          if((res.RES_DIA-day) <= 7 ){
+            devolver = findcliente?.DEP_CANTIDAD!*0.25
+            alert("La reservación a cancelar tiene una fecha de menos de una semana "+
+            "la devolución tendrá una penalización del 75% del valor adelantado. "+
+            "El valor a devolver será: "+devolver)            
+          }
+          //Si se va a cancelar dentro del mismo mes de la reservación
+          else{
+            devolver = findcliente?.DEP_CANTIDAD!*0.5
+            alert("La reservación a cancelar tiene una fecha en el mismo mes "+
+            "la devolución tendrá una penalización del 50% del valor adelantado "+
+            "El valor a devolver será: "+devolver)   
+          }
+        }
+        if(mes> res.RES_MES){
+          devolver = findcliente?.DEP_CANTIDAD!*0.85
+          alert("La reservación a cancelar tiene una fecha lejana al día de cancelación "+
+          "la devolución tendrá una penalización del 15% del valor adelantado "+
+          "El valor a devolver será: "+devolver)   
+        }      
+      }
+      
+    }
+    
+  });
+  
+  
   }
 
   private breakpointObserver = inject(BreakpointObserver);

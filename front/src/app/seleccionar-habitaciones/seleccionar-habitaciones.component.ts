@@ -12,6 +12,8 @@ import { DataClienteService } from '../services/data-cliente.service';
 export class SeleccionarHabitacionesComponent implements OnInit {
 
   protected hab_resquest :any[];
+  protected  hab_1 =0; hab_2 =0; hab_3 =0; hab_4 =0;
+
   protected habitaciones: any ={nombre : '', id :0};
   protected npersonas : number =0;
   protected costoTotal: number =0;
@@ -61,7 +63,15 @@ export class SeleccionarHabitacionesComponent implements OnInit {
       this.router.navigate(['/guardarreservacion']);
     }
     
-    
+    if(id == 1){
+      this.hab_1++;
+    }else if(id == 2){
+      this.hab_2++;
+    }else if(id == 3){
+      this.hab_3++;
+    }else if(id == 4){
+      this.hab_4++;
+    }
   }
 
 }

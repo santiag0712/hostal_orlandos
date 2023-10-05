@@ -3,7 +3,9 @@ export interface  Productos{
     PROD_NOMBRE: string;
     PROD_PRECIO: number;
     PROD_CANTIDAD: number;
+    COMP_VENT_CANTIDAD: number;
     COMP_VENT_STOCK: number;
+    ACC_NOMBRE: string;
     PROD_ESTADO?: number;
     created_at?:string;
     updated_at?:string;

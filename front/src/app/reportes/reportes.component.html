@@ -66,6 +66,7 @@
                                                 <th scope="col">Transacción</th>
                                                 <th scope="col">Cantidad</th>
                                                 <th scope="col">Confirmar</th>
+                                                <th scope="col">Devolución</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -76,6 +77,7 @@
                                                 <td>{{dep.DEP_TRANSACCION}}</td>
                                                 <td>{{dep.DEP_CANTIDAD}}</td>
                                                 <td><button mat-icon-button color="primary" (click)="confirmar(dep.RES_ID)"><mat-icon>check</mat-icon></button></td>
+                                                <td><button mat-icon-button color="primary" (click)="devolucion(dep.RES_ID)"><mat-icon>cached</mat-icon></button></td>
                                             </tr>
                                         </tbody>
                                     </table>

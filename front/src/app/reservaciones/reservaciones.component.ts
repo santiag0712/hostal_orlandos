@@ -136,9 +136,10 @@ export class ReservacionesComponent implements OnInit {
   }
 
   eliminar = async (id: number) => {
-    if (confirm("¿Está usted seguro de eliminar la reservación?")) {
+    if (confirm("¿Está usted seguro de eliminar la reservación?. Recuerda que debes realizar una transacción"
+    +" del adelanto realizado menos la penalización por cancelacion de reservaciones")) {
       await this.ServicioReservacion.deleteReservacion(id).then(res => {
-        alert(res);
+        alert("Reservación cancelada")
         this.mostrarReservaciones();
       });
     }
@@ -150,7 +151,7 @@ export class ReservacionesComponent implements OnInit {
     );
   }
 
-  buscar = async () => {
+ buscar = async () => {
     await this.ServicioReservacion.getUnaReservacion(this.cedula).then((res)=>{
       this.reservaciones = res;
     })
